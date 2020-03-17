@@ -16,20 +16,68 @@ const Homepage = () => (
       <Carousel autoplay >
         <div style={{width:10}}>
           <img
-          style={{ width: '100%', maxHeight: '40vh',objectFit:'scale-down'}} 
+          style={{ width: '100%', maxHeight: '60vh'}} 
             alt="example"
-            src="https://www.patidogclub.com/wp-content/uploads/2017/04/kopek-orta.png"
+            src="https://www.humanesociety.org/sites/default/files/styles/1240x698/public/2019/02/dog-451643.jpg?h=bf654dbc&itok=MQGvBmuo"
           />
         </div>
         <div>
           <img
-          style={{ width: '100%', maxHeight: '40vh',objectFit:'scale-down' }} 
+          style={{ width: '100%', maxHeight: '60vh'}} 
             alt="example"
-            src="https://www.patidogclub.com/wp-content/uploads/2017/12/yavru-kopekler-icin-tasma-egitimi.jpg"
+            src="https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg"
+          />
+        </div>
+        <div>
+          <img
+          style={{ width: '100%', maxHeight: '60vh'}} 
+            alt="example"
+            src="https://anf.scene7.com/is/image/anf/k-20200223-USCA-HP-D-NA-3?$marketing$&scl=1"
           />
         </div>
       </Carousel>
     </Col>
+    <Row>
+      <Col lg={12} md={24}>
+        <Card style={{margin:'20px'}}>
+          
+          <Row>
+            <Col lg={18} md={36}>
+              <h2 style={{marginBottom:'30px'}}>Kaybolmaya Son!</h2>
+              <p style={{marginBottom:'20px'}}>Sen de Benimki Nerede ürünlerinden edin.</p>
+              <Button type="primary" size="large">SİPARİŞ VER!</Button>
+            </Col>
+            <Col lg={6} md={12}>
+            <img
+              style={{ maxWidth: '130px', maxHeight: '130px', margin:'27px'}} 
+              alt="example"
+              src="https://cdn.onlinewebfonts.com/svg/img_564088.png"
+          />
+            </Col>
+          </Row>
+          
+        </Card>
+      </Col>
+      <Col lg={12} md={24}>
+        <Card style={{margin:'20px'}}>
+          <Row>
+            <Col lg={18} md={36}>
+            <h2 style={{marginBottom:'30px'}}>Sen de Bize Katıl!</h2>
+            <p style={{marginBottom:'20px'}}>Sen de uygulamayı yükle ve Benimki Nerede ailesine katıl.</p>
+            <Button type="primary" size="large">KAYIT OL!</Button>
+            </Col>
+            <Col lg={6} md={12}>
+            <img
+              style={{ maxWidth: '150px', maxHeight: '150px',}} 
+              alt="example"
+              src="https://pngimage.net/wp-content/uploads/2018/06/png-icon-people.png"
+            />
+            </Col>
+          </Row>
+          
+        </Card>
+      </Col>
+    </Row>
   </Row>
 );
 

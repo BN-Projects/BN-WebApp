@@ -22,7 +22,7 @@ const ProductOne = () => (
   >
     <Meta
       style={{textAlign:'center'}}
-      title="ÜRÜN X"
+      title="CİHAZ X"
       description="Ürünümüz xxx ürünüdür."
     />
   </Card>

@@ -1,6 +1,6 @@
 import { Card, Col } from 'antd';
 
-export function mapSection(section, index) {
+export function mapSection(section) {
   const { name } = section;
   const SectionComponent = section.component;
 
@@ -15,7 +15,7 @@ export function mapSection(section, index) {
   );
 }
 
-export function fullMapSection(section, index) {
+export function fullMapSection(section) {
   const { comment, name } = section;
   const SectionComponent = section.component;
 
