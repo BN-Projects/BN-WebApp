@@ -13,7 +13,6 @@ import {
 import DashHeader, { Notification } from './styles/Header';
 import ModalLogin from '../demos/antd/login-form';
 import ModalAll from '../demos/antd/login';
-
 import Link from 'next/link';
 import MockNotifications from '../demos/mock/notifications';
 import { useAppState } from './shared/AppProvider';
@@ -47,7 +46,7 @@ const MainHeader = () => {
         <Menu mode="horizontal" className="menu-divider">
           {!state.mobile && (
             <Menu.Item>
-              <Link href="">
+              <Link href="homepage">
                 <a>ANASAYFA</a>
               </Link>
             </Menu.Item>
@@ -55,7 +54,7 @@ const MainHeader = () => {
 
           {!state.mobile && (
             <Menu.Item>
-              <Link href="">
+              <Link href="urunler">
                 <a>ÜRÜNLERİMİZ</a>
               </Link>
             </Menu.Item>
@@ -63,7 +62,7 @@ const MainHeader = () => {
 
           {!state.mobile && (
             <Menu.Item>
-              <Link href="">
+              <Link href="iletisim">
                 <a>İLETİŞİM</a>
               </Link>
             </Menu.Item>

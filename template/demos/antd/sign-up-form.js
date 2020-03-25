@@ -19,12 +19,11 @@ const CollectionCreateForm = Form.create()(
             return (
                 <Modal
                     visible={visible}
-                    title="Kullanıcı Girişi"
+                    title="Kayıt Ol"
                     footer={null}
                     onCancel={onCancel}
                     onOk={onCreate}
                 >
-
                     <Form
                         layout="vertical"
                         onSubmit={e => {
@@ -139,17 +138,6 @@ const CollectionCreateForm = Form.create()(
                                 Sign up
                             </Button>
                         </FormItem>
-                        <div className="text-center">
-                            <small className="text-muted">
-                                <span>Already have an account?</span>
-                                <Link >
-                                    <a><LogModal/></a>
-                                </Link>
-                            </small>
-                        </div>
-
-
-
                     </Form>
                 </Modal>
             );
@@ -159,7 +147,7 @@ const CollectionCreateForm = Form.create()(
 
 class CollectionsPage extends React.Component {
     state = {
-        visible: true
+        visible: false
     };
 
 
@@ -191,6 +179,11 @@ class CollectionsPage extends React.Component {
     render() {
         return (
             <div>
+                <Button type="primary" size="large" > 
+                <Link>
+                    <a onClick={this.showModal} > KAYIT OL!</a>
+                </Link>
+                </Button>
                 <CollectionCreateForm
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}

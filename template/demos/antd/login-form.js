@@ -5,6 +5,8 @@ import { Eye, Mail, Triangle, User } from 'react-feather';
 import Link from 'next/link';
 import Router from 'next/router';
 import styled from 'styled-components';
+import axios from 'axios';
+
 const TabPane = Tabs.TabPane;
 function callback(key) {
     console.log(key);
@@ -32,9 +34,15 @@ const CollectionCreateForm = Form.create()(
                                 onSubmit={e => {
                                     e.preventDefault();
                                     form.validateFields((err, values) => {
-                                        if (!err) {
-                                            Router.push('/deneme.php');
-                                        }
+                                        var bodyFormData = new FormData();
+                                        bodyFormData.set('id', email.value);
+                                        bodyFormData.set('pass', password.value);
+                                        axios.post('http://localhost:8090/login', bodyFormData)
+                                        .then((res) => {
+                                            if(res.data['Error'] == false){
+                                                console.log(res.data)
+                                            }
+                                        })
                                     });
                                 }}
                             >
@@ -86,7 +94,7 @@ const CollectionCreateForm = Form.create()(
                                 <FormItem>
                                     <Button type="primary" htmlType="submit" block className="mt-3">
                                         Log in
-                            </Button>
+                                </Button>
                                 </FormItem>
                             </Form>
 
@@ -98,9 +106,6 @@ const CollectionCreateForm = Form.create()(
                                     onSubmit={e => {
                                         e.preventDefault();
                                         form.validateFields((err, values) => {
-                                            if (!err) {
-                                                Router.push('/deneme.php');
-                                            }
                                         });
                                     }}
                                 >
@@ -249,9 +254,11 @@ class CollectionsPage extends React.Component {
     render() {
         return (
             <div>
+                
                 <Link>
                     <a onClick={this.showModal} > Giriş yap</a>
                 </Link>
+                
                 <CollectionCreateForm
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}

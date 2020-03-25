@@ -6,7 +6,7 @@ import { Caption, Figure, Image, Title } from './styles/Media';
 import Link from 'next/link';
 import Router from 'next/router';
 import styled from 'styled-components';
-
+import Signup from '../demos/antd/sign-up-form'
 const FormItem = Form.Item;
 
 const Homepage = () => (
@@ -45,7 +45,7 @@ const Homepage = () => (
             <Col lg={18} md={36}>
               <h2 style={{marginBottom:'30px'}}>Kaybolmaya Son!</h2>
               <p style={{marginBottom:'20px'}}>Sen de Benimki Nerede ürünlerinden edin.</p>
-              <Button type="primary" size="large">SİPARİŞ VER!</Button>
+              <Button type="primary" size="large" href="urunler">SİPARİŞ VER!</Button>
             </Col>
             <Col lg={6} md={12}>
             <img
@@ -64,7 +64,7 @@ const Homepage = () => (
             <Col lg={18} md={36}>
             <h2 style={{marginBottom:'30px'}}>Sen de Bize Katıl!</h2>
             <p style={{marginBottom:'20px'}}>Sen de uygulamayı yükle ve Benimki Nerede ailesine katıl.</p>
-            <Button type="primary" size="large">KAYIT OL!</Button>
+            <Signup/> 
             </Col>
             <Col lg={6} md={12}>
             <img
