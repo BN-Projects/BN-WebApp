@@ -12,7 +12,6 @@ import {
 } from 'react-feather';
 import DashHeader, { Notification } from './styles/Header';
 import ModalLogin from '../demos/antd/login-form';
-import ModalAll from '../demos/antd/login';
 import Link from 'next/link';
 import MockNotifications from '../demos/mock/notifications';
 import { useAppState } from './shared/AppProvider';

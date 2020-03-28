@@ -6,11 +6,9 @@ import Link from 'next/link';
 import Router from 'next/router';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import Sing from './signup'
 const TabPane = Tabs.TabPane;
-function callback(key) {
-    console.log(key);
-}
+
 
 const FormItem = Form.Item;
 
@@ -27,13 +25,14 @@ const CollectionCreateForm = Form.create()(
                     onCancel={onCancel}
                     onOk={onCreate}
                 >
-                    <Tabs defaultActiveKey="1" onChange={callback}>
+                    <Tabs defaultActiveKey="1" >
                         <TabPane tab="Kullanıcı Girişi" key="1">
                             <Form
                                 layout="vertical"
                                 onSubmit={e => {
                                     e.preventDefault();
                                     form.validateFields((err, values) => {
+                                        if(!err){
                                         var bodyFormData = new FormData();
                                         bodyFormData.set('id', email.value);
                                         bodyFormData.set('pass', password.value);
@@ -43,6 +42,7 @@ const CollectionCreateForm = Form.create()(
                                                 console.log(res.data)
                                             }
                                         })
+                                    }
                                     });
                                 }}
                             >
@@ -100,119 +100,7 @@ const CollectionCreateForm = Form.create()(
 
                         </TabPane>
                         <TabPane tab="Kayıt Ol" key="2">
-
-                                <Form
-                                    layout="vertical"
-                                    onSubmit={e => {
-                                        e.preventDefault();
-                                        form.validateFields((err, values) => {
-                                        });
-                                    }}
-                                >
-
-                                    <FormItem label="Nickname">
-                                        {form.getFieldDecorator('nickname', {
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: 'Please input your nickname!',
-                                                    whitespace: true
-                                                }
-                                            ]
-                                        })(
-                                            <Input
-                                                prefix={
-                                                    <User
-                                                        size={16}
-                                                        strokeWidth={1}
-                                                        style={{ color: 'rgba(0,0,0,.25)' }}
-                                                    />
-                                                }
-                                                placeholder="Nickname"
-                                            />
-                                        )}
-                                    </FormItem>
-                                    <FormItem label="Email">
-                                        {form.getFieldDecorator('email', {
-                                            rules: [
-                                                {
-                                                    type: 'email',
-                                                    message: 'The input is not valid E-mail!'
-                                                },
-                                                {
-                                                    required: true,
-                                                    message: 'Please input your E-mail!'
-                                                }
-                                            ]
-                                        })(
-                                            <Input
-                                                prefix={
-                                                    <Mail
-                                                        size={16}
-                                                        strokeWidth={1}
-                                                        style={{ color: 'rgba(0,0,0,.25)' }}
-                                                    />
-                                                }
-                                                type="email"
-                                                placeholder="Email"
-                                            />
-                                        )}
-                                    </FormItem>
-                                    <FormItem label="Password">
-                                        {form.getFieldDecorator('password', {
-                                            rules: [{ required: true, message: 'Please input your Password!' }]
-                                        })(
-                                            <Input
-                                                prefix={
-                                                    <Eye
-                                                        size={16}
-                                                        strokeWidth={1}
-                                                        style={{ color: 'rgba(0,0,0,.25)' }}
-                                                    />
-                                                }
-                                                type="password"
-                                                placeholder="Password"
-                                            />
-                                        )}
-                                    </FormItem>
-                                    <FormItem label="Confirm password">
-                                        {form.getFieldDecorator('confirm', {
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: 'Please confirm your password!'
-                                                },
-                                                {
-                                                    validator: (rule, value, callback) => {
-                                                        if (value && value !== form.getFieldValue('password')) {
-                                                            callback("Passwords don't match!");
-                                                        } else {
-                                                            callback();
-                                                        }
-                                                    }
-                                                }
-                                            ]
-                                        })(
-                                            <Input
-                                                prefix={
-                                                    <Eye
-                                                        size={16}
-                                                        strokeWidth={1}
-                                                        style={{ color: 'rgba(0,0,0,.25)' }}
-                                                    />
-                                                }
-                                                type="password"
-                                                placeholder="Confirm password"
-                                            />
-                                        )}
-                                    </FormItem>
-
-                                    <FormItem>
-                                        <Button type="primary" htmlType="submit" block>
-                                            Sign up
-                                        </Button>
-                                    </FormItem>
-                                </Form>
+                                <Sing/>
                         </TabPane>
                     </Tabs>
                 </Modal>
