@@ -43,6 +43,10 @@ export default [
       {
         path: '/apps/chat',
         name: 'Chat'
+      },
+      {
+        path: '/deneme',
+        name: 'Deneme'
       }
     ]
   },

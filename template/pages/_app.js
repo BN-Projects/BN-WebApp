@@ -1,13 +1,17 @@
 import '../assets/styles.less';
-
 import App, { Container } from 'next/app';
-
 import AppProvider from '../components/shared/AppProvider';
 import { GlobalStyles } from '../components/styles/GlobalStyles';
 import Head from 'next/head';
 import NProgress from 'nprogress';
 import Page from '../components/Page';
-import Router from 'next/router';
+
+//redux için gerekli importlar
+import createStore from '../redux/reducers/configureStore';
+import {Provider} from 'react-redux';
+import withRedux from "next-redux-wrapper";
+import {withRouter,Router} from 'next/router';
+
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -19,23 +23,20 @@ class MyApp extends App {
     const userAgent = ctx.req
       ? ctx.req.headers['user-agent']
       : navigator.userAgent;
-
     let ie = false;
     if (userAgent.match(/Edge/i) || userAgent.match(/Trident.*rv[ :]*11\./i)) {
       ie = true;
     }
-
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-
     pageProps.query = ctx.query;
     pageProps.ieBrowser = ie;
     return { pageProps };
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, router , store } = this.props;
 
     return (
       <Container>
@@ -58,13 +59,15 @@ class MyApp extends App {
           )}
         </Head>
         <AppProvider>
+          <Provider store={store}>
           <Page>
-            <Component {...pageProps} />
+            <Component router={router} {...pageProps} />
           </Page>
+          </Provider>
         </AppProvider>
       </Container>
     );
   }
 }
 
-export default MyApp;
+export default withRedux(createStore) (withRouter(MyApp))

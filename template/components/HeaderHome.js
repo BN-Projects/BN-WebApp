@@ -67,6 +67,22 @@ const MainHeader = () => {
             </Menu.Item>
           )}
 
+          {!state.mobile && (
+            <Menu.Item>
+              <Link href="deneme">
+                <a>EKRAN FORM</a>
+              </Link>
+            </Menu.Item>
+          )}
+
+          {!state.mobile && (
+            <Menu.Item>
+              <Link href="about">
+                <a>Login</a>
+              </Link>
+            </Menu.Item>
+          )}
+
           {state.mobile && (
             <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
               <Menu.Item>Calendar</Menu.Item>

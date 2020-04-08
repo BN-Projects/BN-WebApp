@@ -6,10 +6,12 @@ import {
   Maximize,
   Minimize,
   Settings,
+  ShoppingCart,
+  User,
   Triangle
 } from 'react-feather';
 import DashHeader, { Notification } from './styles/Header';
-
+import ModalLogin from '../demos/antd/login-form';
 import Link from 'next/link';
 import MockNotifications from '../demos/mock/notifications';
 import { useAppState } from './shared/AppProvider';
@@ -31,8 +33,9 @@ const MainHeader = () => {
           >
             <BarChart size={20} strokeWidth={1} />
           </a>
+
         )}
-        <Link href="/">
+        <Link href="/homepage">
           <a className="brand">
             <Triangle size={24} strokeWidth={1} />
             <strong className="mx-1 text-black">{state.name}</strong>
@@ -42,32 +45,40 @@ const MainHeader = () => {
         <Menu mode="horizontal" className="menu-divider">
           {!state.mobile && (
             <Menu.Item>
-              <Link href="/apps/calendar">
-                <a>Calendar</a>
+              <Link href="homepage">
+                <a>ANASAYFA</a>
               </Link>
             </Menu.Item>
           )}
 
           {!state.mobile && (
             <Menu.Item>
-              <Link href="/apps/messages">
-                <a>Messages</a>
+              <Link href="urunler">
+                <a>ÜRÜNLERİMİZ</a>
               </Link>
             </Menu.Item>
           )}
 
           {!state.mobile && (
             <Menu.Item>
-              <Link href="/apps/social">
-                <a>Social</a>
+              <Link href="iletisim">
+                <a>İLETİŞİM</a>
               </Link>
             </Menu.Item>
           )}
 
           {!state.mobile && (
             <Menu.Item>
-              <Link href="/apps/chat">
-                <a>Chat</a>
+              <Link href="deneme">
+                <a>EKRAN FORM</a>
+              </Link>
+            </Menu.Item>
+          )}
+
+          {!state.mobile && (
+            <Menu.Item>
+              <Link href="about">
+                <a>Login</a>
               </Link>
             </Menu.Item>
           )}
@@ -77,71 +88,39 @@ const MainHeader = () => {
               <Menu.Item>Calendar</Menu.Item>
               <Menu.Item>Messages</Menu.Item>
               <Menu.Item>Social</Menu.Item>
-              <Menu.Item>Chat</Menu.Item>
             </SubMenu>
           )}
         </Menu>
 
         <span className="mr-auto" />
 
-        <Menu mode="horizontal">
-          {!state.mobile && (
-            <Menu.Item onClick={() => dispatch({ type: 'fullscreen' })}>
-              {!state.fullscreen ? (
-                <Maximize size={20} strokeWidth={1} />
-              ) : (
-                <Minimize size={20} strokeWidth={1} />
-              )}
-            </Menu.Item>
-          )}
-          <Menu.Item onClick={() => dispatch({ type: 'options' })}>
-            <Settings size={20} strokeWidth={1} />
-          </Menu.Item>
-          <SubMenu
-            title={
-              <Badge count={5}>
-                <span className="submenu-title-wrapper">
-                  <Bell size={20} strokeWidth={1} />
-                </span>
-              </Badge>
-            }
-          >
-            <Menu.Item
-              className="p-0 bg-transparent"
-              style={{ height: 'auto' }}
-            >
-              <List
-                className="header-notifications"
-                itemLayout="horizontal"
-                dataSource={notifications}
-                footer={<div>5 Notifications</div>}
-                renderItem={item => (
-                  <Notification>
-                    <List.Item>
-                      <List.Item.Meta
-                        avatar={item.avatar}
-                        title={<a href="javascript:;">{item.title}</a>}
-                        description={<small>{item.description}</small>}
-                      />
-                    </List.Item>
-                  </Notification>
-                )}
-              />
-            </Menu.Item>
-          </SubMenu>
 
-          <SubMenu title={<Avatar src="/static/images/avatar.jpg" />}>
-            <Menu.Item>Settings</Menu.Item>
-            <Menu.Item>Profile</Menu.Item>
-            <Menu.Item>Notifications</Menu.Item>
-            <Menu.Divider />
+        <Menu mode="horizontal" className="menu-divider">
+          {!state.mobile && (
             <Menu.Item>
-              <Link href="https://one-readme.fusepx.com">
-                <a>Help?</a>
+              <Link href="/homepage">
+                <User />
               </Link>
             </Menu.Item>
-            <Menu.Item>Signout</Menu.Item>
-          </SubMenu>
+          )}
+
+          {!state.mobile && (
+              <Menu.Item>
+              <Link href="/homepage">
+                <ShoppingCart />
+              </Link>
+            </Menu.Item>
+          )}
+          {!state.mobile && (
+          <Menu.Item><ModalLogin /></Menu.Item>
+          )}
+          {state.mobile && (
+            <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
+              <Menu.Item><User /></Menu.Item>
+              <Menu.Item><ShoppingCart /></Menu.Item>
+              <Menu.Item><ModalLogin /></Menu.Item>
+            </SubMenu>
+          )}
         </Menu>
       </Header>
     </DashHeader>
