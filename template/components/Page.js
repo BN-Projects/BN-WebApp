@@ -15,8 +15,8 @@ const { Content } = Layout;
 const NonDashboardRoutes = [
   '/homepage',
   '/urunler',
-  '/iletisim',
-  '/deneme',
+  '/contact',
+  '/profile',
   '/about'
 ];
 const RenderHeader = () => {

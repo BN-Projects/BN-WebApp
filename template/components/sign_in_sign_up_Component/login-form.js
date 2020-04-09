@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal, Radio, Tabs } from 'antd';
 import { Eye, Mail, Triangle, User } from 'react-feather';
 import Link from 'next/link';
-import UserModal from './sign_in_Modal'
+import SignInModal from './sign_in_Modal'
 import Sing from './signup'
 
 //deneme try
@@ -10,9 +10,9 @@ import { connect } from 'react-redux'
 import * as authActions  from '../../redux/actions/authActions'
 import { bindActionCreators } from "redux";
 
-const TabPane = Tabs.TabPane;
-const FormItem = Form.Item;
-class CollectionsPage extends React.Component 
+// const TabPane = Tabs.TabPane;
+// const FormItem = Form.Item;
+class SignIn extends React.Component 
 {
     state = {
         visible: false
@@ -51,7 +51,7 @@ class CollectionsPage extends React.Component
                     <a onClick={this.showModal} > Giriş yap</a>
                 </Link>
                 
-                <UserModal
+                <SignInModal
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
@@ -75,4 +75,4 @@ function mapDispatchToProps(dispatch) {
       }
     };
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(CollectionsPage);
+  export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
