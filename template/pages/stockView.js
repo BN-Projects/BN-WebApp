@@ -2,7 +2,7 @@ import Header from '../components/styles/Header'
 import { Card, Col, Row, } from 'antd'
 import { Component } from 'react'
 
-import ProductStocked from '../components/ProductStocked'
+import ProductStocked from '../components/stock_view_page_Component/ProductStock'
 
 class stockView extends Component {
     render() {

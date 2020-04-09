@@ -11,7 +11,7 @@ import {
   Triangle
 } from 'react-feather';
 import DashHeader, { Notification } from './styles/Header';
-import ModalLogin from '../demos/antd/login-form';
+import ModalLogin from './sign_in_sign_up_Component/login-form';                                  //
 import Link from 'next/link';
 import MockNotifications from '../demos/mock/notifications';
 import { useAppState } from './shared/AppProvider';
@@ -69,8 +69,8 @@ const MainHeader = () => {
 
           {!state.mobile && (
             <Menu.Item>
-              <Link href="deneme">
-                <a>EKRAN FORM</a>
+              <Link href="logout">
+                <a>ÇIKIŞ YAP</a>
               </Link>
             </Menu.Item>
           )}
@@ -82,12 +82,12 @@ const MainHeader = () => {
               </Link>
             </Menu.Item>
           )}
-
+          {/*değişecek*/}
           {state.mobile && (
             <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
               <Menu.Item>Calendar</Menu.Item>
               <Menu.Item>Messages</Menu.Item>
-              <Menu.Item>Social</Menu.Item>
+              <Menu.Item>Socialasdasdsadsasad</Menu.Item>
             </SubMenu>
           )}
         </Menu>
