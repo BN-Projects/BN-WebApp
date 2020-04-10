@@ -28,7 +28,8 @@ class ProductOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: []
+      products: [],
+      loaded:false,
     };
   }
   componentDidMount() {
@@ -45,11 +46,19 @@ class ProductOne extends Component {
       console.log(this.props.product_data);
       this.props.product_data;
     }
-    this.setState({ products: this.props.product_data }, function() {
-      console.log(this.state.products);
-    });
+    else{
+      this.setState({ products: this.props.product_data,loaded:true }, function() {
+        console.log(this.state.products);
+      });
+    }
   }
-
+  componentDidUpdate(){
+    if (this.props.product_data != "" && !this.state.loaded) {
+      this.setState({ products: this.props.product_data, loaded:true }, function() {
+        console.log(this.state.products);
+      });
+    }
+  }
   //yükleniyor al
   //timer ver
   // didupdate de state e at.
@@ -77,44 +86,48 @@ class ProductOne extends Component {
   };
 
   render() {
-    const productlist = [];
-
-    this.state.products.forEach(product => {
-      productlist.push(
-        <div key={product.product_id}>
-          <Col lg={6} md={12} style={{ margin: 5 }}>
-            <Card bodyStyle={{ padding: 5 }} style={{ marginBottom: "20px" }}>
-              <div float="center">
-                <Card
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://www.patidogclub.com/wp-content/uploads/2017/12/yavru-kopekler-icin-tasma-egitimi.jpg"
+    var productlist = [];
+    if(this.state.products!=[]){
+      this.state.products.forEach(product => {
+        productlist.push(
+          <div key={product.product_id}>
+            <Col lg={6} md={12} style={{ margin: 5 }}>
+              <Card bodyStyle={{ padding: 5 }} style={{ marginBottom: "20px" }}>
+                <div float="center">
+                  <Card
+                    cover={
+                      <img
+                        alt="example"
+                        src="https://www.patidogclub.com/wp-content/uploads/2017/12/yavru-kopekler-icin-tasma-egitimi.jpg"
+                      />
+                    }
+                    actions={[
+                      <Button type="primary" block>
+                        Sepete Ekle
+                      </Button>
+                    ]}
+                  >
+                    <Meta
+                      style={{ textAlign: "center" }}
+                      title={product.product_description}
+                      description={product.product_name}
                     />
-                  }
-                  actions={[
-                    <Button type="primary" block>
-                      Sepete Ekle
-                    </Button>
-                  ]}
-                >
-                  <Meta
-                    style={{ textAlign: "center" }}
-                    title={product.product_description}
-                    description={product.product_name}
-                  />
-                  <br></br>
-                  <div className="price-container">
-                    <h2>${product.product_price}</h2>
-                  </div>
-                </Card>
-              </div>
-            </Card>
-          </Col>
-        </div>
-      );
-    });
-
+                    <br></br>
+                    <div className="price-container">
+                      <h2>${product.product_price}</h2>
+                    </div>
+                  </Card>
+                </div>
+              </Card>
+            </Col>
+          </div>
+        );
+      });  
+    }
+    else{
+      productlist="Yükleniyor."
+    }
+  
     return (
       <div>
         <Row>{productlist}</Row>
