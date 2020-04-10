@@ -2,6 +2,6 @@ export default {
     currentCategory:{name:""},
     categories:[],
     products:[],
-    login:"Default Token",
+    login:"",
 }
 //default parametreler oluşturuldu

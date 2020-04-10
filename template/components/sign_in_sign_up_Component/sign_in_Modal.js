@@ -22,6 +22,7 @@ const UserModal = Form.create()(
                 //Router.push("/iletisim")
             }
         }
+        
 
         render() {
             const { visible, onCancel, onCreate, form } = this.props;

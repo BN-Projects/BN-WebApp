@@ -9,7 +9,6 @@ import SignUpModal from './sign_up_Modal'
 // import styled from 'styled-components';
 // import LogModal from './login-form'
 
-
 class SignUp extends React.Component {
     state = {
         visible: false

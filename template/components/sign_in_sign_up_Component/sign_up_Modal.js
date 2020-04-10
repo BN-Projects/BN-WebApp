@@ -9,9 +9,6 @@ import Router from 'next/router';
 import styled from 'styled-components';
 import LogModal from './login-form'
 
-
-
-
 const FormItem = Form.Item;
 
 const registerModal = Form.create()(
@@ -20,7 +17,6 @@ const registerModal = Form.create()(
             const { visible, onCancel, onCreate, form } = this.props;
             const { getFieldDecorator } = form;
             return (
-
                 <Form
                     layout="vertical"
                     onSubmit={e => {

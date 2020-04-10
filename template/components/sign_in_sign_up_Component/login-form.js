@@ -7,13 +7,12 @@ import Sing from './signup'
 //deneme try
 
 import { connect } from 'react-redux'
-import * as authActions  from '../../redux/actions/authActions'
+import * as authActions from '../../redux/actions/authActions'
 import { bindActionCreators } from "redux";
 
 // const TabPane = Tabs.TabPane;
 // const FormItem = Form.Item;
-class SignIn extends React.Component 
-{
+class SignIn extends React.Component {
     state = {
         visible: false
     };
@@ -46,11 +45,10 @@ class SignIn extends React.Component
     render() {
         return (
             <div>
-                
+
                 <Link>
                     <a onClick={this.showModal} > Giriş yap</a>
                 </Link>
-                
                 <SignInModal
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
@@ -65,14 +63,14 @@ class SignIn extends React.Component
 
 function mapStateToProps(state) {
     return {
-        currentToken : state.authReducer,
+        currentToken: state.authReducer,
     };
-  }
+}
 function mapDispatchToProps(dispatch) {
     return {
-      actions: {
-        loginUser: bindActionCreators(authActions.loginUser, dispatch)
-      }
+        actions: {
+            loginUser: bindActionCreators(authActions.loginUser, dispatch)
+        }
     };
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
