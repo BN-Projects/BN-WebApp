@@ -1,7 +1,7 @@
 export default {
-    currentCategory:{name:""},
-    categories:[],
-    products:[],
-    login:"",
-}
+  login: "",
+  register: "",
+  profile: "",
+  product: ""
+};
 //default parametreler oluşturuldu

@@ -1,13 +1,10 @@
 import { Button, Form, Input, Modal, Radio, Tabs } from 'antd';
 import { Eye, Mail, Triangle, User } from 'react-feather';
 import Link from 'next/link';
-import SignInModal from './sign_in_Modal'
-import Sing from './signup'
-
-//deneme try
-
-import { connect } from 'react-redux'
-import * as authActions from '../../redux/actions/authActions'
+import SignInModal from './sign_in_Modal';
+import Sing from './signup';
+import { connect } from 'react-redux';
+import * as authActions from '../../redux/actions/authActions';
 import { bindActionCreators } from "redux";
 
 // const TabPane = Tabs.TabPane;

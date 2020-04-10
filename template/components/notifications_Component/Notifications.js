@@ -8,8 +8,8 @@ import {
   Select,
   Row,
   Col
-} from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
+} from "antd";
+import TextArea from "antd/lib/input/TextArea";
 
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
@@ -18,32 +18,32 @@ const AutoCompleteOption = AutoComplete.Option;
 
 const residences = [
   {
-    value: 'zhejiang',
-    label: 'Zhejiang',
+    value: "zhejiang",
+    label: "Zhejiang",
     children: [
       {
-        value: 'hangzhou',
-        label: 'Hangzhou',
+        value: "hangzhou",
+        label: "Hangzhou",
         children: [
           {
-            value: 'xihu',
-            label: 'West Lake'
+            value: "xihu",
+            label: "West Lake"
           }
         ]
       }
     ]
   },
   {
-    value: 'jiangsu',
-    label: 'Jiangsu',
+    value: "jiangsu",
+    label: "Jiangsu",
     children: [
       {
-        value: 'nanjing',
-        label: 'Nanjing',
+        value: "nanjing",
+        label: "Nanjing",
         children: [
           {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men'
+            value: "zhonghuamen",
+            label: "Zhong Hua Men"
           }
         ]
       }
@@ -61,7 +61,7 @@ class Notification extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log("Received values of form: ", values);
       }
     });
   };
@@ -73,8 +73,8 @@ class Notification extends React.Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+    if (value && value !== form.getFieldValue("password")) {
+      callback("Two passwords that you enter is inconsistent!");
     } else {
       callback();
     }
@@ -83,7 +83,7 @@ class Notification extends React.Component {
   validateToNextPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
+      form.validateFields(["confirm"], { force: true });
     }
     callback();
   };
@@ -93,7 +93,7 @@ class Notification extends React.Component {
     if (!value) {
       autoCompleteResult = [];
     } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(
+      autoCompleteResult = [".com", ".org", ".net"].map(
         domain => `${value}${domain}`
       );
     }
@@ -160,165 +160,192 @@ class Notification extends React.Component {
 
     return (
       <div className="card-container">
-      <Card
-      title="Bildirim Paneli">
-    <Tabs type="card" style={{borderStyle:"groove", borderRadius: 5}}>
-      <TabPane tab="Herkese Bildirim" key="1" >
-      <Form style={{padding:20}}>
-          <FormItem label="Başlık: " {...formItemLayout} >
-            {getFieldDecorator('title', {
-              rules: [
-                {
-                  required: false,
-                  message: "Başlık Boş Bırakılamaz."
-                }    
-              ]
-            })(<Input placeholder="Başlık Giriniz." />)}
-          </FormItem>
-          <Row>
-            <Col span={12}>
-            <FormItem label="Konu: " {...formItemBLayout} >
-            {getFieldDecorator('subject')
-            (<Input placeholder="Konu giriniz." />)}
-          </FormItem>
-            </Col>
-            <Col span={12}>
-            <FormItem {...formItemSelectLayout} label="Bildirim Tipi: " hasFeedback>
-          {getFieldDecorator('select', {
-            rules: [{ required: true, message: 'Lütfen Bildirim Tipini Seçiniz.' }]
-          })(
-            <Select placeholder="Bildirim Tipini Seçin.">
-              <Option value="warning">Uyarı</Option>
-              <Option value="update">Güncelleme</Option>
-              <Option value="campaign">Kampanya</Option>
-            </Select>
-          )}
-        </FormItem>
-            </Col>
-        </Row>
-          <FormItem label="Metin: " {...formItemtextLayout} >
-            {getFieldDecorator('text')
-            (<TextArea placeholder="Metin Giriniz." />)}
-          </FormItem>
-          <FormItem {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" >
-              Bildirim Gönder
-            </Button>
-          </FormItem>
-        </Form>
-      </TabPane>
+        <Card title="Bildirim Paneli">
+          <Tabs type="card" style={{ borderStyle: "groove", borderRadius: 5 }}>
+            <TabPane tab="Herkese Bildirim" key="1">
+              <Form style={{ padding: 20 }}>
+                <FormItem label="Başlık: " {...formItemLayout}>
+                  {getFieldDecorator("title", {
+                    rules: [
+                      {
+                        required: false,
+                        message: "Başlık Boş Bırakılamaz."
+                      }
+                    ]
+                  })(<Input placeholder="Başlık Giriniz." />)}
+                </FormItem>
+                <Row>
+                  <Col span={12}>
+                    <FormItem label="Konu: " {...formItemBLayout}>
+                      {getFieldDecorator("subject")(
+                        <Input placeholder="Konu giriniz." />
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col span={12}>
+                    <FormItem
+                      {...formItemSelectLayout}
+                      label="Bildirim Tipi: "
+                      hasFeedback
+                    >
+                      {getFieldDecorator("select", {
+                        rules: [
+                          {
+                            required: true,
+                            message: "Lütfen Bildirim Tipini Seçiniz."
+                          }
+                        ]
+                      })(
+                        <Select placeholder="Bildirim Tipini Seçin.">
+                          <Option value="warning">Uyarı</Option>
+                          <Option value="update">Güncelleme</Option>
+                          <Option value="campaign">Kampanya</Option>
+                        </Select>
+                      )}
+                    </FormItem>
+                  </Col>
+                </Row>
+                <FormItem label="Metin: " {...formItemtextLayout}>
+                  {getFieldDecorator("text")(
+                    <TextArea placeholder="Metin Giriniz." />
+                  )}
+                </FormItem>
+                <FormItem {...tailFormItemLayout}>
+                  <Button type="primary" htmlType="submit">
+                    Bildirim Gönder
+                  </Button>
+                </FormItem>
+              </Form>
+            </TabPane>
 
-      
-      <TabPane tab="Toplu Bildirim" key="2" >
-      <Form style={{padding:20}}>
-          <Row>
-            <Col span={12}>
-            <FormItem label="Başlık: " {...formItemBLayout} >
-            {getFieldDecorator('title')
-            (<Input placeholder="Başlık Giriniz." />)}
-          </FormItem>
-            </Col>
-            <Col span={12}>
-            <FormItem {...formItemSelectLayout} label="Bildirim Tipi: " hasFeedback>
-          {getFieldDecorator('select_type', {
-            rules: [{ required: true, message: 'Lütfen Bildirim Tipini Seçiniz.' }]
-          })(
-            <Select placeholder="Bildirim Tipini Seçin.">
-              <Option value="warning">Uyarı</Option>
-              <Option value="update">Güncelleme</Option>
-              <Option value="campaign">Kampanya</Option>
-            </Select>
-          )}
-        </FormItem>
-            </Col>
-        </Row>
-          <Row>
-            <Col span={12}>
-            <FormItem label="Konu: " {...formItemBLayout} >
-            {getFieldDecorator('subject')
-            (<Input placeholder="Konu giriniz." />)}
-          </FormItem>
-            </Col>
-            <Col span={12}>
-            <FormItem {...formItemSelectLayout} label="Grup Tipi: " hasFeedback>
-          {getFieldDecorator('group_type', {
-            rules: [{ required: true, message: 'Lütfen Grup Tipini Seçiniz.' }]
-          })(
-            <Select placeholder="Grup Tipini Seçin.">
-              <Option value="warning">Aile</Option>
-              <Option value="update">Eşyacılar</Option>
-              <Option value="campaign">Köpekseverler</Option>
-            </Select>
-          )}
-        </FormItem>
-            </Col>
-        </Row>
-          <FormItem label="Metin: " {...formItemtextLayout} >
-            {getFieldDecorator('text')
-            (<TextArea placeholder="Metin Giriniz." />)}
-          </FormItem>
-          <FormItem {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" >
-              Bildirim Gönder
-            </Button>
-          </FormItem>
-        </Form>
-      </TabPane>
-      <TabPane tab="Kişiye Özel Bildirim" key="3">
-      <Form style={{padding:20}}>
-          
-      <FormItem {...formItemLayout} label="Kişi Giriniz">
-          {getFieldDecorator('select-multiple', {
-            rules: [
-              {
-                required: true,
-                message: 'Lütfen kişi giriniz/seçiniz!',
-                type: 'array'
-              }
-            ]
-          })(
-            <Select
-              mode="multiple"
-              placeholder="Kişi Giriniz/Seçiniz."
-            >
-              <Option value="red">Red</Option>
-              <Option value="green">Green</Option>
-              <Option value="blue">Blue</Option>
-            </Select>
-          )}
-        </FormItem>
-          
-          <FormItem label="Başlık: " {...formItemLayout} >
-            {getFieldDecorator('title', {
-              rules: [
-                {
-                  required: false,
-                  message: "Başlık Boş Bırakılamaz."
-                }    
-              ]
-            })(<Input placeholder="Başlık Giriniz." />)}
-          </FormItem>
-          
-            <FormItem label="Konu: " {...formItemLayout} >
-            {getFieldDecorator('subject')
-            (<Input placeholder="Konu giriniz." />)}
-          </FormItem>
-            
-           
-          <FormItem label="Metin: " {...formItemtextLayout} >
-            {getFieldDecorator('text')
-            (<TextArea placeholder="Metin Giriniz." />)}
-          </FormItem>
-          <FormItem {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" >
-              Bildirim Gönder
-            </Button>
-          </FormItem>
-        </Form>
-      </TabPane>
-    </Tabs>
-    </Card>
-  </div>
+            <TabPane tab="Toplu Bildirim" key="2">
+              <Form style={{ padding: 20 }}>
+                <Row>
+                  <Col span={12}>
+                    <FormItem label="Başlık: " {...formItemBLayout}>
+                      {getFieldDecorator("title")(
+                        <Input placeholder="Başlık Giriniz." />
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col span={12}>
+                    <FormItem
+                      {...formItemSelectLayout}
+                      label="Bildirim Tipi: "
+                      hasFeedback
+                    >
+                      {getFieldDecorator("select_type", {
+                        rules: [
+                          {
+                            required: true,
+                            message: "Lütfen Bildirim Tipini Seçiniz."
+                          }
+                        ]
+                      })(
+                        <Select placeholder="Bildirim Tipini Seçin.">
+                          <Option value="warning">Uyarı</Option>
+                          <Option value="update">Güncelleme</Option>
+                          <Option value="campaign">Kampanya</Option>
+                        </Select>
+                      )}
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={12}>
+                    <FormItem label="Konu: " {...formItemBLayout}>
+                      {getFieldDecorator("subject")(
+                        <Input placeholder="Konu giriniz." />
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col span={12}>
+                    <FormItem
+                      {...formItemSelectLayout}
+                      label="Grup Tipi: "
+                      hasFeedback
+                    >
+                      {getFieldDecorator("group_type", {
+                        rules: [
+                          {
+                            required: true,
+                            message: "Lütfen Grup Tipini Seçiniz."
+                          }
+                        ]
+                      })(
+                        <Select placeholder="Grup Tipini Seçin.">
+                          <Option value="warning">Aile</Option>
+                          <Option value="update">Eşyacılar</Option>
+                          <Option value="campaign">Köpekseverler</Option>
+                        </Select>
+                      )}
+                    </FormItem>
+                  </Col>
+                </Row>
+                <FormItem label="Metin: " {...formItemtextLayout}>
+                  {getFieldDecorator("text")(
+                    <TextArea placeholder="Metin Giriniz." />
+                  )}
+                </FormItem>
+                <FormItem {...tailFormItemLayout}>
+                  <Button type="primary" htmlType="submit">
+                    Bildirim Gönder
+                  </Button>
+                </FormItem>
+              </Form>
+            </TabPane>
+            <TabPane tab="Kişiye Özel Bildirim" key="3">
+              <Form style={{ padding: 20 }}>
+                <FormItem {...formItemLayout} label="Kişi Giriniz">
+                  {getFieldDecorator("select-multiple", {
+                    rules: [
+                      {
+                        required: true,
+                        message: "Lütfen kişi giriniz/seçiniz!",
+                        type: "array"
+                      }
+                    ]
+                  })(
+                    <Select mode="multiple" placeholder="Kişi Giriniz/Seçiniz.">
+                      <Option value="red">Red</Option>
+                      <Option value="green">Green</Option>
+                      <Option value="blue">Blue</Option>
+                    </Select>
+                  )}
+                </FormItem>
+
+                <FormItem label="Başlık: " {...formItemLayout}>
+                  {getFieldDecorator("title", {
+                    rules: [
+                      {
+                        required: false,
+                        message: "Başlık Boş Bırakılamaz."
+                      }
+                    ]
+                  })(<Input placeholder="Başlık Giriniz." />)}
+                </FormItem>
+
+                <FormItem label="Konu: " {...formItemLayout}>
+                  {getFieldDecorator("subject")(
+                    <Input placeholder="Konu giriniz." />
+                  )}
+                </FormItem>
+
+                <FormItem label="Metin: " {...formItemtextLayout}>
+                  {getFieldDecorator("text")(
+                    <TextArea placeholder="Metin Giriniz." />
+                  )}
+                </FormItem>
+                <FormItem {...tailFormItemLayout}>
+                  <Button type="primary" htmlType="submit">
+                    Bildirim Gönder
+                  </Button>
+                </FormItem>
+              </Form>
+            </TabPane>
+          </Tabs>
+        </Card>
+      </div>
     );
   }
 }

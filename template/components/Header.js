@@ -53,7 +53,7 @@ const MainHeader = () => {
 
           {!state.mobile && (
             <Menu.Item>
-              <Link href="urunler">
+              <Link href="products">
                 <a>ÜRÜNLERİMİZ</a>
               </Link>
             </Menu.Item>
