@@ -2,6 +2,7 @@ export default {
   login: "",
   register: "",
   profile: "",
-  product: ""
+  product: "",
+  stock:"",
 };
 //default parametreler oluşturuldu

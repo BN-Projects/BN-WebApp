@@ -6,11 +6,35 @@ import Sing from "./signup";
 import Router from "next/router";
 import md5 from "md5";
 import { getConnectionLink } from "../../lib/connector";
+import { message } from "antd";
 
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
+
+const warning = () => {
+  message.warning("Lütfen tüm zorunlu alanları doldurun.");
+};
+const success = () => {
+  message.success("Başarıyla Giriş Yapıldı.");
+};
+
+const error = () => {
+  message.error("This is a message of error");
+};
+
 const UserModal = Form.create()(
   class extends React.Component {
+    constructor(props){
+      super(props);
+      this.state={
+        visible:false,
+        logged:false,
+      }
+      const visible = this.props.visible;
+      this.setState({visible},function(){
+        visible = this.state;
+      });
+    }
     submit(err) {
       if (!err) {
         var paramsNames = ["email", "password"];
@@ -23,16 +47,28 @@ const UserModal = Form.create()(
         this.props.loginUser(obj);
         //location.reload()
         //Router.push("/iletisim")
+      } else {
+        warning();
       }
     }
 
+    componentDidUpdate(prevProps) {
+      if(prevProps.visible!=this.props.visible && (this.props.currentToken == "" || !this.state.logged)){
+        const visible= this.props.visible;
+        this.setState({visible})
+      } else if(this.props.currentToken != "" && !this.state.logged){
+        console.log("giris ypatin andaval");
+        console.log(this.props.currentToken)
+        this.setState({visible:false,logged:true});
+      }
+    }
     render() {
-      const { visible, onCancel, onCreate, form } = this.props;
+      const { onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
 
       return (
         <Modal
-          visible={visible}
+          visible={this.state.visible}
           footer={null}
           onCancel={onCancel}
           onOk={onCreate}

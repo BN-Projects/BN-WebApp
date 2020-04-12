@@ -1,17 +1,16 @@
 import axios from "axios";
-var token = "";
-export default async function postLogin(obj) {
+var stock = "";
+export default async function postStock(obj) {
     await axios
         .post(obj.url, obj.data)
         .then(res => {
             if (!res.data.error) {
-                token = res.data.user_token;
-                console.log(token);
+                stock = res.data.stocks;
+                console.log(res.data.error);
             } else {
-                token = "";
                 console.log(res.data.message);
             }
         })
         .catch(err => console.log(err));
-    return token;
+    return stocks;
 }

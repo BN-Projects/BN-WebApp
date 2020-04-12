@@ -1,15 +1,18 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
 import registerReducer from "./registerReducer";
-import profile_viewReducer from "./profile_viewReducer";
-import productlistReducer from "./productlistReducer";
+import profileViewReducer from "./profileViewReducer";
+import productlistReducer from "./productListReducer";
+import stockViewReducer from "./stockViewReducer";
 
 const rootReducer = combineReducers({
   authReducer,
   registerReducer,
-  profile_viewReducer,
-  productlistReducer
+  profileViewReducer,
+  productlistReducer,
+  stockViewReducer,
 });
+
 export default rootReducer;
 
 //tüm reducer'lar toplandı

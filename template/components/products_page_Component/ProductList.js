@@ -29,7 +29,7 @@ class ProductOne extends Component {
     super(props);
     this.state = {
       products: [],
-      loaded:false,
+      loaded: false
     };
   }
   componentDidMount() {
@@ -45,18 +45,23 @@ class ProductOne extends Component {
       this.props.actions.ProductPage(obj);
       console.log(this.props.product_data);
       this.props.product_data;
-    }
-    else{
-      this.setState({ products: this.props.product_data,loaded:true }, function() {
-        console.log(this.state.products);
-      });
+    } else {
+      this.setState(
+        { products: this.props.product_data, loaded: true },
+        function() {
+          console.log(this.state.products);
+        }
+      );
     }
   }
-  componentDidUpdate(){
+  componentDidUpdate() {
     if (this.props.product_data != "" && !this.state.loaded) {
-      this.setState({ products: this.props.product_data, loaded:true }, function() {
-        console.log(this.state.products);
-      });
+      this.setState(
+        { products: this.props.product_data, loaded: true },
+        function() {
+          console.log(this.state.products);
+        }
+      );
     }
   }
   //yükleniyor al
@@ -87,7 +92,7 @@ class ProductOne extends Component {
 
   render() {
     var productlist = [];
-    if(this.state.products!=[]){
+    if (this.state.products != []) {
       this.state.products.forEach(product => {
         productlist.push(
           <div key={product.product_id}>
@@ -122,12 +127,11 @@ class ProductOne extends Component {
             </Col>
           </div>
         );
-      });  
+      });
+    } else {
+      productlist = "Yükleniyor.";
     }
-    else{
-      productlist="Yükleniyor."
-    }
-  
+
     return (
       <div>
         <Row>{productlist}</Row>

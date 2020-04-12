@@ -6,4 +6,6 @@ export const PROFILE_VIEW_PAGE = "PROFILE_VIEW_PAGE";
 
 export const PRODUCT_LIST = "PRODUCT_LIST";
 
+export const STOCK_VIEW_PAGE = "STOCK_VIEW_PAGE";
+
 //action types belirlendi
