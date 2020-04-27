@@ -46,7 +46,7 @@ class Homepage extends Component {
                       Sen de Benimki Nerede ürünlerinden edin.
                     </p>
                     <Button size="large" href="products">
-                      <a>SİPARİŞ VER!</a>{" "}
+                      SİPARİŞ VER!{" "}
                     </Button>
                   </Col>
                   <Col lg={6} md={12}>

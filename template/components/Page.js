@@ -10,15 +10,17 @@ import { theme } from './styles/GlobalStyles';
 import { useAppState } from './shared/AppProvider';
 import { withRouter } from 'next/router';
 
+//hooks import
+
+import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions/authActions";
+import { getConnectionLink } from "../lib/connector";
+import { ProfileInformation } from "../redux/actions/profileViewActions";
+
 const { Content } = Layout;
 
-const NonDashboardRoutes = [
-  '/homepage',
-  '/urunler',
-  '/contact',
-  '/profile',
-  '/about'
-];
 const RenderHeader = () => {
   return (
     <Header />
@@ -32,7 +34,24 @@ const RenderHeaderHome = () => {
 const Page = ({ router, children }) => {
   const [loading, setLoading] = useState(true);
   const [state] = useAppState();
+  const profile = useSelector((state) => state.profileViewReducer);
+  const array = [];
+  console.log(profile.role_lvl)
+
+
+  if ((profile.role_lvl == null)  || (profile.role_lvl == undefined)  ||  (profile.role_lvl == 0) || (profile.role_lvl == 1) || (profile.role_lvl == 2) || (profile.role_lvl == 3) || (profile.role_lvl == 4))
+  {
+    array.push("/homepage")
+  }
+  else if(profile.role_lvl == 5)
+  {
+    array.push(null);
+  }
+  
+  const NonDashboardRoutes = array;
+
   const isNotDashboard = NonDashboardRoutes.includes(router.pathname);
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -41,7 +60,7 @@ const Page = ({ router, children }) => {
   }, [loading]);
 
   return (
-    <Spin tip="Loading..." size="large" spinning={loading}>
+    <Spin tip="Yükleniyor..." size="large" spinning={loading}>
       <ThemeProvider theme={theme}>
         <Container
           className={`${state.weakColor ? 'weakColor' : ''} ${
@@ -71,5 +90,12 @@ const Page = ({ router, children }) => {
     </Spin>
       );
     };
+
+    const mapStateToProps = (state) => ({
+      currentToken: state.authReducer,
+      profile: state.profileViewReducer,
+    });
     
-    export default withRouter(Page);
+    const mapDispatchToProps = { loginUser, ProfileInformation };
+    
+    export default withRouter(connect(mapStateToProps)(Page))

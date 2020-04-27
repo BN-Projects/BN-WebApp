@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import initialState from "../reducers/initialState";
+import Router from "next/router"
 
 export const logout = token => {
   return {
@@ -12,6 +13,7 @@ export function logoutUser() {
   return function(dispatch) {
     var token = initialState.login;
     dispatch(logout(token));
-    //Router.push("/homepage")
+    window.location.reload(false);
+    
   };
 }

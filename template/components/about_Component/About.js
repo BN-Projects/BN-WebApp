@@ -1,77 +1,79 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import * as authActions from "../../redux/actions/authActions";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import * as profileViewActions  from '../../redux/actions/profileViewActions'
 import { bindActionCreators } from "redux";
-import { Button, Col, Input, Card, Row, Divider } from "antd";
-import Pop_UP_Element from "../pop_up_Component/popUp"
+import { Button, Col , Input, Card, Row } from 'antd';
 
-class About extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "den55",
-      password: "deneme"
-    };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+class About extends Component {
+    constructor(){
+        super()
+        this.state = {
+            email: 'den55',
+            password: 'deneme'
+        };
 
-  componentDidMount() {
-    if (this.props.currentToken == "") {
-      console.log("TOKEN YOK", this.props.currentToken);
-    } else {
-      console.log("TOKEN VAR", this.props.currentToken);
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
-  }
 
-  onSubmit = e => {
-    e.preventDefault();
-    var paramsNames = ["email", "password"];
-    //console.log(this.state.email)
-    var paramsValues = [this.state.email, this.state.password];
-    //this.props.actions.loginUser("login",paramsNames,paramsValues);
-  };
+    componentDidMount() 
+      {
+        if(this.props.currentToken == "Default Token")
+        {
+          console.log("TOKEN YOK", this.props.currentToken )
+        }
+        else
+        {
+          console.log("TOKEN VAR", this.props.currentToken )
+        }
+      }
 
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+    onSubmit = e => {
+        e.preventDefault();
+        var paramsNames=["email", "password"];
+        //console.log(this.state.email)
+        var paramsValues=[this.state.email,this.state.password];
+        //this.props.actions.loginUser("login",paramsNames,paramsValues);
+      }
 
-  render() {
-    return (
-      <div float="center">
-        <Card>
-          <Row>
-            <Col span={9}></Col>
-            <Col span={6}>
-              <Divider orientation="left">
-                <small>Other types of messages</small>
-              </Divider>
-              <div className="p-4">
-                <Pop_UP_Element/>
-              </div>
-              <div>{this.props.currentToken}</div>
-            </Col>
-          </Row>
-        </Card>
-      </div>
-    );
-  }
+      onChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+      }
+      
+
+    render() {
+
+        return(
+            <div float='center'
+            >
+              <Card>
+                
+                <div>{this.props.currentToken}</div>
+                <div>{this.props.profiledata.user_real_name}</div>
+                <div>{this.props.profiledata.user_surname}</div>
+                <div>{this.props.profiledata.user_password}</div>
+                <div>{this.props.profiledata.user_img}</div>
+                </Card>
+            </div>                        
+        )
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    currentToken: state.authReducer
-  };
-}
+    return {
+        currentToken : state.authReducer,
+        profiledata : state.profileViewReducer,
+    };
+  }
 function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loginUser: bindActionCreators(authActions.loginUser, dispatch)
-    }
-  };
-}
-//actions aldik
+    return {
+      actions: {
+        profilePage: bindActionCreators(profileViewActions.ProfileInformation, dispatch)
+      }
+    };
+  }
+  //actions aldik
 
 export default connect(mapStateToProps, mapDispatchToProps)(About);

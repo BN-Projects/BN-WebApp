@@ -15,7 +15,7 @@ const success = () => {
 };
 
 const error = () => {
-  message.error("Kayıt Bulunamamıştır.");
+  message.error("Email veya şifre hatalı.");
 };
 
 export function loginUser(obj) {

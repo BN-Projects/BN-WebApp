@@ -1,16 +1,17 @@
 import axios from "axios";
-var stock = "";
-export default async function postStock(obj) {
+var device = "";
+export default async function postAddDevice(obj) {
     await axios
         .post(obj.url, obj.data)
         .then(res => {
             if (!res.data.error) {
-                stock = res.data.stocks;
+                device = res.data.devices;
                 console.log(res.data.error);
             } else {
                 console.log(res.data.message);
+                device = "";
             }
         })
         .catch(err => console.log(err));
-    return stock;
+    return device;
 }

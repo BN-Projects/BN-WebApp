@@ -30,18 +30,21 @@ const UserModal = Form.create()(
         visible:false,
         logged:false,
       }
-      const visible = this.props.visible;
+    }
+
+    componentDidMount() {
+      var visible = this.props.visible;
       this.setState({visible},function(){
-        visible = this.state;
+        visible = this.state.visible;
       });
     }
     submit(err) {
       if (!err) {
-        var paramsNames = ["email", "password"];
+        var paramsNames = ["email", "password","loginType"];
         //console.log(this.state.email)
         var hash = md5(password.value);
         console.log(hash);
-        var paramsValues = [email.value, hash];
+        var paramsValues = [email.value, hash, "web" ];
         //console.log(email.value);
         var obj = getConnectionLink("login", paramsNames, paramsValues, "POST");
         this.props.loginUser(obj);

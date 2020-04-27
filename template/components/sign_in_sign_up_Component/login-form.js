@@ -43,7 +43,7 @@ class SignIn extends React.Component {
   render() {
     return (
       <div>
-        <Link >
+        <Link href="">
           <a onClick={this.showModal}>GİRİŞ YAP</a>
         </Link>
         <SignInModal

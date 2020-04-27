@@ -1,4 +1,3 @@
-import Header from '../components/styles/Header'
 
 import { Component } from 'react'
 import StatCard from '../components/shared/StatCard';
@@ -29,7 +28,6 @@ class Iletisim extends Component {
     render() {
         return (
         <div>
-          <Header> </Header>
           <Row gutter={16}>
             <Col xs={24} sm={12} md={6}>
             <StatCard

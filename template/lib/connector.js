@@ -1,4 +1,4 @@
-const url = "http://92.44.120.164:8090";
+const url = "http://213.14.182.224:8090";
 export function getConnectionLink(directory, paramsNames, paramsValues, requestType) {
     var link = url + "/" + directory;
     if (requestType.toUpperCase() == "GET") {

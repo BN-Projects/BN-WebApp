@@ -5,18 +5,18 @@ const success = () => {
 };
 
 const error = () => {
-  message.error('This is a message of error');
+  message.error('Hatalı Giriş');
 };
 
 const warning = () => {
-  message.warning('This is message of warning');
+  message.warning('Alan doldurulmalıdır.');
 };
 
 const Component = () => (
   <div>
-    <Button onClick={success}>Success</Button>
-    <Button onClick={error}>Error</Button>
-    <Button onClick={warning}>Warning</Button>
+    <Button onClick={success}>Başarılı</Button>
+    <Button onClick={error}>Hata</Button>
+    <Button onClick={warning}>Uyarı</Button>
   </div>
 );
 export default Component;

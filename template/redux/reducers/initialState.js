@@ -4,5 +4,6 @@ export default {
   profile: "",
   product: "",
   stock:"",
+  productadd:"",
 };
 //default parametreler oluşturuldu
