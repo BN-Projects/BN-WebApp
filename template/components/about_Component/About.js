@@ -1,79 +1,71 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import * as profileViewActions  from '../../redux/actions/profileViewActions'
-import { bindActionCreators } from "redux";
-import { Button, Col , Input, Card, Row } from 'antd';
+import React from 'react';
 
+export default class FileBase64 extends React.Component {
 
-class About extends Component {
-    constructor(){
-        super()
-        this.state = {
-            email: 'den55',
-            password: 'deneme'
+  constructor(props) {
+    super(props);
+    this.state = {
+      files: [],
+    };
+  }
+
+  handleChange(e) {
+
+    // get the files
+    let files = e.target.files;
+    // Process each file
+    var allFiles = [];
+    for (var i = 0; i < files.length; i++) {
+
+      let file = files[i];
+      console.log(file)
+      // Make new FileReader
+      let reader = new FileReader();
+
+      // Convert the file to base64 text
+      reader.readAsDataURL(file);
+
+      // on reader load somthing...
+      reader.onload = () => {
+
+        // Make a fileInfo Object
+        let fileInfo = {
+          name: file.name,
+          type: file.type,
+          size: Math.round(file.size / 1000) + ' kB',
+          base64: reader.result,
+          file: file,
         };
 
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+        // Push it to the state
+        allFiles.push(fileInfo);
 
-    componentDidMount() 
-      {
-        if(this.props.currentToken == "Default Token")
-        {
-          console.log("TOKEN YOK", this.props.currentToken )
+        // If all files have been proceed
+        if(allFiles.length == files.length){
+          console.log(allFiles)
+          // Apply Callback function
+          if(this.props.multiple)
+          { 
+            console.log(multiple)
+            this.props.onDone(allFiles)}
         }
-        else
-        {
-          console.log("TOKEN VAR", this.props.currentToken )
-        }
-      }
 
-    onSubmit = e => {
-        e.preventDefault();
-        var paramsNames=["email", "password"];
-        //console.log(this.state.email)
-        var paramsValues=[this.state.email,this.state.password];
-        //this.props.actions.loginUser("login",paramsNames,paramsValues);
-      }
+      } // reader.onload
 
-      onChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-      }
-      
+    } // for
 
-    render() {
+  }
 
-        return(
-            <div float='center'
-            >
-              <Card>
-                
-                <div>{this.props.currentToken}</div>
-                <div>{this.props.profiledata.user_real_name}</div>
-                <div>{this.props.profiledata.user_surname}</div>
-                <div>{this.props.profiledata.user_password}</div>
-                <div>{this.props.profiledata.user_img}</div>
-                </Card>
-            </div>                        
-        )
-    }
+  render() {
+    return (
+      <input
+        type="file"
+        onChange={ this.handleChange.bind(this) }
+        multiple={ this.props.multiple } />
+    );
+  }
 }
 
-function mapStateToProps(state) {
-    return {
-        currentToken : state.authReducer,
-        profiledata : state.profileViewReducer,
-    };
-  }
-function mapDispatchToProps(dispatch) {
-    return {
-      actions: {
-        profilePage: bindActionCreators(profileViewActions.ProfileInformation, dispatch)
-      }
-    };
-  }
-  //actions aldik
-
-export default connect(mapStateToProps, mapDispatchToProps)(About);
+FileBase64.defaultProps = {
+  multiple: false,
+};

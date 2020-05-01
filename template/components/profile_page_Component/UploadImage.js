@@ -17,7 +17,7 @@ class UploadImage extends React.Component {
     const props = {
       name: 'file',
       multiple: true,
-      action: '//jsonplaceholder.typicode.com/posts/',
+      action: '../',
       onChange(info) {
         const status = info.file.status;
         if (status !== 'uploading') {

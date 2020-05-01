@@ -48,6 +48,7 @@ class ProductOne extends Component {
         "POST"
       );
       this.props.actions.ProductPage(obj);
+      console.log(obj)
       console.log(this.props.product_data);
       this.props.product_data;
     } else {

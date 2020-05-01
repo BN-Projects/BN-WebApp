@@ -18,17 +18,18 @@ import ModalLogin from "./sign_in_sign_up_Component/login-form"; //
 import Link from "next/link";
 import MockNotifications from "../demos/mock/notifications";
 import { useAppState } from "./shared/AppProvider";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import ProfileSettings from "./profile_page_Component/ProfileSettings";
-
 //react hooks
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../redux/actions/authActions";
 import { getConnectionLink } from "../lib/connector";
+
 import { ProfileInformation } from "../redux/actions/profileViewActions";
+import { logoutUser } from "../redux/actions/logoutActions";
 
 const MenuItemGroup = Menu.ItemGroup;
 const { SubMenu } = Menu;
@@ -44,26 +45,27 @@ const MainHeader = () => {
 
   const dispat = useDispatch();
 
-  if ((token != "") && !loading) {
+  if (token != "" && !loading) {
     var paramsNames = ["token", "tokenType"];
     var paramsValues = [token, "web"];
-    var obj = getConnectionLink(
-      "profile",
-      paramsNames,
-      paramsValues,
-      "POST"
-    );
+    var obj = getConnectionLink("profile", paramsNames, paramsValues, "PUT");
     dispat(ProfileInformation(obj));
     console.log(profile);
     setloading(true);
-    }
-  
+  }
+
+  function logout() {
+    dispat(logoutUser());
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 500);
+  }
   function hasToken() {
-    if (profile != "") { 
+    if (profile != "") {
       return (
         <Menu.Item>
-          <Link href="logout">
-            <a>ÇIKIŞ YAP</a>
+          <Link href="">
+            <a onClick={() => logout()}>ÇIKIŞ YAP</a>
           </Link>
         </Menu.Item>
       );
@@ -126,13 +128,7 @@ const MainHeader = () => {
           </Menu.Item>
           <Menu.Item style={{ height: "100%" }}>
             <List.Item>
-              <List.Item.Meta
-                title={
-                  <a href="#">
-                    <Settings size={16} /> Ayarlarım
-                  </a>
-                }
-              />
+              <ProfileSettings />
             </List.Item>
           </Menu.Item>
           <Menu.Item style={{ height: "100%" }}>
@@ -221,39 +217,16 @@ const MainHeader = () => {
 
           {!state.mobile && (
             <Menu.Item>
+              <Link href="about">
+                <a>HAKKIMIZDA</a>
+              </Link>
+            </Menu.Item>
+          )}
+
+          {!state.mobile && (
+            <Menu.Item>
               <Link href="contact">
                 <a>İLETİŞİM</a>
-              </Link>
-            </Menu.Item>
-          )}
-
-          {!state.mobile && (
-            <Menu.Item>
-              <Link href="productadd">
-                <a>Ürün Ekleme</a>
-              </Link>
-            </Menu.Item>
-          )}
-
-          {!state.mobile && (
-            <Menu.Item>
-              <Link href="stocks">
-                <a>STOK GÖRÜNTÜLEME</a>
-              </Link>
-            </Menu.Item>
-          )}
-
-          {!state.mobile && (
-            <Menu.Item>
-              <Link href="about">
-                <a>{token}</a>
-              </Link>
-            </Menu.Item>
-          )}
-          {!state.mobile && (
-            <Menu.Item>
-              <Link href="about">
-                <ProfileSettings />
               </Link>
             </Menu.Item>
           )}
@@ -319,6 +292,6 @@ const mapStateToProps = (state) => ({
   profile: state.profileViewReducer,
 });
 
-const mapDispatchToProps = { loginUser, ProfileInformation };
+const mapDispatchToProps = { loginUser, ProfileInformation, logoutUser };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainHeader);

@@ -24,7 +24,6 @@ export function ProfileInformation(obj) {
         console.log("basarili")
       } else {
         error();
-        Router.push("/homepage")
       }
     });
   };

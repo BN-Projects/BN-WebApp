@@ -3,7 +3,8 @@ export default {
   register: "",
   profile: "",
   product: "",
-  stock:"",
-  productadd:"",
+  stock: "",
+  productadd: "",
+  profileedit: "",
 };
 //default parametreler oluşturuldu
