@@ -79,6 +79,35 @@ const MainHeader = () => {
       );
     }
   }
+
+  function hasTokenBottom()
+  {
+    if (profile != "") {
+      return (
+        <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
+              <Menu.Item>
+                <User />
+              </Menu.Item>
+              <Menu.Item style={{paddingTop:"10px"}}>
+                <ProfileSettings />
+              </Menu.Item>
+              <Menu.Item>
+                <Link href="">
+                <a onClick={() => logout()}>ÇIKIŞ YAP</a>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+      );
+    } else {
+      return (
+        <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
+        <Menu.Item>
+          <ModalLogin />
+        </Menu.Item>
+        </SubMenu>  
+      );
+    }
+  }
   function hasProfile() {
     if (profile != "") {
       return (
@@ -268,21 +297,7 @@ const MainHeader = () => {
 
           {!state.mobile && hasToken()}
 
-          {state.mobile && (
-            <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
-              <Menu.Item>
-                <User />
-              </Menu.Item>
-              <Menu.Item>
-                <ProfileSettings />
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="logout">
-                  <a>ÇIKIŞ YAP</a>
-                </Link>
-              </Menu.Item>
-            </SubMenu>
-          )}
+          {state.mobile && hasTokenBottom()}
         </Menu>
       </Header>
     </DashHeader>

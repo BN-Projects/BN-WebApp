@@ -124,58 +124,40 @@ const CustomizedForm = Form.create({
     if (!err) {
       //console.log(props.old_image.value)
       var allFiles = [];
-    //   if (values.dragger[0] != null || values.dragger[0] != undefined) {
-    //     let file = values.dragger[0].originFileObj;
-    //     console.log(file);
+      if (values.dragger[0] != null || values.dragger[0] != undefined) {
+        let file = values.dragger[0].originFileObj;
+        console.log(file);
 
-    //     let reader = new FileReader();
-    //     // Convert the file to base64 text
+        let reader = new FileReader();
+        // Convert the file to base64 text
 
-    //     reader.readAsDataURL(file);
-    //     // on reader load somthing...
+        reader.readAsDataURL(file);
+        // on reader load somthing...
 
-    //     reader.onload = () => {
-    //       // Make a fileInfo Object
+        reader.onload = () => {
+          // Make a fileInfo Object
           
-    //       let fileInfo = {
-    //         name: file.name,
-    //         type: file.type,
-    //         size: Math.round(file.size / 1000) + " kB",
-    //         base64: reader.result.replace(/^data:image.+;base64,/,''),
-    //         file: file,
-    //         desc: file.name.split(/\.(?=[^\.]+$)/)
-    //       };
-    //       // Push it to the state
-    //       allFiles.push(fileInfo);
+          let fileInfo = {
+            name: file.name,
+            type: file.type,
+            size: Math.round(file.size / 1000) + " kB",
+            base64: reader.result.replace(/^data:image.+;base64,/,''),
+            file: file,
+            desc: file.name.split(/\.(?=[^\.]+$)/)
+          };
+          // Push it to the state
+          allFiles.push(fileInfo);
 
-    //       //updateProfile
-    //       // console.log(values.realname)
-    //       // console.log(values.surname)
-    //       // console.log(values.phone)
-    //       // console.log(values.email)
-    //       // console.log(allFiles[0].base64)
-    //       // console.log(allFiles[0].desc[1])
-    //       // console.log(props.user_id.value)
-    //       var imgBase64 = allFiles[0].base64; 
-    //       var imgDesc =  allFiles[0].desc[1]
-    //       var id = props.user_id.value;
-    //       var paramsNames = ["email", "name","surname","phone","img","imgDesc","id"];
-    //       //console.log(this.state.email)
-    //       var paramsValues = [values.email, values.realname, values.surname, values.phone , imgBase64, imgDesc, id];
-    //       //console.log(email.value);
-    //       var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "PUT");
-    //       console.log(obj)
-    //       props.profileEditPage(obj);
-          
-    //     };
-    //   }
-    //   else
-    //   {
-    //     error1(); //onceki resimin base64 yollancak ?? xD
-    //   }
-    // } 
-          var imgBase64 = "";
-          var imgDesc = "";
+          //updateProfile
+          // console.log(values.realname)
+          // console.log(values.surname)
+          // console.log(values.phone)
+          // console.log(values.email)
+          // console.log(allFiles[0].base64)
+          // console.log(allFiles[0].desc[1])
+          // console.log(props.user_id.value)
+          var imgBase64 = allFiles[0].base64; 
+          var imgDesc =  allFiles[0].desc[1]
           var id = props.user_id.value;
           var paramsNames = ["email", "name","surname","phone","img","imgDesc","id"];
           //console.log(this.state.email)
@@ -184,7 +166,14 @@ const CustomizedForm = Form.create({
           var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "PUT");
           console.log(obj)
           props.profileEditPage(obj);
-    }
+          
+        };
+      }
+      else
+      {
+        error1(); //onceki resimin base64 yollancak ?? xD
+      }
+    } 
     else 
     {
       error2();
