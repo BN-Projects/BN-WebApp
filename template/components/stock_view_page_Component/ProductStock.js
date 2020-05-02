@@ -1,4 +1,4 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row,message} from "antd";
 import { Button } from "antd";
 import React, { Component } from "react";
 import Media from "react-media";
@@ -8,7 +8,11 @@ import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/authActions";
 import { bindActionCreators } from "redux";
 import * as stockViewActions from "../../redux/actions/stockViewActions";
-
+import * as profileViewActions  from '../../redux/actions/profileViewActions'
+import Router from "next/router"
+const error = () => {
+  message.error("Bu sayfaya girme iznine sahip değilsiniz");
+};
 
 class ProductStock extends Component {
   constructor(props) {
@@ -19,7 +23,15 @@ class ProductStock extends Component {
     };
   }
 
+  
   componentDidMount() {
+    setTimeout(() => {
+      if(this.props.profiledata.role_lvl !=5)
+      {
+        error();
+        Router.push("/homepage") 
+      }
+    }, 700);
     if (this.props.currentToken != "") {
       if (this.props.stock_data == "") {
         var paramsNames = ["token"];
@@ -110,7 +122,8 @@ class ProductStock extends Component {
 function mapStateToProps(state) {
   return {
     stock_data: state.stockViewReducer,
-    currentToken: state.authReducer
+    currentToken: state.authReducer,
+    profiledata : state.profileViewReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -120,7 +133,8 @@ function mapDispatchToProps(dispatch) {
         stockViewActions.StockViewPage,
         dispatch
       ),
-      loginUser: bindActionCreators(authActions.loginUser, dispatch)
+      loginUser: bindActionCreators(authActions.loginUser, dispatch),
+      profilePage: bindActionCreators(profileViewActions.ProfileInformation, dispatch), 
     }
   };
 }

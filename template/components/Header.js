@@ -12,6 +12,7 @@ import {
   LogOut,
   Key,
   HelpCircle,
+  MessageCircle
 } from "react-feather";
 import DashHeader, { Notification } from "./styles/Header";
 import ModalLogin from "./sign_in_sign_up_Component/login-form"; //
@@ -48,7 +49,7 @@ const MainHeader = () => {
   if (token != "" && !loading) {
     var paramsNames = ["token", "tokenType"];
     var paramsValues = [token, "web"];
-    var obj = getConnectionLink("profile", paramsNames, paramsValues, "PUT");
+    var obj = getConnectionLink("profile", paramsNames, paramsValues, "POST");
     dispat(ProfileInformation(obj));
     console.log(profile);
     setloading(true);
@@ -74,13 +75,14 @@ const MainHeader = () => {
         <Menu.Item>
           <ModalLogin />
         </Menu.Item>
+        
       );
     }
   }
   function hasProfile() {
     if (profile != "") {
       return (
-        <SubMenu title={<Avatar src="/static/images/face3.jpg" />}>
+        <SubMenu title={<Avatar src={profile.user_img} />}>
           <Menu.Item style={{ height: "100%" }}>
             <List
               itemLayout="horizontal"
@@ -89,7 +91,7 @@ const MainHeader = () => {
                 <Notification>
                   <List.Item>
                     <List.Item.Meta
-                      avatar={item.avatar}
+                      avatar={<Avatar size="large" src={profile.user_img}/>}
                       title={
                         <a href="javascript:;">
                           {profile.user_real_name} {profile.user_surname}
@@ -120,7 +122,7 @@ const MainHeader = () => {
               <List.Item.Meta
                 title={
                   <a href="#">
-                    <HelpCircle size={16} /> Yardım
+                    <MessageCircle size={16} /> Özel Mesajlarım
                   </a>
                 }
               />
@@ -147,7 +149,7 @@ const MainHeader = () => {
             <List.Item>
               <List.Item.Meta
                 title={
-                  <a href="#">
+                  <a onClick={() => logout()}>
                     <LogOut size={16} /> Çıkış
                   </a>
                 }

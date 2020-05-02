@@ -6,7 +6,8 @@ import {
   Input,
   Row,
   Select,
-  Card
+  Card,
+  message
 } from 'antd';
 import PropTypes from "prop-types";
 import { getConnectionLink } from "../../lib/connector";
@@ -16,6 +17,10 @@ import { bindActionCreators } from "redux";
 import * as productAddActions from '../../redux/actions/productAddActions'
 import * as profileViewActions  from '../../redux/actions/profileViewActions'
 import Router from "next/router";
+
+const error = () => {
+  message.error("Bu sayfaya girme iznine sahip değilsiniz");
+};
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -27,16 +32,26 @@ const ProductForm = Form.create()(
         this.state = {
             device:"",
             loaded: false,
+            product: "",
         };
     }
-    componentDidMount() 
+    componentDidMount()
     {
+      setTimeout(() => {
+        if(this.props.profiledata.role_lvl !=5)
+        {
+          error();
+          Router.push("/homepage") 
+        }
+      }, 700);
     }
-    componentDidUpdate() 
-    {
-     
+    componentDidUpdate() {
+      // setTimeout(() => {
+      //   console.log(product)
+      // }, 500);
     }
-   
+
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -49,11 +64,11 @@ const ProductForm = Form.create()(
             }
         });
     };
-  
+
     render() {
         const { getFieldDecorator } = this.props.form;
         const { autoCompleteResult } = this.state;
-    
+
         const formItemLayout = {
           labelCol: {
             xs: { span: 24 },
@@ -153,8 +168,8 @@ const ProductForm = Form.create()(
                             </Row>
                         </Card>
                     </div>
-  
-  
+
+
         );
     }
   }
@@ -168,7 +183,7 @@ class ProductsAdd extends React.Component{
       currentToken = {this.props.currentToken}
       profiledata  = {this.props.profiledata}
     >
-      
+
     </ProductForm>);
     }
 }

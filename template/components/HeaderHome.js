@@ -12,6 +12,7 @@ import {
   LogOut,
   Key,
   HelpCircle,
+  MessageCircle
 } from "react-feather";
 import DashHeader, { Notification } from "./styles/Header";
 import ModalLogin from "./sign_in_sign_up_Component/login-form"; //
@@ -81,7 +82,7 @@ const MainHeader = () => {
   function hasProfile() {
     if (profile != "") {
       return (
-        <SubMenu title={<Avatar src="/static/images/face3.jpg" />}>
+        <SubMenu title={<Avatar src={profile.user_img} />}>
           <Menu.Item style={{ height: "100%" }}>
             <List
               itemLayout="horizontal"
@@ -90,7 +91,7 @@ const MainHeader = () => {
                 <Notification>
                   <List.Item>
                     <List.Item.Meta
-                      avatar={item.avatar}
+                      avatar={<Avatar size="large" src={profile.user_img}/>}
                       title={
                         <a href="javascript:;">
                           {profile.user_real_name} {profile.user_surname}
@@ -121,7 +122,7 @@ const MainHeader = () => {
               <List.Item.Meta
                 title={
                   <a href="#">
-                    <HelpCircle size={16} /> Yardım
+                    <MessageCircle size={16} /> Özel Mesajlarım
                   </a>
                 }
               />
