@@ -1,4 +1,15 @@
-import { Avatar, Badge, Layout, List, Menu, Col, Row } from "antd";
+import {
+  Avatar,
+  Badge,
+  Layout,
+  List,
+  Menu,
+  Col,
+  Row,
+  Button,
+  message,
+  notification,
+} from "antd";
 import {
   BarChart,
   Bell,
@@ -12,7 +23,8 @@ import {
   LogOut,
   Key,
   HelpCircle,
-  MessageCircle
+  MessageCircle,
+  ShoppingBag
 } from "react-feather";
 import DashHeader, { Notification } from "./styles/Header";
 import ModalLogin from "./sign_in_sign_up_Component/login-form"; //
@@ -31,7 +43,13 @@ import { getConnectionLink } from "../lib/connector";
 
 import { ProfileInformation } from "../redux/actions/profileViewActions";
 import { logoutUser } from "../redux/actions/logoutActions";
+import { removeFromCart } from "../redux/actions/cartActions";
+import styled from 'styled-components'
 
+
+//import { logoutUser } from "../redux/actions/logoutActions";
+
+import CardSummary from "./shopping_card_Component/CardSummary";
 const MenuItemGroup = Menu.ItemGroup;
 const { SubMenu } = Menu;
 const { Header } = Layout;
@@ -43,6 +61,8 @@ const MainHeader = () => {
 
   const token = useSelector((state) => state.authReducer);
   const profile = useSelector((state) => state.profileViewReducer);
+
+  const cart = useSelector((state) => state.cartReducer);
 
   const dispat = useDispatch();
 
@@ -75,36 +95,77 @@ const MainHeader = () => {
         <Menu.Item>
           <ModalLogin />
         </Menu.Item>
-        
       );
     }
   }
 
-  function hasTokenBottom()
-  {
+  function removeCart(product) {
+    dispat(removeFromCart(product));
+    message.error(product.product_name + " Başarıyla Silindi");
+    notification['error']({
+      message: (product.product_name + " Başarıyla Silindi"),
+      placement: 'bottomRight'
+    });
+    console.log(product);
+  }
+
+
+  function shoppingMenu() {
+    console.log(cart);
+    return (
+      <SubMenu title={<ShoppingCart size={20} strokeWidth={1} />} >
+        <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
+          Sepet Listesi
+        </Menu.Item>
+        <Menu.Divider />
+        {cart.map((cartItem) => (
+          <Menu.Item 
+            key={cartItem.product.product_id}
+            style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff" }}
+          >
+            <Button type="danger" onClick={() => removeCart(cartItem.product)}>
+              X
+            </Button>{" "}
+            {cartItem.product.product_name} ({cartItem.quantity} Adet)
+          </Menu.Item>
+        ))}
+        <Menu.Divider />
+        <Menu.Item style={{ width: "100%", height: "100%", backgroundColor:"#ffffff", textAlign:"center" }}>
+          <a><ShoppingBag size="16px"/> Sepetime git</a>
+        </Menu.Item>
+      </SubMenu>
+    );
+  }
+
+  function emptyCard() {
+    return (
+      <SubMenu title={<a href="/products" style={{color:"rgba(0, 0, 0, 0.65)"}}><ShoppingCart size={20} strokeWidth={1} /></a>}></SubMenu>
+    );
+  }
+  function hasTokenBottom() {
     if (profile != "") {
       return (
         <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
-              <Menu.Item>
-                <User />
-              </Menu.Item>
-              <Menu.Item style={{paddingTop:"10px"}}>
-                <ProfileSettings />
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="">
-                <a onClick={() => logout()}>ÇIKIŞ YAP</a>
-                </Link>
-              </Menu.Item>
-            </SubMenu>
+          {cart.length > 0 ? shoppingMenu() : emptyCard()}
+          <Menu.Item style={{ paddingTop: "10px" }}>
+            <ProfileSettings />
+          </Menu.Item>
+          <Menu.Item>
+            <Link href="">
+              <a onClick={() => logout()}>
+                <LogOut size={16} /> ÇIKIŞ YAP
+              </a>
+            </Link>
+          </Menu.Item>
+        </SubMenu>
       );
     } else {
       return (
         <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
-        <Menu.Item>
-          <ModalLogin />
-        </Menu.Item>
-        </SubMenu>  
+          <Menu.Item>
+            <ModalLogin />
+          </Menu.Item>
+        </SubMenu>
       );
     }
   }
@@ -120,7 +181,7 @@ const MainHeader = () => {
                 <Notification>
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar size="large" src={profile.user_img}/>}
+                      avatar={<Avatar size="large" src={profile.user_img} />}
                       title={
                         <a href="javascript:;">
                           {profile.user_real_name} {profile.user_surname}
@@ -199,13 +260,11 @@ const MainHeader = () => {
       profile.role_lvl == 4 ||
       profile.role_lvl == 5
     ) {
-      return (
-        <Menu.Item>
-          <Link href="/homepage">
-            <ShoppingCart />
-          </Link>
-        </Menu.Item>
-      );
+      if (cart.length != 0) {
+        return shoppingMenu();
+      } else {
+        return emptyCard();
+      }
     } else {
       return null;
     }
@@ -307,8 +366,14 @@ const MainHeader = () => {
 const mapStateToProps = (state) => ({
   currentToken: state.authReducer,
   profile: state.profileViewReducer,
+  cart: state.cartReducer,
 });
 
-const mapDispatchToProps = { loginUser, ProfileInformation, logoutUser };
+const mapDispatchToProps = {
+  loginUser,
+  ProfileInformation,
+  logoutUser,
+  removeFromCart,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainHeader);

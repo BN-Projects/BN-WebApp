@@ -9,7 +9,9 @@ import * as authActions from "../../redux/actions/authActions";
 import { bindActionCreators } from "redux";
 import * as stockViewActions from "../../redux/actions/stockViewActions";
 import * as profileViewActions  from '../../redux/actions/profileViewActions'
+
 import Router from "next/router"
+
 const error = () => {
   message.error("Bu sayfaya girme iznine sahip değilsiniz");
 };

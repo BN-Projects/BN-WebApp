@@ -6,5 +6,6 @@ export default {
   stock: "",
   productadd: "",
   profileedit: "",
+  cart:[],
 };
 //default parametreler oluşturuldu

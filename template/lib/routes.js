@@ -29,11 +29,11 @@ export default [
     icon: <MessageCircle strokeWidth={1} size={16} />,
     children: [
       {
-        path: '/productadd',
+        path: '/products',
         name: 'Ürün Görüntüleme & Satış'
       },
       {
-        path: '/products',
+        path: '/productadd',
         name: 'Ürün Ekleme'
       },
     ]

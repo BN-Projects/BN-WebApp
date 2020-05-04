@@ -19,8 +19,8 @@ class Shopping_Card extends Component {
                 <Col lg={8} md={16}>
                    
                         <h3 style={{ marginBottom:'20px'}}>Fatura Bilgileri</h3>
-                        <label>İsim:</label>
-                        <Input style={{ marginBottom:'20px'}} placeholder="İsim " />
+                        <Col md={4} lg={6}><label>İsim:</label></Col>
+                        <Col md={20} lg={18}> <Input style={{ marginBottom:'20px'}} placeholder="İsim " /></Col>
                         <label>Adres:</label>
                         <Input style={{ marginBottom:'20px'}} placeholder="Adres " />
                         <label>Ülke:</label>

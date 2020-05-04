@@ -10,6 +10,7 @@ import {
   Upload,
   Icon,
 } from "antd";
+import { Image } from "react-feather"
 import { Eye, Mail, Triangle, User } from "react-feather";
 import Link from "next/link";
 import Router from "next/router";
@@ -51,10 +52,6 @@ const CustomizedForm = Form.create({
       surname: Form.createFormField({
         ...props.surname,
         value: props.surname.value,
-      }),
-      email: Form.createFormField({
-        ...props.email,
-        value: props.email.value,
       }),
       phone: Form.createFormField({
         ...props.phone,
@@ -159,19 +156,28 @@ const CustomizedForm = Form.create({
           var imgBase64 = allFiles[0].base64; 
           var imgDesc =  allFiles[0].desc[1]
           var id = props.user_id.value;
-          var paramsNames = ["email", "name","surname","phone","img","imgDesc","id"];
+          var paramsNames = [ "name","surname","phone","img","imgDesc","id"];
           //console.log(this.state.email)
-          var paramsValues = [values.email, values.realname, values.surname, values.phone , imgBase64, imgDesc, id];
+          var paramsValues = [ values.realname, values.surname, values.phone , imgBase64, imgDesc, id];
           //console.log(email.value);
-          var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "PUT");
-          console.log(obj)
+          var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "POST");
           props.profileEditPage(obj);
-          
+          window.location.reload(false);
         };
       }
       else
       {
-        error1(); //onceki resimin base64 yollancak ?? xD
+        var imgBase64 = null;
+        var imgDesc =  null;
+        var id = props.user_id.value;
+        var paramsNames = [ "name","surname","phone","img","imgDesc","id"];
+        //console.log(this.state.email)
+        var paramsValues = [ values.realname, values.surname, values.phone , imgBase64, imgDesc, id];
+        //console.log(email.value);
+        var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "POST");
+        props.profileEditPage(obj);
+        console.log(paramsValues)
+        window.location.reload(false);
       }
     } 
     else 
@@ -239,32 +245,7 @@ const CustomizedForm = Form.create({
           />
         )}
       </FormItem>
-      <FormItem label="Email Adresi">
-        {getFieldDecorator("email", {
-          rules: [
-            {
-              required: true,
-              message: "Email alanı boş bırakılamaz.",
-            },
-            {
-              pattern: "^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]{2}$",
-              message: "Email geçersiz",
-            },
-          ],
-        })(
-          <Input
-            prefix={
-              <Mail
-                size={16}
-                strokeWidth={1}
-                style={{ color: "rgba(0,0,0,.25)" }}
-              />
-            }
-            type="mail"
-            placeholder="Email"
-          />
-        )}
-      </FormItem>
+      
       <FormItem label="Telefon Numarası">
         {getFieldDecorator("phone", {
           rules: [
@@ -292,7 +273,7 @@ const CustomizedForm = Form.create({
           />
         )}
       </FormItem>
-      <FormItem label="Dragger">
+      <FormItem label="Resim Yükle">
         <div className="dropbox">
           {getFieldDecorator("dragger", {
             valuePropName: "fileList",
@@ -300,13 +281,13 @@ const CustomizedForm = Form.create({
           })(
             <Upload.Dragger name="files">
               <p className="ant-upload-drag-icon">
-                <Icon type="inbox" />
+                <Image size="30px" color="#007bff"/>
               </p>
               <p className="ant-upload-text">
-                Click or drag file to this area to upload
+                Tıklayarak veya sürükleyerek resim yükle
               </p>
               <p className="ant-upload-hint">
-                Support for a single or bulk upload.
+                (Opsiyonel)
               </p>
             </Upload.Dragger>
           )}
@@ -336,9 +317,6 @@ class ProfileSettingsModal extends React.Component {
         },
         surname: {
           value: this.props.profilData.user_surname,
-        },
-        email: {
-          value: this.props.profilData.user_mail,
         },
         phone: {
           value: this.props.profilData.user_phone,

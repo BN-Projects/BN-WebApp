@@ -11,6 +11,8 @@ import productAddReducer from "./productAddReducer"
 
 import stockViewReducer from "./stockViewReducer";
 
+import cartReducer from "./cartReducer";
+
 const rootReducer = combineReducers({
   authReducer,
   registerReducer,
@@ -19,6 +21,7 @@ const rootReducer = combineReducers({
   productlistReducer,
   stockViewReducer,
   productAddReducer,
+  cartReducer,
 });
 
 export default rootReducer;

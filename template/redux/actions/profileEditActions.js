@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import putProfile from "../../lib/api/putProfile";
+import postProfile from "../../lib/api/postProfile";
 
 
 export const profileEdit = profileData => {
@@ -11,7 +11,7 @@ export const profileEdit = profileData => {
 
 export function profileEditPage(obj) {
   return function(dispatch) {
-    putProfile(obj).then(res => {
+    postProfile(obj).then(res => {
       dispatch(profileEdit(res));
       if (res != "") {
         console.log("neyi başardın")
