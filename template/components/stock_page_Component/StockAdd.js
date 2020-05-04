@@ -6,7 +6,8 @@ import {
     Input,
     Row,
     Select,
-    Card
+    Card,
+    message
 } from 'antd';
 import PropTypes from "prop-types";
 import { getConnectionLink } from "../../lib/connector";
@@ -14,7 +15,8 @@ import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/authActions";
 import { bindActionCreators } from "redux";
 import * as addDeviceActions from "../../redux/actions/addDeviceActions";
-
+import * as profileViewActions  from '../../redux/actions/profileViewActions'
+import Router from "next/router"
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
@@ -28,11 +30,20 @@ const ProductForm = Form.create()(
         };
     }
     componentDidMount() {
+        // setTimeout(() => {
+        //     console.log(this.props.profile_data)
+        //     // if(this.props.profiledata.role_lvl !=5)
+        //     // {
+        //     //   error();
+        //     //   Router.push("/homepage") 
+        //     // }
+        //   }, 700);
+          if(this.props.currentToken != "") {
         if (this.props.device_data == "") {
             var paramsNames = [];
             var paramsValues = [];
             var obj = getConnectionLink(
-                "adddevice",
+                "addbeacon",
                 paramsNames,
                 paramsValues,
                 "POST"
@@ -45,7 +56,41 @@ const ProductForm = Form.create()(
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
                 console.log(this.state.devices);
             });
+
         }
+    }
+    else
+    {
+        if (this.props.device_data == "") {
+            var paramsNames = [];
+            var paramsValues = [];
+            var obj = getConnectionLink(
+                "addbeacon",
+                paramsNames,
+                paramsValues,
+                "POST"
+            );
+            this.props.actions.addDevicePage(obj);
+            console.log(this.props.device_data);
+            this.props.device_data;
+        }
+        setTimeout(() => {
+            console.log(this.props.profiledata)
+            if(this.props.currentToken == "")
+            {
+            Router.push("/homepage")
+            message.error("Lütfen giriş yapınız")
+            }
+            else
+            {
+                if(this.props.profiledata.role_lvl != 5)
+                {
+                    Router.push("/homepage")
+                }
+            }
+            }, 600);
+        
+    }
     }
     componentDidUpdate() {
         if (this.props.device_data != "" && !this.state.loaded) {
@@ -63,10 +108,10 @@ const ProductForm = Form.create()(
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-              var paramsNames = ["uuid", "major", "minor", "token"];
-              var paramsValues = [uuid.value, major.value, minor.value,this.props.currentToken];
+              var paramsNames = ["type","uuid", "major", "minor", "token"];
+              var paramsValues = [values.type,uuid.value, major.value, minor.value,this.props.currentToken];
               console.log(this.props.currentToken);
-              var obj = getConnectionLink("adddevice", paramsNames, paramsValues, "POST");
+              var obj = getConnectionLink("addbeacon", paramsNames, paramsValues, "POST");
               this.props.addDevicePage(obj);
             }
         });
@@ -122,6 +167,21 @@ const ProductForm = Form.create()(
                             <Row>
                                 <Col sm={16}>
                                 <Form onSubmit={this.handleSubmit}>
+                                <FormItem label="Ürün Tipi:" {...formItemLayout} hasFeedback>
+                                            {getFieldDecorator('type', {
+                                                rules: [
+                                                    {
+                                                        required: true,
+                                                        message: "Ürün Tipi boş bırakılamaz"
+                                                    }
+                                                ]
+                                            })( <Select name="type" placeholder="Ürün Tipini Seçiniz." >
+                                            <Option value="1">Tasma</Option>
+                                            <Option value="2">Bileklik</Option>
+                                            <Option value="3">Anahtarlık</Option>
+                                            <Option value="4">Kalemlik</Option>
+                                          </Select>)}
+                                        </FormItem>
                             <FormItem label="UUID" {...formItemLayout} >
                                 {getFieldDecorator('uuid', {
                                     rules: [
@@ -173,6 +233,7 @@ class ProductsAdd extends React.Component{
     <ProductForm
         addDevicePage = {this.props.actions.addDevicePage}
       currentToken = {this.props.currentToken}
+      profiledata = {this.props.profile_data}
     >
       
     </ProductForm>);
@@ -182,115 +243,16 @@ class ProductsAdd extends React.Component{
 function mapStateToProps(state) {
   return {
       device_data: state.addDeviceReducer,
-      currentToken: state.authReducer
-  };
+      currentToken: state.authReducer,
+      profile_data : state.profileViewReducer,
+    };
 }
 function mapDispatchToProps(dispatch) {
   return {
       actions: {
         addDevicePage: bindActionCreators(addDeviceActions.addDevicePage, dispatch),
+        profilePage: bindActionCreators(profileViewActions.ProfileInformation, dispatch), 
       }
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsAdd);
-/*
-import {
-    AutoComplete,
-    Button,
-    Col,
-    Form,
-    Input,
-    Row,
-    Select,
-    Card
-} from 'antd';
-
-const FormItem = Form.Item;
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
-
-
-class AddDevices extends React.Component {
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    };
-
-    render() {
-        const { getFieldDecorator } = this.props.form;
-
-        const formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 }
-            },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 16 }
-            }
-        };
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                    span: 24,
-                    offset: 0
-                },
-                sm: {
-                    span: 16,
-                    offset: 8
-                }
-            }
-        };
-
-        return (
-            <Card title="CİHAZ EKLE" >
-                <Row>
-                    <Col sm={16}>
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormItem label="UUID" {...formItemLayout} >
-                                {getFieldDecorator('UUID', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: "UUID degeri boş bırakılamaz"
-                                        }
-                                    ]
-                                })(<Input placeholder="UUID değerini giriniz." />)}
-                            </FormItem>
-                            <FormItem label="MAJOR:" {...formItemLayout} >
-                                {getFieldDecorator('MAJOR', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: "MAJOR degeri boş bırakılamaz"
-                                        }
-                                    ]
-                                })(<Input placeholder="MAJOR değerini giriniz." />)}
-                            </FormItem>
-                            <FormItem label="MINOR" {...formItemLayout} >
-                                {getFieldDecorator('MINOR', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: "MINOR degeri boş bırakılamaz"
-                                        }
-                                    ]
-                                })(<Input placeholder="MINOR değerini giriniz." />)}
-                            </FormItem>
-                            <FormItem {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit" > Cihaz Ekle </Button>
-                            </FormItem>
-                        </Form>
-                    </Col>
-                </Row>
-            </Card>
-        );
-    }
-}
-export default Form.create()(AddDevices);
-*/

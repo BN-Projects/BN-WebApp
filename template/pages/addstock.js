@@ -1,4 +1,4 @@
-import AddDevices from '../components/stock_view_page_Component/StockAdd';
+import AddDevices from '../components/stock_page_Component/StockAdd';
 import React, { Component } from "react";
 
 class Addstock extends React.Component {
