@@ -1,4 +1,4 @@
-/*import {
+import {
     AutoComplete,
     Button,
     Col,
@@ -18,8 +18,8 @@ import * as addDeviceActions from "../../redux/actions/addDeviceActions";
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
-
-class AddDevice extends React.Component {
+const ProductForm = Form.create()(
+  class  extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +32,7 @@ class AddDevice extends React.Component {
             var paramsNames = [];
             var paramsValues = [];
             var obj = getConnectionLink(
-                "devices",
+                "adddevice",
                 paramsNames,
                 paramsValues,
                 "POST"
@@ -42,7 +42,7 @@ class AddDevice extends React.Component {
             this.props.device_data;
         }
         else {
-            this.setState({ products: this.props.device_data, loaded: true }, function () {
+            this.setState({ devices: this.props.device_data, loaded: true }, function () {
                 console.log(this.state.devices);
             });
         }
@@ -51,24 +51,27 @@ class AddDevice extends React.Component {
         if (this.props.device_data != "" && !this.state.loaded) {
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
                 console.log(this.state.devices);
-
+  
             });
         }
     }
-
-    onChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-
+   
+    
+ 
+  
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+              var paramsNames = ["uuid", "major", "minor", "token"];
+              var paramsValues = [uuid.value, major.value, minor.value,this.props.currentToken];
+              console.log(this.props.currentToken);
+              var obj = getConnectionLink("adddevice", paramsNames, paramsValues, "POST");
+              this.props.addDevicePage(obj);
             }
         });
     };
-
+  
     render() {
         const { getFieldDecorator } = this.props.form;
         const { autoCompleteResult } = this.state;
@@ -83,6 +86,16 @@ class AddDevice extends React.Component {
             sm: { span: 16 }
           }
         };
+        const formItemSelectLayout = {
+            labelCol: {
+              xs: { span: 24 },
+              sm: { span: 10 }
+            },
+            wrapperCol: {
+              xs: { span: 24 },
+              sm: { span: 10 }
+            }
+          };
         const tailFormItemLayout = {
           wrapperCol: {
             xs: {
@@ -103,77 +116,84 @@ class AddDevice extends React.Component {
             <Option value="87">+87</Option>
           </Select>
         );
-    
-        const websiteOptions = autoCompleteResult.map(website => (
-          <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-        ));
-    
         return (
             <div>
                         <Card title="CİHAZ EKLE" >
                             <Row>
                                 <Col sm={16}>
-                                    <Form onSubmit={this.handleSubmit}>
-                                        <FormItem label="UUID" {...formItemLayout} >
-                                            {getFieldDecorator('UUID', {
-                                                rules: [
-                                                    {
-                                                        required: true,
-                                                        message: "UUID degeri boş bırakılamaz"
-                                                    }
-                                                ]
-                                            })(<Input placeholder="UUID değerini giriniz." />)}
-                                        </FormItem>
-                                        <FormItem label="MAJOR:" {...formItemLayout} >
-                                            {getFieldDecorator('MAJOR', {
-                                                rules: [
-                                                    {
-                                                        required: true,
-                                                        message: "MAJOR degeri boş bırakılamaz"
-                                                    }
-                                                ]
-                                            })(<Input placeholder="MAJOR değerini giriniz." />)}
-                                        </FormItem>
-                                        <FormItem label="MINOR" {...formItemLayout} >
-                                            {getFieldDecorator('MINOR', {
-                                                rules: [
-                                                    {
-                                                        required: true,
-                                                        message: "MINOR degeri boş bırakılamaz"
-                                                    }
-                                                ]
-                                            })(<Input placeholder="MINOR değerini giriniz." />)}
-                                        </FormItem>
-                                        <FormItem {...tailFormItemLayout}>
-                                            <Button type="primary" htmlType="submit" > Cihaz Ekle </Button>
-                                        </FormItem>
-                                    </Form>
+                                <Form onSubmit={this.handleSubmit}>
+                            <FormItem label="UUID" {...formItemLayout} >
+                                {getFieldDecorator('uuid', {
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: "UUID degeri boş bırakılamaz"
+                                        }
+                                    ]
+                                })(<Input placeholder="UUID değerini giriniz." />)}
+                            </FormItem>
+                            <FormItem label="MAJOR:" {...formItemLayout} >
+                                {getFieldDecorator('major', {
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: "MAJOR degeri boş bırakılamaz"
+                                        }
+                                    ]
+                                })(<Input placeholder="MAJOR değerini giriniz." />)}
+                            </FormItem>
+                            <FormItem label="MINOR" {...formItemLayout} >
+                                {getFieldDecorator('minor', {
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: "MINOR degeri boş bırakılamaz"
+                                        }
+                                    ]
+                                })(<Input placeholder="MINOR değerini giriniz." />)}
+                            </FormItem>
+                            <FormItem {...tailFormItemLayout}>
+                                <Button type="primary" htmlType="submit" > Cihaz Ekle </Button>
+                            </FormItem>
+                        </Form>
                                 </Col>
                             </Row>
                         </Card>
                     </div>
-
-
+  
+  
         );
+    }
+  }
+)
+
+class ProductsAdd extends React.Component{
+  render(){
+    return(
+    <ProductForm
+        addDevicePage = {this.props.actions.addDevicePage}
+      currentToken = {this.props.currentToken}
+    >
+      
+    </ProductForm>);
     }
 }
 
 function mapStateToProps(state) {
-    return {
-        device_data: state.addDeviceReducer,
-        currentToken: state.authReducer
-    };
+  return {
+      device_data: state.addDeviceReducer,
+      currentToken: state.authReducer
+  };
 }
 function mapDispatchToProps(dispatch) {
-    return {
-        actions: {
-            ProductPage: bindActionCreators(addDeviceActions.addDevicePage, dispatch),
-            loginUser: bindActionCreators(authActions.loginUser, dispatch)
-        }
-    };
+  return {
+      actions: {
+        addDevicePage: bindActionCreators(addDeviceActions.addDevicePage, dispatch),
+      }
+  };
 }
-export default Form.create(connect(mapStateToProps, mapDispatchToProps))(AddDevice);
-*/
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsAdd);
+/*
 import {
     AutoComplete,
     Button,
@@ -190,7 +210,7 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 
-class AddDevice extends React.Component {
+class AddDevices extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
@@ -272,4 +292,5 @@ class AddDevice extends React.Component {
         );
     }
 }
-export default Form.create()(AddDevice);
+export default Form.create()(AddDevices);
+*/

@@ -7,5 +7,9 @@ export default {
   productadd: "",
   profileedit: "",
   cart:[],
+  shopping:"",
+  password:"",
+  device:"",
+  token:"",
 };
 //default parametreler oluşturuldu

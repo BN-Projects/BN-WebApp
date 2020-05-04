@@ -49,7 +49,6 @@ import styled from 'styled-components'
 
 //import { logoutUser } from "../redux/actions/logoutActions";
 
-import CardSummary from "./shopping_card_Component/CardSummary";
 const MenuItemGroup = Menu.ItemGroup;
 const { SubMenu } = Menu;
 const { Header } = Layout;
@@ -131,7 +130,7 @@ const MainHeader = () => {
         ))}
         <Menu.Divider />
         <Menu.Item style={{ width: "100%", height: "100%", backgroundColor:"#ffffff", textAlign:"center" }}>
-          <a><ShoppingBag size="16px"/> Sepetime git</a>
+          <a href="/shoppingcard"><ShoppingBag size="16px"/> Sepetime git</a>
         </Menu.Item>
       </SubMenu>
     );
@@ -199,7 +198,7 @@ const MainHeader = () => {
             <List.Item>
               <List.Item.Meta
                 title={
-                  <a href="#">
+                  <a href="/passwordchange">
                     <Key size={16} /> Şifre işlemleri
                   </a>
                 }

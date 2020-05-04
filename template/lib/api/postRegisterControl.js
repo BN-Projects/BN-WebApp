@@ -1,16 +1,16 @@
 import axios from "axios";
-var device = "";
-export default async function postAddDevice(obj) {
+var token = "";
+export default async function postToken(obj) {
     await axios
-        .post(obj.url, obj.data)
+        .get(obj)
         .then(res => {
             if (!res.data.error) {
-                device = res.data.devices;
-                console.log(res.data.error);
+                token = res.data;
+                console.log(token);
             } else {
                 console.log(res.data.message);
             }
         })
         .catch(err => console.log(err));
-    return device;
+    return token;
 }

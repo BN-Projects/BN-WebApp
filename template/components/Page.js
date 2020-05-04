@@ -43,7 +43,7 @@ const Page = ({ router, children }) => {
     profile.role_lvl == 3 ||
     profile.role_lvl == 4
   ) {
-    array.push("/homepage","/","/products","/contact","/about");
+    array.push("/homepage","/","/products","/contact","/about","/passwordchange","/shoppingcard","registercontrol");
   } else if (profile.role_lvl == 5) {
     array.push(null);
   }
