@@ -130,7 +130,6 @@ import {
       return (
         <div>    
             <SalesAnalysis/>
-            <Donut_chart/>
         </div>
       );
     }

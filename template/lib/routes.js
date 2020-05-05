@@ -59,9 +59,18 @@ export default [
     icon: <MessageCircle  size={16} />
   },
   {
-    path: '/salesstatus',
-    name: 'Satış Analizi',
-    icon: <HelpCircle strokeWidth={1} size={16} />
+    name: 'Satış',
+    icon: <Gift strokeWidth={1} size={16} />,
+    children: [
+      {
+        path: '/orders',
+        name: 'Sipariş Onayı'
+      },
+      {
+        path: '/salesstatus',
+        name: 'Satış Analizi'
+      },
+    ]
   },
   {
     name: 'Extras',

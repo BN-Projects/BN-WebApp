@@ -88,9 +88,8 @@ const ProductForm = Form.create()(
                     Router.push("/homepage")
                 }
             }
-            }, 600);
-        
-    }
+            }, 600);       
+        }
     }
     componentDidUpdate() {
         if (this.props.device_data != "" && !this.state.loaded) {
@@ -234,8 +233,7 @@ class ProductsAdd extends React.Component{
         addDevicePage = {this.props.actions.addDevicePage}
       currentToken = {this.props.currentToken}
       profiledata = {this.props.profile_data}
-    >
-      
+    >      
     </ProductForm>);
     }
 }
