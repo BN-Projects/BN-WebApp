@@ -42,6 +42,7 @@ componentDidUpdate() {
 }
 
 
+
   render() {
 
     var verification = [];

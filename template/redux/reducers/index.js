@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
   passwordChangeReducer,
   shoppingReducer,
   addDeviceReducer,
-  registerControlReducer
+  registerControlReducer,
 });
 
 export default rootReducer;

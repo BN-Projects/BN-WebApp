@@ -152,10 +152,10 @@ class productList extends Component {
         <div className="productlist">
           {this.state.products.map(product => (
                 <div key={product.product_id}>
-                  <Col lg={6} md={12}>
+                  <Col lg={6} md={12} >
                     <Card
                       bodyStyle={{ padding: 5 }}
-                      style={{ marginBottom: "20px", margin: 10 }}
+                      style={{ marginBottom: "20px", margin: 10}}
                     >
                       <div float="center">
                         <Card
