@@ -30,7 +30,7 @@ class ProductStock extends Component {
     setTimeout(() => {
       if(this.props.profiledata.role_lvl !=5)
       {
-        Router.push("/homepage") 
+        Router.push("/404")
       }
     }, 700);
     if (this.props.currentToken != "") {

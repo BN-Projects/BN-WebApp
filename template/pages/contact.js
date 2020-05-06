@@ -13,7 +13,8 @@ import {
     Row,
     Card,
     Input,
-    Divider
+    Divider,
+    Button
   } from 'antd';
   import { theme } from '../components/styles/GlobalStyles';
   
@@ -90,11 +91,13 @@ class Iletisim extends Component {
                      <Input style={{ marginBottom:'20px'}} placeholder="Konu" />
                      <TextArea rows={4} style={{ marginBottom:'20px'}} placeholder="Metninizi Giriniz" />
                      </div>
-                    </Card>   
-                   
-                    <Card bodyStyle={{ padding: 0 }} style={{ marginBottom:'20px'}}>
-                        
-                    </Card> 
+                     <div style={{ textAlign:'center'}}>
+                     <Button style={{ maxWidth:'20%'}} type="primary" htmlType="submit" block>GÖNDER</Button>
+                     </div>
+
+                    </Card>  
+
+ 
 
             </Row>
         </div>

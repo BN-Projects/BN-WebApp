@@ -8,41 +8,31 @@ import { Card, Row, Col } from "antd";
 const Paragraf = () => {
   return (
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Velit aliquet sagittis
-      id consectetur purus ut faucibus. Magna ac placerat vestibulum lectus
-      mauris. Lorem donec massa sapien faucibus et molestie ac. Sed vulputate mi
-      sit amet mauris commodo quis imperdiet. Condimentum mattis pellentesque id
-      nibh tortor id. Volutpat blandit aliquam etiam erat velit scelerisque in
-      dictum non.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Velit aliquet sagittis
-      id consectetur purus ut faucibus. Magna ac placerat vestibulum lectus
-      mauris.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Velit aliquet sagittis
-      id consectetur purus ut faucibus. Magna ac placerat vestibulum lectus
-      mauris. 
+        Projeye başlamadan önce kendimize bir amaç edindik. Amacımız insanların sevdiklerinin, evcil hayvanlarının veya en önemli 
+        eşyalarının kaybolmasını önlemekti. Kaybolsalar bile en yakın zamanda bulabilmeleri gerekmekteydi.
+    
+
+        Projenin temel amacı kişiler için önemli olan varlıkların kaybolmasını önlemek, kaybolan varlıkların bulunmasına yardımcı 
+        olmak ve günümüz koşulları nedeniyle depremde enkaz altında kalan insanların bulunmasına yardım etmektedir. Projenin asıl 
+        amaçlarının haricinde bir artısı kullanıcı dostu olmaktır. Çünkü proje içerisindeki ara yüzler, teknolojilerin etkileşime 
+        geçmesi ve alış veriş sistemi mümkün olduğunca en basit düzeye indirgenmiştir.
     </p>
   );
 };
 const Vizyonumuz = () => {
   return (
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Velit aliquet sagittis
-      id consectetur purus ut faucibus. Magna ac placerat vestibulum lectus
-      mauris. 
+     Projemiz insanlara kesinlikle kaybetmek istemeyecekleri canlı\cansız varlıklarına takabilecekleri bir teknolojinin web ve mobil 
+     uygulamasını sunmaktadır. Bu teknolojinin ışığında onların uzaklık kontrolü yapabilmelerini sağlamaktadır.
     </p>
   );
 };
 const Misyonumuz = () => {
   return (
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Velit aliquet sagittis
-      id consectetur purus ut faucibus. Magna ac placerat vestibulum lectus
-      mauris. 
+      Projemiz ile insanların sevdiklerini, evcil hayvanlarını ve eşyalarını kaybetmesini önlemeyi kendimize hedef kıldık. Sloganımızda
+      da dediğimiz gibi: 
+      "Kaybolmaya Son!"
     </p>
   );
 };

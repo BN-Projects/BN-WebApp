@@ -85,7 +85,7 @@ const ProductForm = Form.create()(
             {
                 if(this.props.profiledata.role_lvl != 5)
                 {
-                    Router.push("/homepage")
+                    Router.push("/404")
                 }
             }
             }, 600);   

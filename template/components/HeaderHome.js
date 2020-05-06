@@ -294,7 +294,7 @@ const MainHeader = () => {
         )}
         <Link href="/homepage">
           <a className="brand">
-            <Triangle size={24} strokeWidth={1} />
+            <img src="../static/images/bnLogo.png" style={{maxWidth:"50px",maxHeigth:"50px" }} alt="logo"/>
             <strong className="mx-1 text-black">BN</strong>
           </a>
         </Link>
