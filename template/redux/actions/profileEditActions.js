@@ -13,12 +13,7 @@ export function profileEditPage(obj) {
   return function(dispatch) {
     postProfile(obj).then(res => {
       dispatch(profileEdit(res));
-      if (res != "") {
-        console.log("neyi başardın")
-      } 
-      else {
-            console.log("başaramadı")
-      }
+      // console.log(res);
     });
   };
 }

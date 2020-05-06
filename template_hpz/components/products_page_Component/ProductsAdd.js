@@ -40,7 +40,6 @@ const ProductForm = Form.create()(
       setTimeout(() => {
         if(this.props.profiledata.role_lvl !=5)
         {
-          error();
           Router.push("/homepage") 
         }
       }, 700);

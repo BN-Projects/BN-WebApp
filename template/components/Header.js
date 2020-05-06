@@ -81,15 +81,7 @@ const MainHeader = () => {
     }, 500);
   }
   function hasToken() {
-    if (profile != "") {
-      return (
-        <Menu.Item>
-          <Link href="">
-            <a onClick={() => logout()}>ÇIKIŞ YAP</a>
-          </Link>
-        </Menu.Item>
-      );
-    } else {
+    if (profile == "") {
       return (
         <Menu.Item>
           <ModalLogin />
@@ -112,7 +104,7 @@ const MainHeader = () => {
   function shoppingMenu() {
     console.log(cart);
     return (
-      <SubMenu title={<ShoppingCart size={20} strokeWidth={1} />} >
+      <SubMenu title={<ShoppingCart size={20} strokeWidth={1} style={{color:"red"}}  />} >
         <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
           Sepet Listesi
         </Menu.Item>
@@ -141,11 +133,18 @@ const MainHeader = () => {
       <SubMenu title={<a href="/products" style={{color:"rgba(0, 0, 0, 0.65)"}}><ShoppingCart size={20} strokeWidth={1} /></a>}></SubMenu>
     );
   }
+
   function hasTokenBottom() {
     if (profile != "") {
       return (
         <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
-          {cart.length > 0 ? shoppingMenu() : emptyCard()}
+          <Menu.Item >
+            <Link href="/passwordchange">
+              <a >
+                <Key size={16} /> Şifre İşlemleri
+              </a>
+            </Link>
+          </Menu.Item>
           <Menu.Item style={{ paddingTop: "10px" }}>
             <ProfileSettings />
           </Menu.Item>
@@ -170,6 +169,10 @@ const MainHeader = () => {
   }
   function hasProfile() {
     if (profile != "") {
+      if (profile.user_img =="")
+      {
+         profile.user_img = "/static/images/defaultAvatar.png" 
+      }
       return (
         <SubMenu title={<Avatar src={profile.user_img} />}>
           <Menu.Item style={{ height: "100%" }}>
@@ -251,23 +254,23 @@ const MainHeader = () => {
       return null;
     }
   }
-  function hasLevel() {
-    if (
-      profile.role_lvl == 1 ||
-      profile.role_lvl == 2 ||
-      profile.role_lvl == 3 ||
-      profile.role_lvl == 4 ||
-      profile.role_lvl == 5
-    ) {
-      if (cart.length != 0) {
-        return shoppingMenu();
-      } else {
-        return emptyCard();
-      }
-    } else {
-      return null;
-    }
-  }
+  // function hasLevel() {
+  //   if (
+  //     profile.role_lvl == 1 ||
+  //     profile.role_lvl == 2 ||
+  //     profile.role_lvl == 3 ||
+  //     profile.role_lvl == 4 ||
+  //     profile.role_lvl == 5
+  //   ) {
+  //     if (cart.length != 0) {
+  //       return shoppingMenu();
+  //     } else {
+  //       return emptyCard();
+  //     }
+  //   } else {
+  //     return null;
+  //   }
+  // }
   console.log(token);
   return (
     <DashHeader>
@@ -351,7 +354,7 @@ const MainHeader = () => {
         <Menu mode="horizontal" className="menu-divider">
           {!state.mobile && hasProfile()}
 
-          {!state.mobile && hasLevel()}
+          {/* {!state.mobile && hasLevel()} */}
 
           {!state.mobile && hasToken()}
 

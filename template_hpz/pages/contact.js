@@ -19,8 +19,8 @@ import {
   
   const { TextArea } = Input;
   
-  const MY_API = 'AIzaSyBsBmHQjXxz2uyMIyUHtVU8h3iuQWQ7xC4'
-    let _url = `https://www.google.com/maps/embed/v1/place?key=${MY_API}&q=40.7127837,-74.0059413`
+  const MY_API = 'AIzaSyBgD23YwqAJet9vHzbUinYYaodOiff8y30'
+    let _url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBgD23YwqAJet9vHzbUinYYaodOiff8y30&q=40.7127837,-74.0059413`
   
   
 
@@ -80,7 +80,7 @@ class Iletisim extends Component {
                      <Input style={{ marginBottom:'20px'}} placeholder="İsim " />
                      <Input style={{ marginBottom:'20px'}} placeholder="Email " />
                      <Input style={{ marginBottom:'20px'}} placeholder="Konu" />
-                     <TextArea rows={4} style={{ marginBottom:'20px'}} placeholder="Metininizi Giriniz" />
+                     <TextArea rows={4} style={{ marginBottom:'20px'}} placeholder="Metninizi Giriniz" />
                      </div>
                     </Card>   
                     <Card bodyStyle={{ padding: 0 }} style={{ marginBottom:'20px'}}>
@@ -92,7 +92,7 @@ class Iletisim extends Component {
                     <Divider orientation="left">
                         <small>Google Maps</small>
                      </Divider>
-                     <iframe frameBorder="0" style={{ width: "100%", height: "450"}} 
+                     <iframe frameBorder="20" style={{ width: "100%", height: "50%"}} 
                             src={_url}>
                         </iframe>   
                     

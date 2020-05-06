@@ -30,7 +30,6 @@ class ProductStock extends Component {
     setTimeout(() => {
       if(this.props.profiledata.role_lvl !=5)
       {
-        error();
         Router.push("/homepage") 
       }
     }, 700);
