@@ -18,9 +18,18 @@ import * as productAddActions from '../../redux/actions/productAddActions'
 import * as profileViewActions  from '../../redux/actions/profileViewActions'
 import Router from "next/router";
 
-const error = () => {
-  message.error("Bu sayfaya girme iznine sahip değilsiniz");
+const errorLvl = () => {
+  message.error("Bu sayfaya girme iznine sahip değilsiniz!");
 };
+const error = () => {
+  message.error("Ürün Ekleme Sırasında Bir Hata Oluştu!");
+};
+
+const success = () => {
+  message.success("Ürün Ekleme Başarı ile Gerçekleştirildi!");
+};
+
+
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -45,9 +54,6 @@ const ProductForm = Form.create()(
       }, 700);
     }
     componentDidUpdate() {
-      // setTimeout(() => {
-      //   console.log(product)
-      // }, 500);
     }
 
 
@@ -57,9 +63,12 @@ const ProductForm = Form.create()(
             if (!err) {
               var paramsNames = ["proType", "proDes", "proName", "proPrice","token"];
               var paramsValues = [values.proType, proDes.value, proName.value, proPrice.value,this.props.currentToken];
-              console.log(this.props.currentToken);
               var obj = getConnectionLink("addproduct", paramsNames, paramsValues, "POST");
               this.props.productAddPage(obj);
+              success();
+            }
+            else{
+              error();
             }
         });
     };

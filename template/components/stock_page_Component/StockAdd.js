@@ -17,9 +17,17 @@ import { bindActionCreators } from "redux";
 import * as addDeviceActions from "../../redux/actions/addDeviceActions";
 import * as profileViewActions  from '../../redux/actions/profileViewActions'
 import Router from "next/router"
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
+
+const success = () => {
+  message.success("Stok Ekleme Başarıyla Yapıldı.");
+};
+const error = () => {
+  message.error("Stok Ekleme Sırasında Bir Hata Oluştu!");
+};
 const ProductForm = Form.create()(
   class  extends React.Component {
     constructor(props) {
@@ -30,15 +38,7 @@ const ProductForm = Form.create()(
         };
     }
     componentDidMount() {
-        // setTimeout(() => {
-        //     console.log(this.props.profile_data)
-        //     // if(this.props.profiledata.role_lvl !=5)
-        //     // {
-        //     //   error();
-        //     //   Router.push("/homepage") 
-        //     // }
-        //   }, 700);
-          if(this.props.currentToken != "") {
+        if(this.props.currentToken != "") {
         if (this.props.device_data == "") {
             var paramsNames = [];
             var paramsValues = [];
@@ -49,16 +49,18 @@ const ProductForm = Form.create()(
                 "POST"
             );
             this.props.actions.addDevicePage(obj);
-            console.log(this.props.device_data);
             this.props.device_data;
+            
         }
         else {
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
-                console.log(this.state.devices);
             });
+            
 
         }
+        success();
     }
+    
     else
     {
         if (this.props.device_data == "") {
@@ -71,11 +73,9 @@ const ProductForm = Form.create()(
                 "POST"
             );
             this.props.actions.addDevicePage(obj);
-            console.log(this.props.device_data);
             this.props.device_data;
         }
         setTimeout(() => {
-            console.log(this.props.profiledata)
             if(this.props.currentToken == "")
             {
             Router.push("/homepage")
@@ -88,13 +88,13 @@ const ProductForm = Form.create()(
                     Router.push("/homepage")
                 }
             }
-            }, 600);       
+            }, 600);   
+          error();    
         }
     }
     componentDidUpdate() {
         if (this.props.device_data != "" && !this.state.loaded) {
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
-                console.log(this.state.devices);
   
             });
         }
@@ -109,7 +109,6 @@ const ProductForm = Form.create()(
             if (!err) {
               var paramsNames = ["type","uuid", "major", "minor", "token"];
               var paramsValues = [values.type,uuid.value, major.value, minor.value,this.props.currentToken];
-              console.log(this.props.currentToken);
               var obj = getConnectionLink("addbeacon", paramsNames, paramsValues, "POST");
               this.props.addDevicePage(obj);
             }

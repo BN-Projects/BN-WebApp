@@ -43,7 +43,6 @@ const CustomizedForm = Form.create({
   },
 
   mapPropsToFields(props) {
-    console.log(props);
     return {
       realname: Form.createFormField({
         ...props.realname,
@@ -64,49 +63,11 @@ const CustomizedForm = Form.create({
     };
   },
   onValuesChange(_, values) {
-    console.log(values);
   },
-  /*
-  handleChange(e) {
-
-      // Make new FileReader
-      let reader = new FileReader();
-
-      // Convert the file to base64 text
-      reader.readAsDataURL(file);
-
-      // on reader load somthing...
-      reader.onload = () => {
-
-        // Make a fileInfo Object
-        let fileInfo = {
-          name: file.name,
-          type: file.type,
-          size: Math.round(file.size / 1000) + ' kB',
-          base64: reader.result,
-          file: file,
-        };
-
-        // Push it to the state
-        allFiles.push(fileInfo);
-
-        // If all files have been proceed
-        if(allFiles.length == files.length){
-          console.log(allFiles)
-          // Apply Callback function
-          if(this.props.multiple)
-          { 
-            console.log(multiple)
-            this.props.onDone(allFiles)}
-        }
-      } // reader.onload
-    } // for
-  }*/
 })((props) => {
   const { getFieldDecorator, validateFields } = props.form;
 
   const normFile = (e) => {
-    console.log("Upload event:", e.file);
     if (e.fileList.length <= 1) {
       if (Array.isArray(e)) {
         return e;
@@ -119,11 +80,9 @@ const CustomizedForm = Form.create({
   };
   function submit(err, values) {
     if (!err) {
-      //console.log(props.old_image.value)
       var allFiles = [];
       if (values.dragger[0] != null || values.dragger[0] != undefined) {
         let file = values.dragger[0].originFileObj;
-        console.log(file);
 
         let reader = new FileReader();
         // Convert the file to base64 text
@@ -142,24 +101,14 @@ const CustomizedForm = Form.create({
             file: file,
             desc: file.name.split(/\.(?=[^\.]+$)/)
           };
-          // Push it to the state
+
           allFiles.push(fileInfo);
 
-          //updateProfile
-          // console.log(values.realname)
-          // console.log(values.surname)
-          // console.log(values.phone)
-          // console.log(values.email)
-          // console.log(allFiles[0].base64)
-          // console.log(allFiles[0].desc[1])
-          // console.log(props.user_id.value)
           var imgBase64 = allFiles[0].base64; 
           var imgDesc =  allFiles[0].desc[1]
           var id = props.user_id.value;
           var paramsNames = [ "name","surname","phone","img","imgDesc","id"];
-          //console.log(this.state.email)
           var paramsValues = [ values.realname, values.surname, values.phone , imgBase64, imgDesc, id];
-          //console.log(email.value);
           var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "POST");
           props.profileEditPage(obj);
           
@@ -174,12 +123,9 @@ const CustomizedForm = Form.create({
         var imgDesc =  null;
         var id = props.user_id.value;
         var paramsNames = [ "name","surname","phone","img","imgDesc","id"];
-        //console.log(this.state.email)
         var paramsValues = [ values.realname, values.surname, values.phone , imgBase64, imgDesc, id];
-        //console.log(email.value);
         var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "POST");
         props.profileEditPage(obj);
-        console.log(paramsValues)
         setTimeout(() => {
           window.location.reload(false)
       }, 1000);
@@ -339,11 +285,9 @@ class ProfileSettingsModal extends React.Component {
 
   sub(err) {
     if (!err) {
-      console.log("abcc");
-      console.log(this.props);
-      debugger;
+
     } else {
-      console.log("Alanlar boş");
+
     }
   }
 

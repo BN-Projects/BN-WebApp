@@ -39,12 +39,10 @@ class ProfileCard extends Component {
           "POST"
         );
         this.props.actions.profilePage(obj);
-        console.log(this.props.profile_data);
       } else {
         this.setState(
           { profileInfo: this.props.profile_data, loaded: true },
           function() {
-            console.log(this.state.profileInfo);
           }
         );
       }
@@ -59,12 +57,10 @@ class ProfileCard extends Component {
           "POST"
         );
         this.props.actions.profilePage(obj);
-        console.log(this.props.profile_data);
       }, 500);
     }
   }
   componentDidUpdate() {
-    console.log(this.props.currentToken);
     if (this.props.currentToken == "")
     {
       Router.push("/homepage");
@@ -73,7 +69,6 @@ class ProfileCard extends Component {
       this.setState(
         { profileInfo: this.props.profile_data, loaded: true },
         function() {
-          console.log(this.state.profileInfo);
         }
       );
     }
@@ -82,7 +77,6 @@ class ProfileCard extends Component {
     var tit = []
     tit.push("Hoşgeldin ")
     tit.push(this.state.profileInfo.user_real_name)
-    console.log(tit);
     return (
       <div>
         <Card 

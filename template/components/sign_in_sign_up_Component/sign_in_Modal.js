@@ -41,17 +41,13 @@ const UserModal = Form.create()(
     submit(err) {
       if (!err) {
         var paramsNames = ["email", "password","loginType"];
-        //console.log(this.state.email)
         var hash = md5(password.value);
-        console.log(hash);
         var paramsValues = [email.value, hash, "web" ];
-        //console.log(email.value);
         var obj = getConnectionLink("login", paramsNames, paramsValues, "POST");
         this.props.loginUser(obj);
-        //location.reload()
-        //Router.push("/iletisim")
+        
       } else {
-        warning();
+        error();
       }
     }
 
@@ -60,8 +56,6 @@ const UserModal = Form.create()(
         const visible= this.props.visible;
         this.setState({visible})
       } else if(this.props.currentToken != "" && !this.state.logged){
-        console.log("giris ypatin andaval");
-        console.log(this.props.currentToken)
         this.setState({visible:false,logged:true});
       }
     }

@@ -28,8 +28,17 @@ class Iletisim extends Component {
     render() {
         return (
         <div>
-          <Row gutter={16}>
-            <Col xs={24} sm={12} md={6}>
+
+        <Row gutter={16} id="components-button-demo">
+        <Card bodyStyle={{ padding: 0 }} style={{ marginBottom:'20px'}}>
+
+                     <iframe frameBorder="20" style={{ width: "100%", height: "500px"}} 
+                            src={_url}>
+                        </iframe>   
+                    
+                    </Card> 
+                    <Row gutter={16} style={{margin:"20px"}}>
+            <Col xs={24} sm={12} md={6} >
             <StatCard
                 type="fill"
                 title="Telefon"
@@ -70,9 +79,8 @@ class Iletisim extends Component {
             />
             </Col>
         </Row>
-        <Row gutter={16} id="components-button-demo">
-                <Col lg={12} md={24}>
-                    <Card  style={{ marginBottom:'20px'}}>
+
+                    <Card  style={{ margin:'30px'}}>
                     <Divider orientation="left">
                         <small>İletişim Formu</small>
                      </Divider>
@@ -83,24 +91,11 @@ class Iletisim extends Component {
                      <TextArea rows={4} style={{ marginBottom:'20px'}} placeholder="Metninizi Giriniz" />
                      </div>
                     </Card>   
+                   
                     <Card bodyStyle={{ padding: 0 }} style={{ marginBottom:'20px'}}>
                         
                     </Card> 
-                </Col>
-                <Col lg={12} md={24}>
-                    <Card bodyStyle={{ padding: 0 }} style={{ marginBottom:'20px'}}>
-                    <Divider orientation="left">
-                        <small>Google Maps</small>
-                     </Divider>
-                     <iframe frameBorder="20" style={{ width: "100%", height: "50%"}} 
-                            src={_url}>
-                        </iframe>   
-                    
-                    </Card> 
-                    <Card bodyStyle={{ padding: 0 }} style={{ marginBottom:'20px'}}>
-                        
-                    </Card> 
-                </Col>
+
             </Row>
         </div>
           

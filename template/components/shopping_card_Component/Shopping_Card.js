@@ -22,7 +22,6 @@ import * as cartActions from "../../redux/actions/cartActions";
 import * as profileViewActions from "../../redux/actions/profileViewActions";
 import Router from "next/router";
 function handleChange(value) {
-  console.log(`selected ${value}`);
 }
 
 const error1 = () => {
@@ -32,6 +31,15 @@ const error1 = () => {
 const error2 = () => {
   message.error("Lütfen ilk önce ürün seçiniz.");
 };
+
+const error = () => {
+  message.error("Sepet Onaylama Sırasında Bir Hata Oluştu!");
+};
+
+const success = () => {
+  message.success("Sepet Onaylama Başarı ile Gerçekleştirildi!");
+};
+
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -51,7 +59,6 @@ const ProductForm = Form.create()(
         if (this.props.currentToken == "") {
           error1();
           Router.push("/homepage");
-          console.log(this.props.cart);
         }
       }, 700);
       setTimeout(() => {
@@ -100,20 +107,6 @@ const ProductForm = Form.create()(
               creditCardExDate,
               cvv.value,
             ];
-            console.log(
-              this.props.cart,
-              user_real_name.value,
-              this.props.profile.user_id,
-              user_real_surname.value,
-              address,
-              user_phone.value,
-              creditCardNo.value,
-              creditCardFullName.value,
-              creditCardExDate,
-              cvv.value
-            );
-
-            console.log(address);
             var obj = getConnectionLink(
               "cart",
               paramsNames,
@@ -121,11 +114,9 @@ const ProductForm = Form.create()(
               "POST"
             );
             this.props.shoppingPage(obj);
+            success();
           } else {
-            notification["error"]({
-                message: " İlk önce ürün yükleyiniz.",
-                placement: "bottomRight",
-              });
+            error();
           }
         }
       });
@@ -146,7 +137,6 @@ const ProductForm = Form.create()(
         message: product.product_name + " Başarıyla Silindi",
         placement: "bottomRight",
       });
-      console.log(product);
     }
 
     render() {

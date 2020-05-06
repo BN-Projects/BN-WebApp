@@ -46,14 +46,11 @@ class productList extends Component {
         "POST"
       );
       this.props.actions.ProductPage(obj);
-      console.log(obj)
-      console.log(this.props.product_data);
       this.props.product_data;
     } else {
       this.setState(
         { products: this.props.product_data, loaded: true },
         function() {
-          console.log(this.state.products);
         }
       );
     }
@@ -63,33 +60,10 @@ class productList extends Component {
       this.setState(
         { products: this.props.product_data, loaded: true },
         function() {
-          console.log(this.state.products);
         }
       );
     }
   }
-  //yükleniyor al
-  //timer ver
-  // didupdate de state e at.
-
-  /*
-  componentDidUpdate() {
-    if (this.props.currentToken == "") {
-      console.log("TOKEN YOK", this.props.currentToken);
-      console.log(this.show);
-      debugger;
-
-    } else {
-      console.log("TOKEN VAR", this.props.currentToken);
-
-    }
-  }*/
-
-  /* SEPET KISMI OLUNCA YAPILACAK
-    onSubmit = e => {
-      e.preventDefault();
-    };
-  */
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };

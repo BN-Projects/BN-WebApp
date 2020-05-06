@@ -44,12 +44,10 @@ class ProductStock extends Component {
           "POST"
         );
         this.props.actions.StockViewPage(obj);
-        console.log(this.props.stock_data);
       } else {
         this.setState(
           { stocks: this.props.stock_data, loaded: true },
           function() {
-            console.log(this.state.stocks);
           }
         );
       }
@@ -64,7 +62,6 @@ class ProductStock extends Component {
           "POST"
         );
         this.props.actions.StockViewPage(obj);
-        console.log(this.props.stock_data);
       }, 500);
     }
   }
@@ -73,7 +70,6 @@ class ProductStock extends Component {
       this.setState(
         { stocks: this.props.stock_data, loaded: true },
         function() {
-          console.log(this.state.stocks);
         }
       );
     }
