@@ -162,7 +162,10 @@ const CustomizedForm = Form.create({
           //console.log(email.value);
           var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "POST");
           props.profileEditPage(obj);
-          window.location.reload(false);
+          
+          setTimeout(() => {
+              window.location.reload(false)
+          }, 1000);
         };
       }
       else
@@ -177,7 +180,10 @@ const CustomizedForm = Form.create({
         var obj = getConnectionLink("updateprofile", paramsNames, paramsValues, "POST");
         props.profileEditPage(obj);
         console.log(paramsValues)
-        window.location.reload(false);
+        setTimeout(() => {
+          window.location.reload(false)
+      }, 1000);
+
       }
     } 
     else 

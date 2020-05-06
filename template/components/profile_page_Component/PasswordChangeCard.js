@@ -58,8 +58,7 @@ const ProductForm = Form.create()(
           );
           this.props.actions.passwordChangePage(obj);
           console.log(this.props.profile.user_password);
-          this.props.password_data;
-      }
+          this.props.password_data;      }
       else {
           this.setState({ password: this.props.profile.user_password, loaded: true }, function () {
               console.log(this.state.password);
@@ -100,7 +99,11 @@ const ProductForm = Form.create()(
       console.log(newPassHash)
       console.log(newPassAgainHash)
       this.props.passwordChangePage(obj);
-      console.log("id buldu!!!")}
+      console.log(paramsValues )
+      console.log(paramsNames)
+      console.log(obj)
+    }
+      
       else
       {
         console.log("Hata!!!")

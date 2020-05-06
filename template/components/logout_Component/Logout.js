@@ -1,4 +1,4 @@
-import { Card , Button} from 'antd';
+import { Card , Button , message} from 'antd';
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -8,6 +8,10 @@ import * as logoutActions  from '../../redux/actions/logoutActions'
 import { bindActionCreators } from "redux";
 import Router from 'next/router'
 
+const success = () =>
+{
+  message.success("Başarıyla Çıkış Yapıldı")
+}
 
 class Deneme extends Component {
   
@@ -18,7 +22,25 @@ class Deneme extends Component {
   
   componentDidMount() 
     {
-    //this.props.actions.logoutUser();
+      setTimeout(() => {
+        if(this.props.currentToken == "")
+        {
+          success();
+         Router.push("/homepage")
+        } 
+        else(this.props.currentToken != "")
+        {
+          setTimeout(() => {
+            if(this.props.currentToken != "")
+            {
+              this.props.actions.logoutUser();
+              window.location.reload(false) 
+            }
+          }, 300);
+        }
+      }, 700);
+    
+        
     }
     logOut()
     {
@@ -31,11 +53,9 @@ class Deneme extends Component {
     }
   render() {
       return(
-              <Card>
               <div>
-                <Button onClick={() => this.logOut()}>{this.props.currentToken}</Button>
-                </div>
-              </Card>
+
+              </div>
       )
   }
 }

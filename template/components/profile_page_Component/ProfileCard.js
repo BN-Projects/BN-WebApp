@@ -22,6 +22,12 @@ class ProfileCard extends Component {
     };
   }
   componentDidMount() {
+    setTimeout(() => {
+      if(this.props.currentToken =="")
+      {
+        Router.push("/homepage") 
+      }
+    }, 700);
     if (this.props.currentToken != "") {
       if (this.props.profile_data == "") {
         var paramsNames = ["token"];

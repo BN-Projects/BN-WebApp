@@ -97,7 +97,6 @@ class productList extends Component {
   addTo = (product) =>
   {
     this.props.actions.addToCart({quantity:1,product})
-    message.success(product.product_name + " Başarıyla Sepete Eklendi.");
     notification['success']({
       message: (product.product_name + " Başarıyla Sepete Eklendi"),
       description: (product.product_description),
@@ -165,10 +164,11 @@ class productList extends Component {
                               src="https://www.patidogclub.com/wp-content/uploads/2017/12/yavru-kopekler-icin-tasma-egitimi.jpg"
                             />
                           }
+                          
                           actions={[
-                            <Button type="primary" onClick={() =>this.addTo(product)}>
+                            this.props.profile.role_lvl==5 ? null : <Button type="primary" onClick={() =>this.addTo(product)}>
                               Sepete Ekle 
-                            </Button>,
+                            </Button>
                           ]}
                         >
                           <Meta
@@ -197,6 +197,7 @@ function mapStateToProps(state) {
   return {
     product_data: state.productlistReducer,
     currentToken: state.authReducer,
+    profile: state.profileViewReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
