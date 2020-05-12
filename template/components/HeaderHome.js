@@ -221,20 +221,19 @@ const MainHeader = () => {
             <List.Item>
               <List.Item.Meta
                 title={
-                  <a href="/passwordchange">
-                    <Key size={16} /> Şifre işlemleri
+                  <a href="/profile">
+                    <User size={16} /> Profilim
                   </a>
                 }
               />
             </List.Item>
           </Menu.Item>
-
           <Menu.Item style={{ height: "100%" }}>
             <List.Item>
               <List.Item.Meta
                 title={
-                  <a href="#">
-                    <MessageCircle size={16} /> Özel Mesajlarım
+                  <a href="/passwordchange">
+                    <Key size={16} /> Şifre işlemleri
                   </a>
                 }
               />

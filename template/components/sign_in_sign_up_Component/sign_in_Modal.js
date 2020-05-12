@@ -79,7 +79,7 @@ const UserModal = Form.create()(
                   form.validateFields((err, values) => this.submit(err));
                 }}
               >
-                <FormItem label="Email">
+                <FormItem label="Email:">
                   {form.getFieldDecorator("email", {
                     rules: [
                       {
@@ -109,7 +109,7 @@ const UserModal = Form.create()(
                   )}
                 </FormItem>
 
-                <FormItem label="Password">
+                <FormItem label="Şifre:">
                   {form.getFieldDecorator("password", {
                     rules: [
                       {
@@ -134,7 +134,10 @@ const UserModal = Form.create()(
                     />
                   )}
                 </FormItem>
-
+                <div style={{textAlign:"center"}}>
+                  <Link href="/forgotPassword">Şifremi Unuttum!</Link>
+                </div>
+                
                 <FormItem>
                   <Button
                     type="primary"
@@ -142,7 +145,7 @@ const UserModal = Form.create()(
                     block
                     className="mt-3"
                   >
-                    Log in
+                    GİRİŞ YAP
                   </Button>
                 </FormItem>
               </Form>

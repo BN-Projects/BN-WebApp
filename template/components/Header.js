@@ -195,23 +195,22 @@ const MainHeader = () => {
           </Menu.Item>
           <Menu.Divider />
           <Menu.Item style={{ height: "100%" }}>
+          <List.Item>
+              <List.Item.Meta
+                title={
+                  <a href="/profile">
+                    <User size={16} /> Profilim
+                  </a>
+                }
+              />
+            </List.Item>
+            </Menu.Item>
+          <Menu.Item style={{ height: "100%" }}>
             <List.Item>
               <List.Item.Meta
                 title={
                   <a href="/passwordchange">
                     <Key size={16} /> Şifre işlemleri
-                  </a>
-                }
-              />
-            </List.Item>
-          </Menu.Item>
-
-          <Menu.Item style={{ height: "100%" }}>
-            <List.Item>
-              <List.Item.Meta
-                title={
-                  <a href="#">
-                    <MessageCircle size={16} /> Özel Mesajlarım
                   </a>
                 }
               />
@@ -264,7 +263,7 @@ const MainHeader = () => {
         )}
         <Link href="/homepage">
           <a className="brand">
-            <Triangle size={24} strokeWidth={1} />
+          <img src="../static/images/bnLogo.png" style={{maxWidth:"50px",maxHeigth:"50px" }} alt="logo"/>
             <strong className="mx-1 text-black">BN YÖNETİM PANELİ</strong>
           </a>
         </Link>

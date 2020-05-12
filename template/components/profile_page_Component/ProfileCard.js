@@ -87,7 +87,7 @@ class ProfileCard extends Component {
           <Row>
             <Col lg={6} md={12}>
               <div className="text-center mb-4">
-                <Avatar src="/static/images/avatar.jpg" size={180} />
+                <Avatar src={this.state.profileInfo.user_img} size={180} />
               </div>
             </Col>
             <Col lg={1} md={2}></Col>
@@ -95,6 +95,7 @@ class ProfileCard extends Component {
               <h2 style={{ marginBottom: "30px" }}>
                 {this.state.profileInfo.user_real_name}{" "}
                 {this.state.profileInfo.user_surname}
+                
               </h2>
               <p>E-Mail : {this.state.profileInfo.user_mail}</p>
               <p>Telefon : {this.state.profileInfo.user_phone}</p>

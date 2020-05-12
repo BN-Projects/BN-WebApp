@@ -5,16 +5,8 @@ const menu = (
   <Menu>
     <Menu.Item>
       <a
-        rel="noopener noreferrer"
-        href="http://www.alipay.com/"
-      >
-        <Inbox size="18" /> Özel Mesajlarım
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a
-        rel="noopener noreferrer"
-        href="http://www.alipay.com/"
+        rel="notificationView"
+        href="/notificationView"
       >
         <Bell size="18" /> Bildirimlerim
       </a>

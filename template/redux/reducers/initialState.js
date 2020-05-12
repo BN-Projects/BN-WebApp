@@ -11,5 +11,10 @@ export default {
   password:"",
   device:"",
   token:"",
+  email:"",
+  contact:"",
+  notification:[],
+  lostpassword:"",
+  email:"",
 };
 //default parametreler oluşturuldu

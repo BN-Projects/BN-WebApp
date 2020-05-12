@@ -9,6 +9,7 @@ const withLess = require('@zeit/next-less')
       weatherApi: '',
       mapBoxApi: ''
     },
+    
     onDemandEntries: {
       maxInactiveAge: 1000 * 60 * 60,
       pagesBufferLength: 5

@@ -21,8 +21,9 @@ import * as shoppingActions from "../../redux/actions/shoppingActions";
 import * as cartActions from "../../redux/actions/cartActions";
 import * as profileViewActions from "../../redux/actions/profileViewActions";
 import Router from "next/router";
-function handleChange(value) {
-}
+import CreditCardInput from "react-credit-card-input";
+
+function handleChange(value) {}
 
 const error1 = () => {
   message.error("Lütfen ilk önce giriş yapınız.");
@@ -40,7 +41,6 @@ const success = () => {
   message.success("Sepet Onaylama Başarı ile Gerçekleştirildi!");
 };
 
-
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
@@ -53,7 +53,6 @@ const ProductForm = Form.create()(
         loaded: false,
       };
     }
-
     componentDidMount() {
       setTimeout(() => {
         if (this.props.currentToken == "") {
@@ -78,11 +77,9 @@ const ProductForm = Form.create()(
               "" +
               user_address.value +
               " " +
-              values.user_city +
+              user_city.value +
               "/" +
-              values.user_nation;
-            var creditCardExDate =
-              "" + values.card_month + "/" + values.card_year;
+              user_nation.value;
             var paramsNames = [
               "orders",
               "user_real_name",
@@ -102,10 +99,10 @@ const ProductForm = Form.create()(
               user_real_surname.value,
               address,
               user_phone.value,
-              creditCardNo.value,
+              this.state.cardNumber,
               creditCardFullName.value,
-              creditCardExDate,
-              cvv.value,
+              this.state.expiryDate,
+              this.state.cvc
             ];
             var obj = getConnectionLink(
               "cart",
@@ -122,13 +119,14 @@ const ProductForm = Form.create()(
       });
     };
 
-    totalPrice()
-    {
-        var total = 0;
-        this.props.cart.map((cartItem) => {total+= (cartItem.product.product_price*cartItem.quantity)})
-        var totalString = total.toFixed(2);
-        var rounded = Number(totalString);
-        return(<h1>${rounded}</h1>)
+    totalPrice() {
+      var total = 0;
+      this.props.cart.map((cartItem) => {
+        total += cartItem.product.product_price * cartItem.quantity;
+      });
+      var totalString = total.toFixed(2);
+      var rounded = Number(totalString);
+      return <h1>{rounded}</h1>;
     }
 
     removeFromCart(product) {
@@ -138,7 +136,21 @@ const ProductForm = Form.create()(
         placement: "bottomRight",
       });
     }
-
+    handleCardNumberChange(e){
+      this.setState({cardNumber:e.target.value},function(){
+        console.log(this.state.cardNumber);
+      });
+    }
+    handleExpiryDateChange(e){
+      this.setState({expiryDate:e.target.value},function(){
+        console.log(this.state.expiryDate);
+      });
+    }
+    handleCVCChange(e){
+      this.setState({cvc:e.target.value},function(){
+        console.log(this.state.cvc);
+      });
+    }
     render() {
       const { getFieldDecorator } = this.props.form;
       const { autoCompleteResult } = this.state;
@@ -187,12 +199,12 @@ const ProductForm = Form.create()(
         <div>
           <Header></Header>
 
-          <h1 style={{ textAlign: "center", marginBottom: "40px" }}>
+          <h1 style={{ textAlign: "center", margin: "30px" }}>
             SEPETİ ONAYLA
           </h1>
           <Card
             bodyStyle={{ padding: "20px" }}
-            style={{ marginBottom: "20px" }}
+            style={{  margin: "30px" }}
           >
             <Form onSubmit={this.handleSubmit}>
               <Row gutter={16} id="components-button-demo">
@@ -266,14 +278,10 @@ const ProductForm = Form.create()(
                         },
                       ],
                     })(
-                      <Select
+                      <Input
                         style={{ marginBottom: "20px" }}
-                        onChange={handleChange}
-                      >
-                        <Option value="amaringa">Amaringa</Option>
-                        <Option value="türkiye">Türkiye</Option>
-                        <Option value="ruskisuka">Ruski Suka</Option>
-                      </Select>
+                        placeholder="Ülke "
+                      />
                     )}
                   </FormItem>
 
@@ -286,14 +294,10 @@ const ProductForm = Form.create()(
                         },
                       ],
                     })(
-                      <Select
+                      <Input
                         style={{ marginBottom: "20px" }}
-                        onChange={handleChange}
-                      >
-                        <Option value="istanbul">İstanbul</Option>
-                        <Option value="ankara">Ankara</Option>
-                        <Option value="izmir">İzmir</Option>
-                      </Select>
+                        placeholder="Şehir "
+                      />
                     )}
                   </FormItem>
 
@@ -326,26 +330,13 @@ const ProductForm = Form.create()(
                   <h3 style={{ marginBottom: "20px", textAlign: "center" }}>
                     Kart Bilgileri
                   </h3>
-                  <FormItem label="Kart No:" {...formItemLayout} hasFeedback>
-                    {getFieldDecorator("creditCardNo", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "Kart Numarası boş bırakılamaz",
-                        },
-                        {
-                          pattern:
-                            "^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35d{3})d{11})$",
-                          message:
-                            "Lütfen Kart Numarası Değeri Doğru Girilsin!",
-                        },
-                      ],
-                    })(
-                      <Input
-                        style={{ marginBottom: "20px" }}
-                        placeholder="Kart Numarası "
-                      />
-                    )}
+                  <FormItem label="Kart Bilgileri:" {...formItemLayout} hasFeedback>
+                     <CreditCardInput
+                     cardNumberInputProps={{ value: this.state.cardNum, onChange: (e) => this.handleCardNumberChange(e) }}
+                     cardExpiryInputProps={{ value: this.state.exp, onChange: (e) => this.handleExpiryDateChange(e) }}
+                     cardCVCInputProps={{ value: this.state.cvcc, onChange: (e) => this.handleCVCChange(e) }}
+                     fieldClassName="input"
+                   />
                   </FormItem>
 
                   <FormItem
@@ -372,68 +363,7 @@ const ProductForm = Form.create()(
                       />
                     )}
                   </FormItem>
-
-                  <FormItem label="Son Ay:" {...formItemLayout} hasFeedback>
-                    {getFieldDecorator("card_month", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "Ay boş bırakılamaz",
-                        },
-                      ],
-                    })(
-                      <Select
-                        style={{ marginBottom: "20px" }}
-                        onChange={handleChange}
-                      >
-                        <Option value="05">05</Option>
-                        <Option value="06">06</Option>
-                        <Option value="07">07</Option>
-                      </Select>
-                    )}
-                  </FormItem>
-
-                  <FormItem label="Son Yıl:" {...formItemLayout} hasFeedback>
-                    {getFieldDecorator("card_year", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "Yıl boş bırakılamaz",
-                        },
-                      ],
-                    })(
-                      <Select
-                        style={{ marginBottom: "20px" }}
-                        onChange={handleChange}
-                      >
-                        <Option value="21">21</Option>
-                        <Option value="22">22</Option>
-                        <Option value="23">23</Option>
-                      </Select>
-                    )}
-                  </FormItem>
-
-                  <FormItem label="CVV:" {...formItemLayout} hasFeedback>
-                    {getFieldDecorator("cvv", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "CCV boş bırakılamaz",
-                        },
-                        ,
-                        {
-                          pattern: "^[0-9]{3,4}$",
-                          message:
-                            "Lütfen CCV değeri En Az 3, En Fazla 4 Karakterden Oluşsun!",
-                        },
-                      ],
-                    })(
-                      <Input
-                        style={{ marginBottom: "20px" }}
-                        placeholder="CCV "
-                      />
-                    )}
-                  </FormItem>
+                  
                 </Col>
                 <Col style={{ textAlign: "center" }} lg={8} md={16}>
                   <h3 style={{ marginBottom: "20px" }}>Sepet</h3>
