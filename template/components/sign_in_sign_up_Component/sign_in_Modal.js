@@ -133,11 +133,7 @@ const UserModal = Form.create()(
                       }}
                     />
                   )}
-                </FormItem>
-                <div style={{textAlign:"center"}}>
-                  <Link href="/forgotPassword">Şifremi Unuttum!</Link>
-                </div>
-                
+                </FormItem>         
                 <FormItem>
                   <Button
                     type="primary"
@@ -148,6 +144,9 @@ const UserModal = Form.create()(
                     GİRİŞ YAP
                   </Button>
                 </FormItem>
+                <div style={{textAlign:"center"}}>
+                  <Link key="1" href="/forgotPassword"><a>Şifremi Unuttum!</a></Link>
+                </div>
               </Form>
             </TabPane>
             <TabPane tab="Kayıt Ol" key="2">

@@ -51,37 +51,15 @@ componentDidUpdate() {
     var verification = [];
     if (this.props.token != "" && this.props.token != null && this.props.email != "" && this.props.email != null) {
       verification=
-            <Card >
-              <Row style={{ textAlign: "center" }}>
-                    <CheckCircle size={100} strokeWidth={1} color={'green'} />
-                    <br/><br/><br/><br/>
-                <strong><h3>Şifre Değiştirme İsteğiniz Başarılı Şekilde Gerçekleştirildi!</h3></strong>
-                <br/><br/>
-                <h5> 5 Saniye Sonra Ana Sayfaya Yönlendirileceksiniz!</h5>
-                
-                <br/><br/><br/><br/>
-                <p>{this.props.token}</p>
-                <p>{this.props.email}</p>
-                <Button type="primary" href="/homepage" > Şifre Değiştirmeye Git! </Button>
-                <br/><br/>
-              </Row>
-            </Card>;
+      <div>
+          
+      </div>;
       }
      else {
       verification =  
-      <Card >
-      
-        <Row style={{ textAlign: "center" }}>
-          <AlertCircle size={100} strokeWidth={1} color={'red'} />
-          <br/><br/><br/><br/>
-          <strong><h3>Şifre Değiştirme İsteğiniz Gerçekleştirilirken Bir Hata Oluştu!</h3></strong>
-          <br/><br/>
-          <h5>Lütfen Tekrar Deneyin!</h5>
-          <br/><br/><br/><br/>
-          <Button type="primary" href="/homepage" > Anasayfaya Git! </Button>
-          <br/><br/>
-        </Row>
-    </Card>;
+        <div>
+          
+        </div>;
     }
     return (
       <div>

@@ -23,7 +23,13 @@ import * as profileViewActions from "../../redux/actions/profileViewActions";
 import Router from "next/router";
 import CreditCardInput from "react-credit-card-input";
 
-function handleChange(value) {}
+const provinceData = ["Türkiye", "Amerika","Rusya","Fransa"];
+const cityData = {
+  Türkiye: ["İstanbul", "Ankara", "İzmir"],
+  Amerika: ["California", "Texas", "Washington"],
+  Rusya: ["St. Petersbourg", "Kiev", "Stalingrad"],
+  Fransa: ["Paris", "Nice", "Marsilya"]
+};
 
 const error1 = () => {
   message.error("Lütfen ilk önce giriş yapınız.");
@@ -44,15 +50,31 @@ const success = () => {
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
+
 const ProductForm = Form.create()(
   class extends React.Component {
+
     constructor(props) {
       super(props);
       this.state = {
         cart: "",
         loaded: false,
+        cities: cityData[provinceData[0]],
+        secondCity: cityData[provinceData[0]][0]
       };
     }
+    handleProvinceChange = value => {
+      this.setState({
+        cities: cityData[value],
+        secondCity: cityData[value][0]
+      });
+    };
+  
+    onSecondCityChange = value => {
+      this.setState({
+        secondCity: value
+      });
+    };  
     componentDidMount() {
       setTimeout(() => {
         if (this.props.currentToken == "") {
@@ -68,20 +90,67 @@ const ProductForm = Form.create()(
       }, 700);
     }
 
+    editData() {
+      var arr = [];
+      this.props.cart.map((cartItem) => {
+        arr.push({
+          product_id: cartItem.product.product_id,
+          type: cartItem.product.type,
+          product_price: cartItem.product.product_price,
+          quantity: cartItem.quantity,
+          product_name: cartItem.product.product_name,
+          product_description: cartItem.product.product_description,
+        });
+      });
+      return arr;
+    }
+
+    totalPrice() {
+      var total = 0;
+      this.props.cart.map((cartItem) => {
+        total += cartItem.product.product_price * cartItem.quantity;
+      });
+      var totalString = total.toFixed(2);
+      var rounded = Number(totalString);
+      //this.props.cart[0]
+      return rounded;
+    }
+    onFirstNamePaste(event){
+      var text = event.clipboardData.getData('Text')
+      this.value = text.split(' ').join('');
+   }
+
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           if (this.props.cart.length != 0) {
+            console.log(this.props);
+            var arr = this.editData(); //,
+            var totalprice = this.totalPrice();
+            console.log(totalprice);
+            const stringData = arr.reduce((result, item) => {
+              return `${result}${item.product_id},${item.product_price},${item.type},${item.quantity},${item.product_name},${item.product_description},|`;
+            }, "");
             var address =
               "" +
               user_address.value +
               " " +
-              user_city.value +
+              values.user_city +
               "/" +
-              user_nation.value;
+              values.user_nation;
+            var creditCardExDate =
+              "" + values.card_month + "/" + values.card_year;
+            var mail = this.props.profile.user_mail;  
+            var NewText1 = this.state.cardNumber;
+            const cardNumber = NewText1.split(/\s/).join('');
+            var NewText2 = this.state.expiryDate;
+            const expiryDate = NewText2.split(/\s/).join('');
+            console.log(cardNumber)
+
             var paramsNames = [
               "orders",
+              "email",
               "user_real_name",
               "user_id",
               "user_surname",
@@ -91,19 +160,36 @@ const ProductForm = Form.create()(
               "creditCardFullName",
               "creditCardExDate",
               "cvv",
+              "totalprice",
             ];
             var paramsValues = [
-              this.props.cart,
+              stringData,
+              mail,
               user_real_name.value,
               this.props.profile.user_id,
               user_real_surname.value,
               address,
               user_phone.value,
-              this.state.cardNumber,
+              cardNumber,
               creditCardFullName.value,
-              this.state.expiryDate,
-              this.state.cvc
+              expiryDate,
+              this.state.cvc,
+              totalprice,
             ];
+            console.log(
+              stringData,
+              mail,
+              user_real_name.value,
+              this.props.profile.user_id,
+              user_real_surname.value,
+              address,
+              user_phone.value,
+              cardNumber,
+              creditCardFullName.value,
+              expiryDate,
+              this.state.cvc,
+              totalprice
+             );
             var obj = getConnectionLink(
               "cart",
               paramsNames,
@@ -111,23 +197,15 @@ const ProductForm = Form.create()(
               "POST"
             );
             this.props.shoppingPage(obj);
-            success();
           } else {
-            error();
+            notification["error"]({
+              message: " İlk önce ürün yükleyiniz.",
+              placement: "bottomRight",
+            });
           }
         }
       });
     };
-
-    totalPrice() {
-      var total = 0;
-      this.props.cart.map((cartItem) => {
-        total += cartItem.product.product_price * cartItem.quantity;
-      });
-      var totalString = total.toFixed(2);
-      var rounded = Number(totalString);
-      return <h1>{rounded}</h1>;
-    }
 
     removeFromCart(product) {
       this.props.removeFromCart(product);
@@ -151,10 +229,15 @@ const ProductForm = Form.create()(
         console.log(this.state.cvc);
       });
     }
+
+    MakeItem = function(X) {
+      return <Option key={X} value={X}>{X}</Option>;
+    };
+    
     render() {
       const { getFieldDecorator } = this.props.form;
       const { autoCompleteResult } = this.state;
-
+      const cities  = this.state.cities;
       const formItemLayout = {
         labelCol: {
           xs: { span: 24 },
@@ -253,7 +336,44 @@ const ProductForm = Form.create()(
                       />
                     )}
                   </FormItem>
+                  <FormItem label="Ülke:" {...formItemLayout} hasFeedback>
+                    {getFieldDecorator("user_nation", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "Ülke boş bırakılamaz",
+                        },
+                      ],
+                    })(
+                      <Select
+                      onChange={this.handleProvinceChange}
+                    >
+                      {provinceData.map(province => (
+                        <Option key={province}>{province}</Option>
+                      ))}
+                    </Select>
+                    )}
+                  </FormItem>
 
+                  <FormItem label="Şehir:" {...formItemLayout} hasFeedback>
+                    {getFieldDecorator("user_city", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "Şehir boş bırakılamaz",
+                        },
+                      ],
+                    })(
+                      <Select
+                          value={this.state.secondCity}
+                          onChange={this.onSecondCityChange}
+                        >
+                      {cities.map(this.MakeItem)}
+
+                        </Select>
+                    )}
+                     
+                  </FormItem>
                   <FormItem label="Adres:" {...formItemLayout} hasFeedback>
                     {getFieldDecorator("user_address", {
                       rules: [
@@ -269,38 +389,6 @@ const ProductForm = Form.create()(
                       />
                     )}
                   </FormItem>
-                  <FormItem label="Ülke:" {...formItemLayout} hasFeedback>
-                    {getFieldDecorator("user_nation", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "Ülke boş bırakılamaz",
-                        },
-                      ],
-                    })(
-                      <Input
-                        style={{ marginBottom: "20px" }}
-                        placeholder="Ülke "
-                      />
-                    )}
-                  </FormItem>
-
-                  <FormItem label="Şehir:" {...formItemLayout} hasFeedback>
-                    {getFieldDecorator("user_city", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "Şehir boş bırakılamaz",
-                        },
-                      ],
-                    })(
-                      <Input
-                        style={{ marginBottom: "20px" }}
-                        placeholder="Şehir "
-                      />
-                    )}
-                  </FormItem>
-
                   <FormItem
                     label="Telefon Numarası:"
                     {...formItemLayout}

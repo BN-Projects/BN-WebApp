@@ -112,7 +112,7 @@ import {
         );
         return (
           <div>
-            <Card title="ŞİFRE DEĞİŞTİRME SAYFASI">
+            <Card title="ŞİFREMİ UNUTTUM SAYFASI">
               <Row>
                 <Col lg={4} md={1}></Col>
                 

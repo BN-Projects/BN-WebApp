@@ -6,8 +6,8 @@ export default async function postLostPassword(obj) {
     await axios
         .get(obj)
         .then(res => {
-            if (!res.data.error) {
-                Router.push("/404") 
+            if (res.data.error=="true") {
+                Router.push("/404");
             } else {
                 Router.push("/lostPasswordChange") 
             }
