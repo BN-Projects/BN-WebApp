@@ -11,11 +11,9 @@
     "jwt-decode": "^2.2.0",
     "local-storage": "^2.0.0",
     "md5": "^2.2.1",
-    "moment": "^2.25.3",
     "next": "8.0.4",
     "react": "16.8.6",
     "react-credit-card-input": "^1.1.5",
-    "react-credit-cards": "^0.8.2",
     "react-dom": "16.8.6",
     "react-file-base64": "^1.0.3",
     "react-media": "^1.10.0",
@@ -50,7 +48,7 @@
     "react-virtualized": "9.21.0",
     "react-vis": "1.11.7",
     "reqwest": "2.0.5",
-    "styled-components": "^4.2.0",
+    "styled-components": "4.2.0",
     "xhr2": "0.1.4"
   },
   "scripts": {

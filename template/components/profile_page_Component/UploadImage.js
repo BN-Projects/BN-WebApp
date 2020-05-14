@@ -21,9 +21,11 @@ class UploadImage extends React.Component {
       onChange(info) {
         const status = info.file.status;
         if (status !== 'uploading') {
+          console.log(info.file, info.fileList);
         }
         if (status === 'done') {
           message.success(`${info.file.name} file uploaded successfully.`);
+          console.log(info.file.name)
         } else if (status === 'error') {
           message.error(`${info.file.name} file upload failed.`);
         }

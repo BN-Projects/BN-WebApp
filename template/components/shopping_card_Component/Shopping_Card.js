@@ -480,7 +480,7 @@ const ProductForm = Form.create()(
                   <h3>Ödeme Tutarı: </h3>
                 </Col>
                 <Col lg={2} md={16}>
-                  {this.totalPrice()}
+                  <h1>{this.totalPrice()}</h1>
                 </Col>
                 <Col lg={3} md={16}>
                   <h5>TL </h5>

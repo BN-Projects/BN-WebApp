@@ -6,7 +6,6 @@ import Head from 'next/head';
 import NProgress from 'nprogress';
 import Page from '../components/Page';
 
-
 //redux için gerekli importlar
 import createStore from '../redux/reducers/configureStore';
 import {Provider} from 'react-redux';
@@ -49,15 +48,14 @@ class MyApp extends App {
           />
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <link rel="shortcut icon" href="../static/images/bnLogo.png" />
-          <title>BN - Benimki Nerede?</title>
+          <link rel="shortcut icon" href="/static/images/triangle.png" />
+          <title>Benimki Nerede</title>
           <link
             href="https://fonts.googleapis.com/css?family=Anonymous+Pro:400,700"
             rel="stylesheet"
           />
           {pageProps.ieBrowser && (
             <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js" />
-            
           )}
         </Head>
         <AppProvider>

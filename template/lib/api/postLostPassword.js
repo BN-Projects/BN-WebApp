@@ -9,7 +9,7 @@ export default async function postLostPassword(obj) {
             if (res.data.error=="true") {
                 Router.push("/404");
             } else {
-                Router.push("/lostPasswordChange") 
+                Router.push("/lostpasswordchange") 
             }
         })
         .catch(err => console.log(err));

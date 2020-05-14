@@ -60,10 +60,11 @@ import {
            "POST"
          );
         this.props.passwordChangePage(obj);
-        success();
+        setTimeout(() => { 
+            Router.push("/homepage")  
+        }, 500); 
       }
-    }
-    
+    }    
       
       render() {
         const { getFieldDecorator } = this.props.form;

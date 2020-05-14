@@ -37,7 +37,6 @@ import {
     let arr = [];
     axes.map(x => {
       const y =  0.4;
-
       arr.push({ x, y });
     });
     return arr;

@@ -32,6 +32,7 @@ import Link from "next/link";
 import MockNotifications from "../demos/mock/notifications";
 import { useAppState } from "./shared/AppProvider";
 import { useState, useEffect } from "react";
+import Router from "next/router"
 
 import ProfileSettings from "./profile_page_Component/ProfileSettings";
 //react hooks
@@ -70,17 +71,19 @@ const MainHeader = () => {
     var paramsValues = [token, "web"];
     var obj = getConnectionLink("profile", paramsNames, paramsValues, "POST");
     dispat(ProfileInformation(obj));
+    console.log(profile);
     setloading(true);
   }
 
   function logout() {
     dispat(logoutUser());
     setTimeout(() => {
+      // Router.push("/logout");
       window.location.reload(false);
     }, 500);
   }
   function hasToken() {
-    if (profile == "") {
+    if (token == "") {
       return (
         <Menu.Item>
           <ModalLogin />
@@ -96,10 +99,12 @@ const MainHeader = () => {
       message: (product.product_name + " Başarıyla Silindi"),
       placement: 'bottomRight'
     });
+    console.log(product);
   }
 
 
   function shoppingMenu() {
+    console.log(cart);
     return (
       <SubMenu title={<ShoppingCart size={20} strokeWidth={1} style={{color:"red"}}  />} >
         <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
@@ -195,22 +200,23 @@ const MainHeader = () => {
           </Menu.Item>
           <Menu.Divider />
           <Menu.Item style={{ height: "100%" }}>
-          <List.Item>
-              <List.Item.Meta
-                title={
-                  <a href="/profile">
-                    <User size={16} /> Profilim
-                  </a>
-                }
-              />
-            </List.Item>
-            </Menu.Item>
-          <Menu.Item style={{ height: "100%" }}>
             <List.Item>
               <List.Item.Meta
                 title={
                   <a href="/passwordchange">
                     <Key size={16} /> Şifre işlemleri
+                  </a>
+                }
+              />
+            </List.Item>
+          </Menu.Item>
+
+          <Menu.Item style={{ height: "100%" }}>
+            <List.Item>
+              <List.Item.Meta
+                title={
+                  <a href="/notificationview">
+                    <MessageCircle size={16} /> Bildirimlerim
                   </a>
                 }
               />
@@ -250,6 +256,24 @@ const MainHeader = () => {
       return null;
     }
   }
+  // function hasLevel() {
+  //   if (
+  //     profile.role_lvl == 1 ||
+  //     profile.role_lvl == 2 ||
+  //     profile.role_lvl == 3 ||
+  //     profile.role_lvl == 4 ||
+  //     profile.role_lvl == 5
+  //   ) {
+  //     if (cart.length != 0) {
+  //       return shoppingMenu();
+  //     } else {
+  //       return emptyCard();
+  //     }
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  console.log(token);
   return (
     <DashHeader>
       <Header>

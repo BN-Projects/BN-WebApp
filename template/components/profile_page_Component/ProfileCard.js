@@ -39,10 +39,12 @@ class ProfileCard extends Component {
           "POST"
         );
         this.props.actions.profilePage(obj);
+        console.log(this.props.profile_data);
       } else {
         this.setState(
           { profileInfo: this.props.profile_data, loaded: true },
           function() {
+            console.log(this.state.profileInfo);
           }
         );
       }
@@ -57,10 +59,12 @@ class ProfileCard extends Component {
           "POST"
         );
         this.props.actions.profilePage(obj);
+        console.log(this.props.profile_data);
       }, 500);
     }
   }
   componentDidUpdate() {
+    console.log(this.props.currentToken);
     if (this.props.currentToken == "")
     {
       Router.push("/homepage");
@@ -69,6 +73,7 @@ class ProfileCard extends Component {
       this.setState(
         { profileInfo: this.props.profile_data, loaded: true },
         function() {
+          console.log(this.state.profileInfo);
         }
       );
     }
@@ -77,6 +82,7 @@ class ProfileCard extends Component {
     var tit = []
     tit.push("Hoşgeldin ")
     tit.push(this.state.profileInfo.user_real_name)
+    console.log(tit);
     return (
       <div>
         <Card 
@@ -87,7 +93,7 @@ class ProfileCard extends Component {
           <Row>
             <Col lg={6} md={12}>
               <div className="text-center mb-4">
-                <Avatar src={this.state.profileInfo.user_img} size={180} />
+                <Avatar src="/static/images/avatar.jpg" size={180} />
               </div>
             </Col>
             <Col lg={1} md={2}></Col>
@@ -95,7 +101,6 @@ class ProfileCard extends Component {
               <h2 style={{ marginBottom: "30px" }}>
                 {this.state.profileInfo.user_real_name}{" "}
                 {this.state.profileInfo.user_surname}
-                
               </h2>
               <p>E-Mail : {this.state.profileInfo.user_mail}</p>
               <p>Telefon : {this.state.profileInfo.user_phone}</p>

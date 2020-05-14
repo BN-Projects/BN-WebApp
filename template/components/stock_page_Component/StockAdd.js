@@ -17,17 +17,9 @@ import { bindActionCreators } from "redux";
 import * as addDeviceActions from "../../redux/actions/addDeviceActions";
 import * as profileViewActions  from '../../redux/actions/profileViewActions'
 import Router from "next/router"
-
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
-
-const success = () => {
-  message.success("Stok Ekleme Başarıyla Yapıldı.");
-};
-const error = () => {
-  message.error("Stok Ekleme Sırasında Bir Hata Oluştu!");
-};
 const ProductForm = Form.create()(
   class  extends React.Component {
     constructor(props) {
@@ -38,7 +30,8 @@ const ProductForm = Form.create()(
         };
     }
     componentDidMount() {
-        if(this.props.currentToken != "") {
+        
+          if(this.props.currentToken != "") {
         if (this.props.device_data == "") {
             var paramsNames = [];
             var paramsValues = [];
@@ -49,18 +42,16 @@ const ProductForm = Form.create()(
                 "POST"
             );
             this.props.actions.addDevicePage(obj);
+            console.log(this.props.device_data);
             this.props.device_data;
-            
         }
         else {
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
+                console.log(this.state.devices);
             });
-            
 
         }
-        success();
     }
-    
     else
     {
         if (this.props.device_data == "") {
@@ -73,34 +64,36 @@ const ProductForm = Form.create()(
                 "POST"
             );
             this.props.actions.addDevicePage(obj);
+            console.log(this.props.device_data);
             this.props.device_data;
         }
         setTimeout(() => {
+            // console.log(this.props.profiledata)
             if(this.props.currentToken == "")
             {
-            Router.push("/homepage")
-            message.error("Lütfen giriş yapınız")
+            Router.push("/404")
             }
             else
             {
+              if(this.props.profiledata != "")
+              {
                 if(this.props.profiledata.role_lvl != 5)
                 {
                     Router.push("/404")
                 }
+              }
             }
-            }, 600);   
-          error();    
+            }, 600);       
         }
     }
     componentDidUpdate() {
         if (this.props.device_data != "" && !this.state.loaded) {
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
+                console.log(this.state.devices);
   
             });
         }
-    }
-   
-    
+    }    
  
   
     handleSubmit = e => {
@@ -109,6 +102,7 @@ const ProductForm = Form.create()(
             if (!err) {
               var paramsNames = ["type","uuid", "major", "minor", "token"];
               var paramsValues = [values.type,uuid.value, major.value, minor.value,this.props.currentToken];
+              console.log(this.props.currentToken);
               var obj = getConnectionLink("addbeacon", paramsNames, paramsValues, "POST");
               this.props.addDevicePage(obj);
             }
@@ -174,10 +168,10 @@ const ProductForm = Form.create()(
                                                     }
                                                 ]
                                             })( <Select name="type" placeholder="Ürün Tipini Seçiniz." >
-                                            <Option value="1">Tasma</Option>
-                                            <Option value="2">Bileklik</Option>
-                                            <Option value="3">Anahtarlık</Option>
-                                            <Option value="4">Kalemlik</Option>
+                                            <Option value="0">Tasma</Option>
+                                            <Option value="1">Bileklik</Option>
+                                            <Option value="2">Anahtarlık</Option>
+                                            <Option value="3">Kalemlik</Option>
                                           </Select>)}
                                         </FormItem>
                             <FormItem label="UUID" {...formItemLayout} >

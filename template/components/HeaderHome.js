@@ -32,7 +32,7 @@ import Link from "next/link";
 import MockNotifications from "../demos/mock/notifications";
 import { useAppState } from "./shared/AppProvider";
 import { useState, useEffect } from "react";
-
+import Router from "next/router"
 import ProfileSettings from "./profile_page_Component/ProfileSettings";
 //react hooks
 import { useDispatch, useSelector } from "react-redux";
@@ -70,17 +70,19 @@ const MainHeader = () => {
     var paramsValues = [token, "web"];
     var obj = getConnectionLink("profile", paramsNames, paramsValues, "POST");
     dispat(ProfileInformation(obj));
+    console.log(profile);
     setloading(true);
   }
 
   function logout() {
     dispat(logoutUser());
     setTimeout(() => {
+      // Router.push("/logout");
       window.location.reload(false);
     }, 500);
   }
   function hasToken() {
-    if (profile == "") {
+    if (token == "") {
       return (
         <Menu.Item>
           <ModalLogin />
@@ -95,10 +97,12 @@ const MainHeader = () => {
       message: (product.product_name + " Başarıyla Silindi"),
       placement: 'bottomRight'
     });
+    console.log(product);
   }
 
 
   function shoppingMenu() {
+    console.log(cart);
     return (
       <SubMenu title={<Badge count={cart.length}><ShoppingCart size={25} strokeWidth={1.5} /></Badge>} >
         <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
@@ -125,6 +129,7 @@ const MainHeader = () => {
   }
 
   function shoppingMenuBottom() {
+    console.log(cart);
     return (
       <SubMenu title={<Badge dot><ShoppingCart size={20} strokeWidth={1.5} /></Badge>} >
         <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
@@ -160,6 +165,13 @@ const MainHeader = () => {
       return (
         <SubMenu title={<ChevronsDown size={20} strokeWidth={1} />}>
           {cart.length > 0 ? shoppingMenuBottom() : emptyCard()}
+          <Menu.Item >
+            <Link href="/myorders">
+              <a >
+                <ShoppingBag size={16} /> Siparişlerim
+              </a>
+            </Link>
+          </Menu.Item>
           <Menu.Item >
             <Link href="/passwordchange">
               <a >
@@ -217,17 +229,31 @@ const MainHeader = () => {
             />
           </Menu.Item>
           <Menu.Divider />
+
           <Menu.Item style={{ height: "100%" }}>
             <List.Item>
               <List.Item.Meta
                 title={
-                  <a href="/profile">
-                    <User size={16} /> Profilim
+                  <a href="/notificationview">
+                    <MessageCircle size={16} /> Bildirimlerim
                   </a>
                 }
               />
             </List.Item>
           </Menu.Item>
+
+          <Menu.Item style={{ height: "100%" }}>
+            <List.Item>
+              <List.Item.Meta
+                title={
+                  <a href="/myorders">
+                    <ShoppingBag size={16} /> Siparişlerim
+                  </a>
+                }
+              />
+            </List.Item>
+          </Menu.Item>
+          
           <Menu.Item style={{ height: "100%" }}>
             <List.Item>
               <List.Item.Meta
@@ -239,11 +265,13 @@ const MainHeader = () => {
               />
             </List.Item>
           </Menu.Item>
+
           <Menu.Item style={{ height: "100%" }}>
             <List.Item>
               <ProfileSettings />
             </List.Item>
           </Menu.Item>
+          
           <Menu.Item style={{ height: "100%" }}>
             <List.Item>
               <List.Item.Meta
@@ -280,6 +308,7 @@ const MainHeader = () => {
         return emptyCard();
       }
   }
+  console.log(token);
   return (
     <DashHeader>
       <Header>
@@ -293,7 +322,7 @@ const MainHeader = () => {
         )}
         <Link href="/homepage">
           <a className="brand">
-            <img src="../static/images/bnLogo.png" style={{maxWidth:"50px",maxHeigth:"50px" }} alt="logo"/>
+          <img src="../static/images/bnLogo.png" style={{maxWidth:"50px",maxHeigth:"50px" }} alt="logo"/>
             <strong className="mx-1 text-black">BN</strong>
           </a>
         </Link>

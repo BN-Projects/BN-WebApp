@@ -43,9 +43,31 @@ const Page = ({ router, children }) => {
     profile.role_lvl == 3 ||
     profile.role_lvl == 4
   ) {
-    array.push("/homepage","/","/products","/contact","/about","/passwordchange",
-    "/shoppingcard","registercontrol","/error","/_error","_error","/logout",
-    "/profile","/registercontrol","/salesStatus","/logout");
+    array.push(
+      "/homepage",
+      "/",
+      "/products",
+      "/contact",
+      "/about",
+      "/passwordchange",
+      "/shoppingcard",
+      "/error",
+      "/_error",
+      "_error",
+      "/logout",
+      "/profile",
+      "/registercontrol",
+      "/salesStatus",
+      "/logout",
+      "/stocks",
+      "/addstock",
+      "/notifications",
+      "/myorders",
+      "/passwordchange",
+      "/forgotpassword",
+      "/lostpasswordchange",
+      "/404"
+    );
   } else if (profile.role_lvl == 5) {
     array.push(null);
   }

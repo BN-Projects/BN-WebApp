@@ -25,12 +25,12 @@ const Forgot = ({ form }) => (
       <div className="text-center mb-5">
         <Link href="/forgot">
           <a className="brand mr-0">
-            <img src="../static/images/bnLogo.png" style={{maxWidth:"100px",maxHeigth:"100px" }} alt="logo"/>
+            <Triangle size={32} strokeWidth={1} />
           </a>
         </Link>
-        <h5 className="mb-0 mt-3">Şifremi Unuttum Sayfası</h5>
+        <h5 className="mb-0 mt-3">Recover your password</h5>
 
-        <p className="text-muted">Şifre Almak İçin Email Adresinizi Giriniz.</p>
+        <p className="text-muted">receive password reset instructions.</p>
       </div>
 
       <Form
@@ -75,15 +75,15 @@ const Forgot = ({ form }) => (
 
         <FormItem>
           <Button type="primary" htmlType="submit" block>
-            ŞİFREYİ SIFIRLA
+            Reset password
           </Button>
         </FormItem>
 
         <div className="text-center">
           <small className="text-muted text-center">
-            <span>Hesabınız Yok Mu?</span>
+            <span>Don't have an account yet?</span>
             <Link href="/signup">
-              <a>&nbsp;Kayıt Ol!</a>
+              <a>&nbsp;Create one now!</a>
             </Link>
           </small>
         </div>

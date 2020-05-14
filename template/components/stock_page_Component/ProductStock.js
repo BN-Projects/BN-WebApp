@@ -1,4 +1,4 @@
-import { Card, Col, Row,message} from "antd";
+import { Card, Col, Row, message, Popconfirm, Icon, notification } from "antd";
 import { Button } from "antd";
 import React, { Component } from "react";
 import Media from "react-media";
@@ -8,31 +8,70 @@ import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/authActions";
 import { bindActionCreators } from "redux";
 import * as stockViewActions from "../../redux/actions/stockViewActions";
-import * as profileViewActions  from '../../redux/actions/profileViewActions'
+import * as profileViewActions from "../../redux/actions/profileViewActions";
+import * as stockRemoveActions from "../../redux/actions/stockRemoveActions";
+import * as stockEditActions from "../../redux/actions/stockEditActions";
 
-import Router from "next/router"
+import StockEditModal from "./StockEditModal";
+import Router from "next/router";
+import { STOCK_REMOVE } from "../../redux/actions/actionTypes";
+import { isThisSecond } from "date-fns";
 
-const error = () => {
-  message.error("Bu sayfaya girme iznine sahip değilsiniz");
-};
+// const error = () => {
+//   message.error("Bu sayfaya girme iznine sahip değilsiniz");
+// };
 
 class ProductStock extends Component {
   constructor(props) {
     super(props);
     this.state = {
       stocks: [],
-      loaded: false
+      loaded: false,
+      visible: false,
+      stockmodal: [],
     };
   }
 
-  
-  componentDidMount() {
-    setTimeout(() => {
-      if(this.props.profiledata.role_lvl !=5)
-      {
-        Router.push("/404")
+  showModal = () => {
+    this.setState({ visible: true });
+  };
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  };
+
+  handleCreate = () => {
+    const form = this.formRef.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
       }
-    }, 700);
+
+      console.log("Received values of form: ", values);
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  };
+
+  saveFormRef = (formRef) => {
+    this.formRef = formRef;
+  };
+
+  componentDidMount() {
+    // setTimeout(() => {
+    //   if(this.props.profileData !="" || this.props.profileData !=undefined)
+    //   {
+    //     if(this.props.profileData.role_lvl !=5)
+    //     {
+    //     Router.push("/homepage")
+    //     //console.log("aaa 5 degil") 
+    //     }
+    //   }
+    //   else
+    //   {
+    //     Router.push("/homepage")
+    //   }
+    // }, 700);
     if (this.props.currentToken != "") {
       if (this.props.stock_data == "") {
         var paramsNames = ["token"];
@@ -44,10 +83,12 @@ class ProductStock extends Component {
           "POST"
         );
         this.props.actions.StockViewPage(obj);
+        console.log(this.props.stock_data);
       } else {
         this.setState(
           { stocks: this.props.stock_data, loaded: true },
           function() {
+            console.log(this.state.stocks);
           }
         );
       }
@@ -62,6 +103,7 @@ class ProductStock extends Component {
           "POST"
         );
         this.props.actions.StockViewPage(obj);
+        console.log(this.props.stock_data);
       }, 500);
     }
   }
@@ -70,47 +112,112 @@ class ProductStock extends Component {
       this.setState(
         { stocks: this.props.stock_data, loaded: true },
         function() {
+          console.log(this.state.stocks);
         }
       );
     }
   }
-  render() {
-    var stockList = [];
-    if (this.state.stocks != []) {
-      this.state.stocks.forEach((stocks, i) => {
-        stockList.push(
-          <div key={i}>
-            <Col md={12} lg={8} style={{ padding: 5 }}>
-              <Card style={{ marginTop: "10px" }}>
-                <h2 style={{ marginBottom: "10px" }}>CİHAZ X</h2>
-                <Row className="a">
-                  <Col lg={24} md={24}>
-                    <p>
-                      <strong>UUID:</strong> {stocks.uuid}
-                    </p>
-                  </Col>
-                  <Col lg={24} md={24}>
-                    <p>
-                      <strong>MAJOR:</strong> {stocks.major}
-                    </p>
-                  </Col>
-                  <Col lg={24} md={24}>
-                    <p>
-                      <strong>MINOR:</strong> {stocks.minor}
-                    </p>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </div>
-        );
+
+  deleteStock = (stock) => {
+    if (stock != "") {
+      var stockId = stock.id;
+      var paramsNames = ["id", "type"];
+      var paramsValues = [stockId, "beacon"];
+      var obj = getConnectionLink(
+        "deleteitem",
+        paramsNames,
+        paramsValues,
+        "POST"
+      );
+      this.props.actions.removeStock(obj);
+
+      notification["success"]({
+        message: stock.uuid + " Başarıyla Silindi",
+        description: "Major: " + stock.major + " " + "MINOR: " + stock.minor,
+        placement: "bottomRight",
       });
-    } else {
-      stockList = "Yükleniyor.";
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 700);
     }
+  };
+
+  editStock = (stock) => {
+    {notification["success"]({
+      message: stock.uuid + " Seçildi",
+      description: "Major: " + stock.major + " " + "MINOR: " + stock.minor,
+      placement: "bottomRight",
+    });}
+    this.setState({ stockmodal: stock });
+    this.setState({visible : true})
+  };
+
+  buttons = (stock) => {
     return (
-      <div className="stockListPage" style={{ padding: 5 }}>     
-                <Row> {stockList} </Row>  
+      <div>
+        <Button type="primary" style={{marginRight:"5px"}} onClick={() => {this.editStock(stock); this.showModal()}}><Icon type="edit-o"></Icon></Button>
+        <Popconfirm
+          placement="top"
+          title="Silmek istediğinize emin misiniz?"
+          onConfirm={() => this.deleteStock(stock)}
+          okText="Sil"
+          okType="danger"
+          cancelText="Vazgeç"
+          icon={<Icon type="close-circle-o" style={{ color: "red" }} />}
+          placement="bottom"
+        >
+          <Button type="primary" style={{backgroundColor:"#f5222d"}}>
+            <Icon type="close-o" />
+          </Button>
+        </Popconfirm>
+      </div>
+    );
+  };
+
+  render() {
+    return (
+      <div className="stockListPage" style={{ padding: 5 }}>
+        <Row>
+          {this.state.stocks.map((stock, i) => (
+            <div key={i}>
+              <Col md={12} lg={8} style={{ padding: 5 }}>
+                <Card style={{ marginTop: "10px" }} extra={this.buttons(stock)}
+                actions={[
+                   <p>(Beacon Tipi : {stock.type})</p> 
+                ]}>
+                  <h2 style={{ marginBottom: "10px" }}>CİHAZ X</h2>
+                  <Row className="a">
+                    <Col lg={24} md={24}>
+                      <p>
+                        <strong>UUID:</strong> {stock.uuid}
+                      </p>
+                    </Col>
+                    <Col lg={24} md={24}>
+                      <p>
+                        <strong>MAJOR:</strong> {stock.major}
+                      </p>
+                    </Col>
+                    <Col lg={24} md={24}>
+                      <p>
+                        <strong>MINOR:</strong> {stock.minor}
+                      </p>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </div>
+          ))}
+          {" "}
+        </Row>
+        <StockEditModal
+        wrappedComponentRef={this.saveFormRef}
+        visible={this.state.visible}
+        onCancel={this.handleCancel}
+        onCreate={this.handleCreate}
+        stockData={this.state.stockmodal}
+        stockEdit={this.props.actions.stockEdit}
+        currentToken={this.props.currentToken}
+        />
       </div>
     );
   }
@@ -120,7 +227,8 @@ function mapStateToProps(state) {
   return {
     stock_data: state.stockViewReducer,
     currentToken: state.authReducer,
-    profiledata : state.profileViewReducer,
+    profileData: state.profileViewReducer,
+    stockRemove: state.stockRemoveReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -131,8 +239,20 @@ function mapDispatchToProps(dispatch) {
         dispatch
       ),
       loginUser: bindActionCreators(authActions.loginUser, dispatch),
-      profilePage: bindActionCreators(profileViewActions.ProfileInformation, dispatch), 
-    }
+      profilePage: bindActionCreators(
+        profileViewActions.ProfileInformation,
+        dispatch
+      ),
+      removeStock: bindActionCreators(
+        stockRemoveActions.stockRemovePage,
+        dispatch
+      ),
+      stockEdit: bindActionCreators(
+        stockEditActions.stockEditPage,
+        dispatch
+      ),
+      
+    },
   };
 }
 //actions aldik*/

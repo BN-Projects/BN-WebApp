@@ -18,6 +18,6 @@ export function logoutUser() {
   return function(dispatch) {
     var token = initialState.login;
     dispatch(logout(token));
-    success();
+    //success();
   };
 }

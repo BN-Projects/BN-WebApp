@@ -18,18 +18,9 @@ import * as productAddActions from '../../redux/actions/productAddActions'
 import * as profileViewActions  from '../../redux/actions/profileViewActions'
 import Router from "next/router";
 
-const errorLvl = () => {
-  message.error("Bu sayfaya girme iznine sahip değilsiniz!");
-};
 const error = () => {
-  message.error("Ürün Ekleme Sırasında Bir Hata Oluştu!");
+  message.error("Bu sayfaya girme iznine sahip değilsiniz");
 };
-
-const success = () => {
-  message.success("Ürün Ekleme Başarı ile Gerçekleştirildi!");
-};
-
-
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -49,11 +40,14 @@ const ProductForm = Form.create()(
       setTimeout(() => {
         if(this.props.profiledata.role_lvl !=5)
         {
-          Router.push("/404") 
+          Router.push("/homepage") 
         }
       }, 700);
     }
     componentDidUpdate() {
+      // setTimeout(() => {
+      //   console.log(product)
+      // }, 500);
     }
 
 
@@ -63,12 +57,9 @@ const ProductForm = Form.create()(
             if (!err) {
               var paramsNames = ["proType", "proDes", "proName", "proPrice","token"];
               var paramsValues = [values.proType, proDes.value, proName.value, proPrice.value,this.props.currentToken];
+              console.log(this.props.currentToken);
               var obj = getConnectionLink("addproduct", paramsNames, paramsValues, "POST");
               this.props.productAddPage(obj);
-              success();
-            }
-            else{
-              error();
             }
         });
     };
@@ -132,10 +123,10 @@ const ProductForm = Form.create()(
                                                     }
                                                 ]
                                             })( <Select name="proType" placeholder="Ürün Tipini Seçiniz." >
-                                            <Option value="1">Tasma</Option>
-                                            <Option value="2">Bileklik</Option>
-                                            <Option value="3">Anahtarlık</Option>
-                                            <Option value="4">Kalemlik</Option>
+                                            <Option value="0">Tasma</Option>
+                                            <Option value="1">Bileklik</Option>
+                                            <Option value="2">Anahtarlık</Option>
+                                            <Option value="3">Kalemlik</Option>
                                           </Select>)}
                                         </FormItem>
                                         <FormItem label="Ürün Açıklaması:" {...formItemLayout} >

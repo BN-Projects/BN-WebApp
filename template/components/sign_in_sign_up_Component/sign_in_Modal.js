@@ -145,7 +145,7 @@ const UserModal = Form.create()(
                   </Button>
                 </FormItem>
                 <div style={{textAlign:"center"}}>
-                  <Link key="1" href="/forgotPassword"><a>Şifremi Unuttum!</a></Link>
+                  <a href="/forgotPassword">Şifremi Unuttum!</a>
                 </div>
               </Form>
             </TabPane>

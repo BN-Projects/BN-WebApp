@@ -11,7 +11,8 @@ import {
   Row,
   Switch,
   Tooltip,
-  message
+  message,
+  Icon
 } from 'antd';
 import { Book, LogOut, Triangle } from 'react-feather';
 import { capitalize, lowercase } from '../lib/helpers';
@@ -195,10 +196,11 @@ const SidebarContent = ({
 
               <Popconfirm
                 placement="top"
-                title="Çıkmak istediğinize eminmisiniz?"
+                title="Çıkmak istediğinize emin misiniz?"
                 onConfirm={() => logout()}
                 okText="Evet"
                 cancelText="Vazgeç"
+                icon={<Icon type="logout-o" style={{ color: 'red' }} />}
               >
                 <a
                   className={`px-3 ${
