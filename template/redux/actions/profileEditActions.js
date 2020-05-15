@@ -13,7 +13,6 @@ export function profileEditPage(obj) {
   return function(dispatch) {
     postProfile(obj).then(res => {
       dispatch(profileEdit(res));
-      // console.log(res);
     });
   };
 }

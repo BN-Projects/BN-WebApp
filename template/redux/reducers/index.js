@@ -21,6 +21,7 @@ import stockViewReducer from "./stockViewReducer";
 import addDeviceReducer from './addDeviceReducer'
 import stockRemoveReducer from './stockRemoveReducer'
 import stockEditReducer from './stockEditReducer'
+import myOrdersReducer from "./myOrdersReducer"
 
 import cartReducer from "./cartReducer";
 import shoppingReducer from './shoppingReducer'
@@ -64,6 +65,7 @@ const rootReducer = combineReducers({
   lostPasswordReducer,
   notificationViewReducer,
   passwordResetReducer,
+  myOrdersReducer,
 });
 
 export default rootReducer;

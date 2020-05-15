@@ -10,14 +10,11 @@ export const logout = token => {
   };
 };
 
-const success = () => {
-  message.success("Çıkış Başarılı");
-};
+
 
 export function logoutUser() {
   return function(dispatch) {
     var token = initialState.login;
     dispatch(logout(token));
-    //success();
   };
 }

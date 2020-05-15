@@ -11,7 +11,6 @@ export const lostPasswordControl = lostpassword => {
 export function lostPasswordControlPage(obj) {
   return function(dispatch) {
     postLostPassword(obj).then(res => {
-      console.log(res);
       dispatch(lostPasswordControl(res));
     });
   };

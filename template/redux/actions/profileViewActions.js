@@ -21,7 +21,6 @@ export function ProfileInformation(obj) {
     postToken(obj).then(res => {
       dispatch(ProfileInfo(res));
       if (res != "") {
-        console.log("basarili")
       } else {
         error();
       }

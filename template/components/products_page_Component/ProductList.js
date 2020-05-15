@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { array } from "prop-types";
 
 import {
   Button,
@@ -65,8 +65,6 @@ class productList extends Component {
       if (err) {
         return;
       }
-
-      console.log("Received values of form: ", values);
       form.resetFields();
       this.setState({ visible: false });
     });
@@ -86,8 +84,6 @@ class productList extends Component {
         "POST"
       );
       this.props.actions.ProductPage(obj);
-      console.log(obj);
-      console.log(this.props.product_data);
       this.props.product_data;
 
       var paramsNames2 = [];
@@ -107,7 +103,6 @@ class productList extends Component {
           loaded: true,
         },
         function() {
-          // console.log(this.state.products);
         }
       );
     }
@@ -121,11 +116,9 @@ class productList extends Component {
           loaded: true,
         },
         function() {
-          // console.log(this.state.products);
         }
       );
     }
-    console.log(this.state.counts);
   }
 
   onChange = (e) => {
@@ -153,7 +146,6 @@ class productList extends Component {
         "POST"
       );
       this.props.actions.removeProduct(obj);
-      console.log(obj);
 
       notification["success"]({
         message: product.product_name + " Başarıyla Silindi",
@@ -244,65 +236,74 @@ class productList extends Component {
   };
 
   render() {
-    return (
-      <div className="productPage" style={{ padding: 5 }}>
-        <div className="productlist">
-          {this.state.products.map((product) => (
-            <div key={product.product_id}>
-              <Col lg={6} md={12}>
+    var productListPage =[];
+    if (this.state.products.length != 0 )
+    {
+      productListPage.push(
+      <div className="productlist">
+      {this.state.products.map((product) => (
+        <div key={product.product_id}>
+          <Col lg={6} md={12}>
+            <Card
+              bodyStyle={{ padding: 5 }}
+              style={{ marginBottom: "20px", margin: 10 }}
+            >
+              <div float="center">
                 <Card
-                  bodyStyle={{ padding: 5 }}
-                  style={{ marginBottom: "20px", margin: 10 }}
+                  extra={this.buttons(product)}
+                  cover={
+                    <img
+                      alt="example"
+                      src="https://www.patidogclub.com/wp-content/uploads/2017/12/yavru-kopekler-icin-tasma-egitimi.jpg"
+                    />
+                  }
+                  actions={[
+                    this.props.profile.role_lvl == 5 ? (
+                      <p>(Beacon Tipi : {product.type})</p>
+                    ) : this.props.productCount[product.type] != 0 ? (
+                      // <Button
+                      //   type="primary"
+                      //   onClick={() => this.addTo(product)}
+                      // >
+                      //   Sepete Ekle
+                      // </Button>
+                      this.search(product)
+                    ) : (
+                      <Button
+                        type="primary"
+                        onClick={() => this.addTo(product)}
+                        disabled
+                      >
+                        Ürün Stokta Yok
+                      </Button>
+                    ),
+                  ]}
                 >
-                  <div float="center">
-                    <Card
-                      extra={this.buttons(product)}
-                      cover={
-                        <img
-                          alt="example"
-                          src="https://www.patidogclub.com/wp-content/uploads/2017/12/yavru-kopekler-icin-tasma-egitimi.jpg"
-                        />
-                      }
-                      actions={[
-                        this.props.profile.role_lvl == 5 ? (
-                          <p>(Beacon Tipi : {product.type})</p>
-                        ) : this.props.productCount[product.type] != 0 ? (
-                          // <Button
-                          //   type="primary"
-                          //   onClick={() => this.addTo(product)}
-                          // >
-                          //   Sepete Ekle
-                          // </Button>
-                          this.search(product)
-                        ) : (
-                          <Button
-                            type="primary"
-                            onClick={() => this.addTo(product)}
-                            disabled
-                          >
-                            Ürün Stokta Yok
-                          </Button>
-                        ),
-                      ]}
-                    >
-                      <Meta
-                        style={{ textAlign: "center" }}
-                        title={product.product_name}
-                        description={product.product_description}
-                      />
-                      <br></br>
-                      {console.log(this.props.cartItem)}
-                      <div className="price-container">
-                        <h2>${product.product_price}</h2>
-                        <p>{this.props.productCount[product.type]} Adet</p>
-                      </div>
-                    </Card>
+                  <Meta
+                    style={{ textAlign: "center" }}
+                    title={product.product_name}
+                    description={product.product_description}
+                  />
+                  <br></br>
+                  <div className="price-container">
+                    <h2>${product.product_price}</h2>
+                    <p>{this.props.productCount[product.type]} Adet</p>
                   </div>
                 </Card>
-              </Col>
-            </div>
-          ))}
-        </div>
+              </div>
+            </Card>
+          </Col>
+        </div> ))}
+        </div>)
+    }
+    else
+    {
+      productListPage.push(<Card><div className="productempty"><h1 style={{textAlign:"center"}}>Şuan hiçbir ürün yok.</h1></div></Card>)
+    }
+    return (
+      <div className="productPage" style={{ padding: 5 }}>
+        {productListPage}
+         
         <ProductEditModal
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}

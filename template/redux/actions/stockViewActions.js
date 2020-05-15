@@ -11,7 +11,6 @@ export const StockView = stock => {
 export function StockViewPage(obj) {
   return function(dispatch) {
     postStockView(obj).then(res => {
-      console.log(res);
       dispatch(StockView(res));
     });
   };

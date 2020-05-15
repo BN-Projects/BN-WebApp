@@ -11,7 +11,6 @@ export const contactForm = contact => {
 export function contactFormPage(obj) {
   return function(dispatch) {
     postContactForm(obj).then(res => {
-      console.log(res);
       dispatch(contactForm(res));
       
     });

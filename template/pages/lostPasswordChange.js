@@ -4,11 +4,10 @@ import { Component } from 'react'
 import { Row, Col } from 'antd'
 
 
-class lostPasswordChangeCard extends Component {
+class lostpasswordchange extends Component {
     render() {
         return (
             <div>
-                <Header> </Header>
                 <Row>
                 <Col lg={4} md={1}> 
                     </Col>
@@ -20,4 +19,4 @@ class lostPasswordChangeCard extends Component {
         )
     }
 }
-export default lostPasswordChangeCard;
+export default lostpasswordchange;

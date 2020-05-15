@@ -11,7 +11,6 @@ export const notificationIdList = notificatonIdList => {
 export function notificationIdListPage(obj) {
   return function(dispatch) {
     postNotificationsIdList(obj).then(res => {
-      console.log(res);
       dispatch(notificationIdList(res));
     });
   };

@@ -2,7 +2,7 @@ import Header from "../components/styles/Header";
 import { Component } from "react";
 import ForgotPassword from "../components/profile_page_Component/ForgotPassword";
 
-class productAdd extends Component {
+class forgotpassword extends Component {
   render() {
     return (
       <div>
@@ -12,4 +12,4 @@ class productAdd extends Component {
   }
 }
 
-export default productAdd;
+export default forgotpassword;

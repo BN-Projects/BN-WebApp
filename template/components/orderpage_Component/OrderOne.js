@@ -1,7 +1,6 @@
 import { Card, Col,Row } from 'antd';
 import { Button, Input } from 'antd';
 
-
 const OrderOne = () => (
   <Card style={{marginTop:'10px'}}>
       <h2 style={{marginBottom:'10px'}}>Sipariş X</h2>

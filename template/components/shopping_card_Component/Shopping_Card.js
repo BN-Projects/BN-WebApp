@@ -23,28 +23,96 @@ import * as profileViewActions from "../../redux/actions/profileViewActions";
 import Router from "next/router";
 import CreditCardInput from "react-credit-card-input";
 
-const provinceData = ["Türkiye", "Amerika","Rusya","Fransa"];
+const firstLogin = () => {
+  message.error("Önce Giriş Yapmalısınız!");
+};
+const firstProduct = () => {
+  message.error("Önce Ürün Seçmelisiniz!");
+};
+
+const provinceData = ["Türkiye"];
 const cityData = {
-  Türkiye: ["İstanbul", "Ankara", "İzmir"],
-  Amerika: ["California", "Texas", "Washington"],
-  Rusya: ["St. Petersbourg", "Kiev", "Stalingrad"],
-  Fransa: ["Paris", "Nice", "Marsilya"]
-};
-
-const error1 = () => {
-  message.error("Lütfen ilk önce giriş yapınız.");
-};
-
-const error2 = () => {
-  message.error("Lütfen ilk önce ürün seçiniz.");
-};
-
-const error = () => {
-  message.error("Sepet Onaylama Sırasında Bir Hata Oluştu!");
-};
-
-const success = () => {
-  message.success("Sepet Onaylama Başarı ile Gerçekleştirildi!");
+  Türkiye: ["Adana",
+  "Adıyaman",
+  "Afyonkarahisar",
+  "Ağrı",
+  "Aksaray",
+  "Amasya",
+  "Ankara",
+  "Antalya",
+  "Ardahan",
+  "Artvin",
+  "Aydın",
+  "Balıkesir",
+  "Bartın",
+  "Batman",
+  "Bayburt",
+  "Bilecik",
+  "Bingöl",
+  "Bitlis",
+  "Bolu",
+  "Burdur",
+  "Bursa",
+  "Çanakkale",
+  "Çankırı",
+  "Çorum",
+  "Denizli",
+  "Diyarbakır",
+  "Düzce",
+  "Edirne",
+  "Elazığ",
+  "Erzincan",
+  "Erzurum",
+  "Eskişehir",
+  "Gaziantep",
+  "Giresun",
+  "Gümüşhane",
+  "Hakkâri",
+  "Hatay",
+  "Iğdır",
+  "Isparta",
+  "İstanbul",
+  "İzmir",
+  "Kahramanmaraş",
+  "Karabük",
+  "Karaman",
+  "Kars",
+  "Kastamonu",
+  "Kayseri",
+  "Kilis",
+  "Kırıkkale",
+  "Kırklareli",
+  "Kırşehir",
+  "Kocaeli",
+  "Konya",
+  "Kütahya",
+  "Malatya",
+  "Manisa",
+  "Mardin",
+  "Mersin",
+  "Muğla",
+  "Muş",
+  "Nevşehir",
+  "Niğde",
+  "Ordu",
+  "Osmaniye",
+  "Rize",
+  "Sakarya",
+  "Samsun",
+  "Şanlıurfa",
+  "Siirt",
+  "Sinop",
+  "Sivas",
+  "Şırnak",
+  "Tekirdağ",
+  "Tokat",
+  "Trabzon",
+  "Tunceli",
+  "Uşak",
+  "Van",
+  "Yalova",
+  "Yozgat",
+  "Zonguldak"]
 };
 
 const FormItem = Form.Item;
@@ -78,13 +146,13 @@ const ProductForm = Form.create()(
     componentDidMount() {
       setTimeout(() => {
         if (this.props.currentToken == "") {
-          error1();
+          firstLogin();
           Router.push("/homepage");
         }
       }, 700);
       setTimeout(() => {
         if (this.props.cart == "") {
-          error2();
+          firstProduct();
           Router.push("/products");
         }
       }, 700);
@@ -125,10 +193,8 @@ const ProductForm = Form.create()(
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           if (this.props.cart.length != 0) {
-            console.log(this.props);
-            var arr = this.editData(); //,
+            var arr = this.editData(); 
             var totalprice = this.totalPrice();
-            console.log(totalprice);
             const stringData = arr.reduce((result, item) => {
               return `${result}${item.product_id},${item.product_price},${item.type},${item.quantity},${item.product_name},${item.product_description},|`;
             }, "");
@@ -146,7 +212,6 @@ const ProductForm = Form.create()(
             const cardNumber = NewText1.split(/\s/).join('');
             var NewText2 = this.state.expiryDate;
             const expiryDate = NewText2.split(/\s/).join('');
-            console.log(cardNumber)
 
             var paramsNames = [
               "orders",
@@ -176,20 +241,6 @@ const ProductForm = Form.create()(
               this.state.cvc,
               totalprice,
             ];
-            console.log(
-              stringData,
-              mail,
-              user_real_name.value,
-              this.props.profile.user_id,
-              user_real_surname.value,
-              address,
-              user_phone.value,
-              cardNumber,
-              creditCardFullName.value,
-              expiryDate,
-              this.state.cvc,
-              totalprice
-             );
             var obj = getConnectionLink(
               "cart",
               paramsNames,
@@ -216,17 +267,14 @@ const ProductForm = Form.create()(
     }
     handleCardNumberChange(e){
       this.setState({cardNumber:e.target.value},function(){
-        console.log(this.state.cardNumber);
       });
     }
     handleExpiryDateChange(e){
       this.setState({expiryDate:e.target.value},function(){
-        console.log(this.state.expiryDate);
       });
     }
     handleCVCChange(e){
       this.setState({cvc:e.target.value},function(){
-        console.log(this.state.cvc);
       });
     }
 
@@ -424,6 +472,22 @@ const ProductForm = Form.create()(
                      cardExpiryInputProps={{ value: this.state.exp, onChange: (e) => this.handleExpiryDateChange(e) }}
                      cardCVCInputProps={{ value: this.state.cvcc, onChange: (e) => this.handleCVCChange(e) }}
                      fieldClassName="input"
+                     
+                     customTextLabels={{
+                      invalidCardNumber: 'Kart Numarası Değeri Geçersiz!',
+                      expiryError: {
+                        invalidExpiryDate: 'Son Kullanım Tarihi Geçersiz!',
+                        monthOutOfRange: 'Ay Değeri 01-12 Arasında Olmalıdır!',
+                        yearOutOfRange: 'Yıl Aralığınız Geçersiz',
+                        dateOutOfRange: 'Gün Değeri Geçersiz!'
+                      },
+                      invalidCvc: 'CVC Değeri Geçersiz!',
+                      invalidZipCode: 'ZIP Kodu Geçersiz!',
+                      cardNumberPlaceholder: 'Kart Numarası',
+                      expiryPlaceholder: 'AA/YY',
+                      cvcPlaceholder: 'CVC',
+                      zipPlaceholder: 'ZIP'
+                    }}
                    />
                   </FormItem>
 

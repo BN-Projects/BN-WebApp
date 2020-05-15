@@ -11,7 +11,6 @@ export const notificationToCommunity = notification1 => {
 export function notificationToCommunityPage(obj) {
   return function(dispatch) {
     postNotificationToCommunity(obj).then(res => {
-      console.log(res);
       dispatch(notificationToCommunity(res));
     });
   };

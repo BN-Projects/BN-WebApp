@@ -81,7 +81,6 @@ class NotificationView extends Component {
     }
   }
   componentDidUpdate() {
-    console.log(this.props.notification_data)
     if (this.props.notification_data != "" && !this.state.loaded) {
       this.setState(
         { notifications: this.props.notification_data, loaded: true },

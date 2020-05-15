@@ -11,7 +11,6 @@ export const productEdit = productEdit => {
 export function productEditPage(obj) {
   return function(dispatch) {
     postProductEdit(obj).then(res => {
-      console.log(res);
       dispatch(productEdit(res));
     });
   };

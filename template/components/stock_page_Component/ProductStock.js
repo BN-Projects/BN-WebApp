@@ -46,8 +46,6 @@ class ProductStock extends Component {
       if (err) {
         return;
       }
-
-      console.log("Received values of form: ", values);
       form.resetFields();
       this.setState({ visible: false });
     });
@@ -58,20 +56,13 @@ class ProductStock extends Component {
   };
 
   componentDidMount() {
-    // setTimeout(() => {
-    //   if(this.props.profileData !="" || this.props.profileData !=undefined)
-    //   {
-    //     if(this.props.profileData.role_lvl !=5)
-    //     {
-    //     Router.push("/homepage")
-    //     //console.log("aaa 5 degil") 
-    //     }
-    //   }
-    //   else
-    //   {
-    //     Router.push("/homepage")
-    //   }
-    // }, 700);
+    setTimeout(() => {
+      if(this.props.profileData.role_lvl !=5)
+      {
+        Router.push("/homepage") 
+      }
+    }, 700);
+    
     if (this.props.currentToken != "") {
       if (this.props.stock_data == "") {
         var paramsNames = ["token"];
@@ -83,12 +74,10 @@ class ProductStock extends Component {
           "POST"
         );
         this.props.actions.StockViewPage(obj);
-        console.log(this.props.stock_data);
       } else {
         this.setState(
           { stocks: this.props.stock_data, loaded: true },
           function() {
-            console.log(this.state.stocks);
           }
         );
       }
@@ -103,7 +92,6 @@ class ProductStock extends Component {
           "POST"
         );
         this.props.actions.StockViewPage(obj);
-        console.log(this.props.stock_data);
       }, 500);
     }
   }
@@ -112,7 +100,6 @@ class ProductStock extends Component {
       this.setState(
         { stocks: this.props.stock_data, loaded: true },
         function() {
-          console.log(this.state.stocks);
         }
       );
     }
@@ -175,40 +162,49 @@ class ProductStock extends Component {
   };
 
   render() {
+    var stockListPage =[];
+    if(this.state.stocks.length != 0)
+    {
+      stockListPage.push(<Row>
+        {this.state.stocks.map((stock, i) => (
+          <div key={i}>
+            <Col md={12} lg={8} style={{ padding: 5 }}>
+              <Card style={{ marginTop: "10px" }} extra={this.buttons(stock)}
+              actions={[
+                 <p>(Beacon Tipi : {stock.type})</p> 
+              ]}>
+                <h2 style={{ marginBottom: "10px" }}>CİHAZ X</h2>
+                <Row className="a">
+                  <Col lg={24} md={24}>
+                    <p>
+                      <strong>UUID:</strong> {stock.uuid}
+                    </p>
+                  </Col>
+                  <Col lg={24} md={24}>
+                    <p>
+                      <strong>MAJOR:</strong> {stock.major}
+                    </p>
+                  </Col>
+                  <Col lg={24} md={24}>
+                    <p>
+                      <strong>MINOR:</strong> {stock.minor}
+                    </p>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+          </div>
+        ))}
+        {" "}
+      </Row>)
+    }
+    else
+    {
+      stockListPage.push(<Card><div className="stockempty"><h1 style={{textAlign:"center"}}>Şuan hiçbir ürün yok.</h1></div></Card>)
+    }
     return (
       <div className="stockListPage" style={{ padding: 5 }}>
-        <Row>
-          {this.state.stocks.map((stock, i) => (
-            <div key={i}>
-              <Col md={12} lg={8} style={{ padding: 5 }}>
-                <Card style={{ marginTop: "10px" }} extra={this.buttons(stock)}
-                actions={[
-                   <p>(Beacon Tipi : {stock.type})</p> 
-                ]}>
-                  <h2 style={{ marginBottom: "10px" }}>CİHAZ X</h2>
-                  <Row className="a">
-                    <Col lg={24} md={24}>
-                      <p>
-                        <strong>UUID:</strong> {stock.uuid}
-                      </p>
-                    </Col>
-                    <Col lg={24} md={24}>
-                      <p>
-                        <strong>MAJOR:</strong> {stock.major}
-                      </p>
-                    </Col>
-                    <Col lg={24} md={24}>
-                      <p>
-                        <strong>MINOR:</strong> {stock.minor}
-                      </p>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-            </div>
-          ))}
-          {" "}
-        </Row>
+        {stockListPage}
         <StockEditModal
         wrappedComponentRef={this.saveFormRef}
         visible={this.state.visible}

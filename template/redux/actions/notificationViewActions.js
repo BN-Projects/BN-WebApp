@@ -11,7 +11,6 @@ export const notificationView = notification => {
 export function notificationViewPage(obj) {
   return function(dispatch) {
     postNotificationView(obj).then(res => {
-      console.log(res);
       dispatch(notificationView(res));
     });
   };

@@ -18,10 +18,6 @@ import * as productAddActions from '../../redux/actions/productAddActions'
 import * as profileViewActions  from '../../redux/actions/profileViewActions'
 import Router from "next/router";
 
-const error = () => {
-  message.error("Bu sayfaya girme iznine sahip değilsiniz");
-};
-
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
@@ -45,25 +41,22 @@ const ProductForm = Form.create()(
       }, 700);
     }
     componentDidUpdate() {
-      // setTimeout(() => {
-      //   console.log(product)
-      // }, 500);
     }
-
-
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
               var paramsNames = ["proType", "proDes", "proName", "proPrice","token"];
               var paramsValues = [values.proType, proDes.value, proName.value, proPrice.value,this.props.currentToken];
-              console.log(this.props.currentToken);
               var obj = getConnectionLink("addproduct", paramsNames, paramsValues, "POST");
               this.props.productAddPage(obj);
+              success();
+            }
+            else{
+              error();
             }
         });
     };
-
     render() {
         const { getFieldDecorator } = this.props.form;
         const { autoCompleteResult } = this.state;
@@ -173,7 +166,6 @@ const ProductForm = Form.create()(
     }
   }
 )
-
 class ProductsAdd extends React.Component{
   render(){
     return(
@@ -186,7 +178,6 @@ class ProductsAdd extends React.Component{
     </ProductForm>);
     }
 }
-
 function mapStateToProps(state) {
   return {
       device_data: state.productAddReducer,

@@ -66,7 +66,6 @@ const SidebarContent = ({
   const token = useSelector((state) => state.authReducer);
   const profile = useSelector((state) => state.profileViewReducer);
   const dispat = useDispatch();
-  console.log(token)
   const badgeTemplate = badge => <Badge count={badge.value} />;
 
   const logout = () =>

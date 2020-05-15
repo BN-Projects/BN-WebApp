@@ -6,9 +6,7 @@ export default async function postNotificationView(obj) {
         .then(res => {
             if (!res.data.error) {
                 notification = res.data.notifications;
-                console.log(res.data.error);
             } else {
-                console.log(res.data.message);
             }
         })
         .catch(err => console.log(err));

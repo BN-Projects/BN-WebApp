@@ -10,7 +10,6 @@ import {
     AutoComplete,
     Select,
     Col,
-    Message,
     Row,
     Card,
     Input,
@@ -26,7 +25,8 @@ import { bindActionCreators } from "redux";
 import * as contactFormActions from "../redux/actions/contactFormActions";
 import * as profileViewActions from '../redux/actions/profileViewActions'
 import Router from "next/router"
- 
+
+
     const FormItem = Form.Item;
     const Option = Select.Option;
     const AutoCompleteOption = AutoComplete.Option;
@@ -34,7 +34,7 @@ import Router from "next/router"
       const { TextArea } = Input;
       
       const MY_API = 'AIzaSyBgD23YwqAJet9vHzbUinYYaodOiff8y30'
-      let _url = `https://www.google.com/maps/embed/v1/place?key=${MY_API}&q=40.7127837,-74.0059413`
+      let _url = `https://www.google.com/maps/embed/v1/place?key=${MY_API}&q=41.117255,29.003810`
        
     const ContactForm = Form.create()(
     
@@ -50,7 +50,6 @@ import Router from "next/router"
             if (!err) {
               var paramsNames = ["email","msg","name","surname","title"];
               var paramsValues = [email.value,msg.value,user_name.value,user_surname.value,title.value];
-              console.log(email.value,msg.value,user_name.value,user_surname.value,title.value)
                var obj = getConnectionLink(
                  "contactmail",
                  paramsNames,
@@ -58,7 +57,6 @@ import Router from "next/router"
                  "POST"
                );
               this.props.contactFormPage(obj);
-              success();
         
             }
           }   

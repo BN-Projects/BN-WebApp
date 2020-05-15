@@ -11,7 +11,6 @@ export const ProfileInformation = profile => {
 export function ProfileInformation(obj) {
   return function(dispatch) {
     postToken(obj).then(res => {
-      console.log(res);
       dispatch(ProfileInformation(res));
     });
   };

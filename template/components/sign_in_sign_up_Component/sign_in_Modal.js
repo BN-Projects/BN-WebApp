@@ -10,16 +10,11 @@ import { message } from "antd";
 
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
-
-const warning = () => {
-  message.warning("Lütfen tüm zorunlu alanları doldurun.");
-};
-const success = () => {
-  message.success("Başarıyla Giriş Yapıldı.");
-};
-
 const error = () => {
-  message.error("This is a message of error");
+  message.error("Hatalı Giriş Yapıldı!");
+};
+const firstVerification = () => {
+  message.error("Önce Hesabınızı Aktif Ediniz!");
 };
 
 const UserModal = Form.create()(
@@ -45,7 +40,6 @@ const UserModal = Form.create()(
         var paramsValues = [email.value, hash, "web" ];
         var obj = getConnectionLink("login", paramsNames, paramsValues, "POST");
         this.props.loginUser(obj);
-        
       } else {
         error();
       }
@@ -84,12 +78,13 @@ const UserModal = Form.create()(
                     rules: [
                       {
                         type: "email",
-                        message: "The input is not valid E-mail!"
+                        message: 'Email Bölümü Boş Bırakılamaz!'
                       },
                       {
                         required: true,
-                        message: "Please input your E-mail!"
-                      }
+                        message: "Lütfen Email Formatında Giriniz!"
+                      },
+                      
                     ]
                   })(
                     <Input
@@ -114,7 +109,7 @@ const UserModal = Form.create()(
                     rules: [
                       {
                         required: true,
-                        message: "Please input your Password!"
+                        message: "Lütfen Şifrenizi Giriniz!"
                       }
                     ]
                   })(
@@ -145,7 +140,7 @@ const UserModal = Form.create()(
                   </Button>
                 </FormItem>
                 <div style={{textAlign:"center"}}>
-                  <a href="/forgotPassword">Şifremi Unuttum!</a>
+                  <a href="/forgotpassword">Şifremi Unuttum!</a>
                 </div>
               </Form>
             </TabPane>

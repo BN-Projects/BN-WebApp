@@ -6,9 +6,8 @@ export default async function postProductRemove(obj) {
         .then(res => {
             if (!res.data.error) {
                 remove = res.data;
-                console.log(res.data.error);
             } else {
-                console.log(res.data.message);
+
             }
         })
         .catch(err => console.log(err));

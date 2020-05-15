@@ -9,7 +9,8 @@ import {
   Avatar,
   Upload,
   Icon,
-  Select
+  Select,
+  Message,
 } from "antd";
 import { Image } from "react-feather";
 import { Eye, Mail, Triangle, User, Key } from "react-feather";
@@ -18,14 +19,16 @@ import Router from "next/router";
 import { List, message } from "antd";
 import { getConnectionLink } from "../../lib/connector";
 
+const error = () => {
+  Message.error("Ürün Düzenleme Sırasında Bir Hata Oluştu!");
+};
+const success = () => {
+  Message.success("Ürün Düzenleme Başarılı Şekilde Gerçekleştirildi!");
+};
+
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 const Option = Select.Option;
-
-const success = () => {
-  message.success("Başarıyla kaydedildi.");
-};
-
 const CustomizedForm = Form.create({
   onFieldsChange(props, changedFields) {
     props.onChange(changedFields);
@@ -56,7 +59,6 @@ const CustomizedForm = Form.create({
     };
   },
   onValuesChange(_, values) {
-    console.log(values);
   },
 })((props) => {
   const { getFieldDecorator, validateFields } = props.form;
@@ -75,6 +77,10 @@ const CustomizedForm = Form.create({
       );
 
       props.productEdit(obj)
+      success();
+    }
+    else{
+      error();
     }
   }
   return (
@@ -208,7 +214,6 @@ class ProductEditModal extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps.visible);
     if (prevState.fields.product_id.value == null && nextProps.visible) {
       return {
         fields: {

@@ -20,14 +20,7 @@ import {
   import Link from 'next/link';
 import styled from 'styled-components';
 import { Mail } from 'react-feather';
-  
-  const error = () => {
-    Message.error("Şifre Değiştirme Sırasında Bir Hata Oluştu!");
-  };
-  const success = () => {
-    Message.success("Şifre Değiştirme Başarılı Şekilde Gerçekleştirildi! Lütfen Emailinizi Kontrol Ediniz.");
-  };
-  
+
   const Content = styled.div`
   max-width: 400px;
   z-index: 2;
@@ -54,7 +47,6 @@ import { Mail } from 'react-feather';
                 var paramsValues = [email.value];
                 var obj = getConnectionLink("lostpassword", paramsNames, paramsValues, "POST");
                 this.props.passwordResetPage(obj);
-                console.log(values.email)
               }
               else{
                 error();

@@ -32,7 +32,6 @@ const Page = ({ router, children }) => {
   const [state] = useAppState();
   const profile = useSelector((state) => state.profileViewReducer);
   const array = [];
-  console.log(profile.role_lvl);
 
   if (
     profile.role_lvl == null ||
@@ -66,7 +65,8 @@ const Page = ({ router, children }) => {
       "/passwordchange",
       "/forgotpassword",
       "/lostpasswordchange",
-      "/404"
+      "/404",
+      "/lostpasswordcontrol"
     );
   } else if (profile.role_lvl == 5) {
     array.push(null);

@@ -11,7 +11,6 @@ export const registerControl = token => {
 export function registerControlPage(obj) {
   return function(dispatch) {
     postRegisterControl(obj).then(res => {
-      console.log(res);
       dispatch(registerControl(res));
     });
   };

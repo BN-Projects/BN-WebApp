@@ -11,7 +11,6 @@ export const AddDeviceInformation = device => {
 export function addDevicePage(obj) {
   return function(dispatch) {
     postAddDevice(obj).then(res => {
-      console.log(res);
       dispatch(AddDeviceInformation(res));
     });
   };

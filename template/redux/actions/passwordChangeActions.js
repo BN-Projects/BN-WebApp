@@ -11,7 +11,6 @@ export const passwordChange = password => {
 export function passwordChangePage(obj) {
   return function(dispatch) {
       postChangePassword(obj).then(res => {
-      console.log(res);
       dispatch(passwordChange(res));
       
     });

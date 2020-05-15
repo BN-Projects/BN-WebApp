@@ -42,12 +42,10 @@ const ProductForm = Form.create()(
                 "POST"
             );
             this.props.actions.addDevicePage(obj);
-            console.log(this.props.device_data);
             this.props.device_data;
         }
         else {
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
-                console.log(this.state.devices);
             });
 
         }
@@ -64,11 +62,9 @@ const ProductForm = Form.create()(
                 "POST"
             );
             this.props.actions.addDevicePage(obj);
-            console.log(this.props.device_data);
             this.props.device_data;
         }
         setTimeout(() => {
-            // console.log(this.props.profiledata)
             if(this.props.currentToken == "")
             {
             Router.push("/404")
@@ -89,7 +85,6 @@ const ProductForm = Form.create()(
     componentDidUpdate() {
         if (this.props.device_data != "" && !this.state.loaded) {
             this.setState({ devices: this.props.device_data, loaded: true }, function () {
-                console.log(this.state.devices);
   
             });
         }
@@ -102,7 +97,6 @@ const ProductForm = Form.create()(
             if (!err) {
               var paramsNames = ["type","uuid", "major", "minor", "token"];
               var paramsValues = [values.type,uuid.value, major.value, minor.value,this.props.currentToken];
-              console.log(this.props.currentToken);
               var obj = getConnectionLink("addbeacon", paramsNames, paramsValues, "POST");
               this.props.addDevicePage(obj);
             }

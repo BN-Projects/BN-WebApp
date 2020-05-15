@@ -5,14 +5,17 @@ export default async function postNotificationToCommunity(obj) {
     await axios
         .post(obj.url, obj.data)
         .then(res => {
-            if (res.data.error == "false") {
+            if (!res.data.error) {
                 community = res.data;
                 notification['success']({
                     message: ("Seçili Grup Bildirimi Başarıyla Gönderildi."),
                     placement: "bottomRight"
                   });
             } else {
-                console.log(res.data.message);
+                notification['error']({
+                    message: ("Seçili Grup Bildirimi Gönderilemedi."),
+                    placement: "bottomRight"
+                  });
             }
         })
         .catch(err => console.log(err));

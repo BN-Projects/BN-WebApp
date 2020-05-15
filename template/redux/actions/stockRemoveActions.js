@@ -11,7 +11,6 @@ export const stockRemove = product => {
 export function stockRemovePage(obj) {
   return function(dispatch) {
     postStockRemove(obj).then(res => {
-      console.log(res);
       dispatch(stockRemove(res));
     });
   };

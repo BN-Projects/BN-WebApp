@@ -54,7 +54,6 @@ const CustomizedForm = Form.create({
     };
   },
   onValuesChange(_, values) {
-    console.log(values);
   },
 
 })((props) => {
@@ -73,8 +72,6 @@ const CustomizedForm = Form.create({
          paramsValues,
          "POST"
       );
-      console.log(paramsValues);
-        console.log(id)
       props.stockEdit(obj)
     } 
   }
@@ -204,7 +201,6 @@ class StockEditModal extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
-    console.log(nextProps.visible);
     if((prevState.fields.uuid.value==null) && nextProps.visible){
     return {
       fields: {

@@ -72,18 +72,5 @@ export default [
       },
     ]
   },
-  {
-    name: 'Extras',
-    icon: <Gift strokeWidth={1} size={16} />,
-    children: [
-      {
-        path: '/about',
-        name: 'About'
-      },
-      {
-        path: '/profile',
-        name: 'Profil'
-      },
-    ]
-  },
+
 ];

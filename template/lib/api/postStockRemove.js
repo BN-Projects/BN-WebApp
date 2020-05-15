@@ -6,9 +6,7 @@ export default async function postStockRemove(obj) {
         .then(res => {
             if (!res.data.error) {
                 stockRemove = res.data;
-                console.log(res.data.error);
             } else {
-                console.log(res.data.message);
             }
         })
         .catch(err => console.log(err));

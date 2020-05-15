@@ -71,7 +71,6 @@ const MainHeader = () => {
     var paramsValues = [token, "web"];
     var obj = getConnectionLink("profile", paramsNames, paramsValues, "POST");
     dispat(ProfileInformation(obj));
-    console.log(profile);
     setloading(true);
   }
 
@@ -99,12 +98,10 @@ const MainHeader = () => {
       message: (product.product_name + " Başarıyla Silindi"),
       placement: 'bottomRight'
     });
-    console.log(product);
   }
 
 
   function shoppingMenu() {
-    console.log(cart);
     return (
       <SubMenu title={<ShoppingCart size={20} strokeWidth={1} style={{color:"red"}}  />} >
         <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
@@ -256,24 +253,6 @@ const MainHeader = () => {
       return null;
     }
   }
-  // function hasLevel() {
-  //   if (
-  //     profile.role_lvl == 1 ||
-  //     profile.role_lvl == 2 ||
-  //     profile.role_lvl == 3 ||
-  //     profile.role_lvl == 4 ||
-  //     profile.role_lvl == 5
-  //   ) {
-  //     if (cart.length != 0) {
-  //       return shoppingMenu();
-  //     } else {
-  //       return emptyCard();
-  //     }
-  //   } else {
-  //     return null;
-  //   }
-  // }
-  console.log(token);
   return (
     <DashHeader>
       <Header>

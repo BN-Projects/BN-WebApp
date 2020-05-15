@@ -11,7 +11,6 @@ export const productAdd = product => {
 export function productAddPage(obj) {
   return function(dispatch) {
     postProductAdd(obj).then(res => {
-      console.log(res);
       dispatch(productAdd(res));
     });
   };

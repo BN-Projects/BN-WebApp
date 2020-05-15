@@ -6,9 +6,10 @@ export default async function postProductEdit(obj) {
         .then(res => {
             if (!res.data.error) {
                 productEdit = res.data;
-                console.log(res.data.error);
+                setTimeout(() => {
+                    window.location.reload(false);
+                  }, 500); 
             } else {
-                console.log(res.data.message);
             }
         })
         .catch(err => console.log(err));

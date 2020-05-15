@@ -11,7 +11,6 @@ export const notificationToPerson = notification3 => {
 export function notificationToPersonPage(obj) {
   return function(dispatch) {
     postNotificationToPerson(obj).then(res => {
-      console.log(res);
       dispatch(notificationToPerson(res));
     });
   };

@@ -1,15 +1,14 @@
 import axios from "axios";
-var productCount = "";
-export default async function postProductCount(obj) {
+var myOrders = [];
+export default async function postMyOrders(obj) {
     await axios
         .post(obj.url, obj.data)
         .then(res => {
             if (!res.data.error) {
-                productCount = res.data;
+                myOrders = res.data.orders;
             } else {
-
             }
         })
         .catch(err => console.log(err));
-    return productCount;
+    return myOrders;
 }

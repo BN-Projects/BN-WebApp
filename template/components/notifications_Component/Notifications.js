@@ -53,7 +53,6 @@ const CustomizedForm1 = Form.create({
     };
   },
   onValuesChange(_, values) {
-    console.log(values);
   },
 })((props) => {
   const { getFieldDecorator, validateFields } = props.form;
@@ -114,22 +113,13 @@ const CustomizedForm1 = Form.create({
 
   function submit(err, values) {
     if (!err) {
-      //console.log(this.state.email)
       var id = "All";
       var userId = "";
       var type = 6;
       var paramsNames = ["msg" , "id", "userId", "title","importanceType","type" ];
       var paramsValues = [ values.text1, id, userId , values.title1, values.notifType1, type];
-
-      // console.log(values.title1)
-      // console.log(values.subject1)
-      // console.log(values.notifType1)
-      // console.log(values.text1)
-      // console.log(id)
-      // console.log(userId)
       var obj = getConnectionLink("notifications", paramsNames, paramsValues, "POST");
       props.notificationToEveryone(obj);
-      // success();
 
     }
   }
@@ -234,7 +224,6 @@ const CustomizedForm2 = Form.create({
     };
   },
   onValuesChange(_, values) {
-    console.log(values);
   },
 })((props) => {
   const { getFieldDecorator, validateFields } = props.form;
@@ -295,26 +284,13 @@ const CustomizedForm2 = Form.create({
 
   function submit2(err, values) {
     if (!err) {
-      //console.log(this.state.email)
       var id = "null";
       var userId = "";
       var paramsNames = ["msg" , "id", "userId", "title","importanceType","type" ];
       var paramsValues = [ values.text2, id, userId , values.title2, values.select_type2, values.group_type2];
 
-       console.log(values.title2)
-       console.log(values.subject2)
-       console.log(values.select_type2)
-       console.log(values.text2)
-       console.log(values.group_type2)
-
        var obj = getConnectionLink("notifications", paramsNames, paramsValues, "POST");
        props.notificationToCommunity(obj);
-      // success();
-      // notification['success']({
-      //   message: ("Toplu Bildirim Başarıyla Gönderildi."),
-      //   description: ("İçerik: " + values.title2),
-      //   placement: "bottomRight"
-      // });
     }
   }
   return (
@@ -443,7 +419,7 @@ const CustomizedForm3 = Form.create({
     };
   },
   onValuesChange(_, values) {
-    console.log(values);
+
   },
 })((props) => {
   const { getFieldDecorator, validateFields } = props.form;
@@ -510,19 +486,8 @@ const CustomizedForm3 = Form.create({
       var paramsNames = ["msg" , "id", "userId", "title","importanceType","type" ];
       var paramsValues = [ values.text3, users.push_id, users.user_id , values.title3, values.select_type3, type];
        
-      console.log(props.notificationIdList)
        var obj = getConnectionLink("notifications", paramsNames, paramsValues, "POST");
-       console.log(paramsValues)
        props.notificationToPerson(obj);
-
-      //  notification['success']({
-      //   message: (users.name + " " + users.surname + " Başarıyla Bildirim Gönderildi."),
-      //   description: ("İçerik: " + values.title3),
-      //   placement: "bottomRight"
-      // });
-
-      //window.location.reload(false)
-      // success();
     }
   }
   return (
@@ -678,16 +643,7 @@ class Notification extends React.Component {
 
   componentDidMount()
   {
-    // setTimeout(() => {
-    //   console.log(this.props.profiledata)
-    //   if(this.props.profiledata.role_lvl !=5)
-    //   {
-    //     Router.push("/homepage") 
-    //   }
-    //   else(null)
-    // }, 7000);
     setTimeout(() => {
-      console.log(this.props.currentToken)
       var paramsNames = ["token"];
       var paramsValues = [this.props.currentToken];
       var obj = getConnectionLink(
@@ -697,7 +653,6 @@ class Notification extends React.Component {
         "POST"
       );
       this.props.actions.notificationIdList(obj);
-      console.log(this.props.notificationIdList)
     }, 1000);
   }
 

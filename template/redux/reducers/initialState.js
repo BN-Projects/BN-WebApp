@@ -25,5 +25,6 @@ export default {
   contact:"",
   notification:[],
   lostpassword:"",
+  myOrders:[],
 };
 //default parametreler oluşturuldu

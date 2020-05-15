@@ -70,7 +70,6 @@ const MainHeader = () => {
     var paramsValues = [token, "web"];
     var obj = getConnectionLink("profile", paramsNames, paramsValues, "POST");
     dispat(ProfileInformation(obj));
-    console.log(profile);
     setloading(true);
   }
 
@@ -97,12 +96,10 @@ const MainHeader = () => {
       message: (product.product_name + " Başarıyla Silindi"),
       placement: 'bottomRight'
     });
-    console.log(product);
   }
 
 
   function shoppingMenu() {
-    console.log(cart);
     return (
       <SubMenu title={<Badge count={cart.length}><ShoppingCart size={25} strokeWidth={1.5} /></Badge>} >
         <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
@@ -129,7 +126,6 @@ const MainHeader = () => {
   }
 
   function shoppingMenuBottom() {
-    console.log(cart);
     return (
       <SubMenu title={<Badge dot><ShoppingCart size={20} strokeWidth={1.5} /></Badge>} >
         <Menu.Item style={{ width: "100%", height: "100%", color:"rgba(0, 0, 0, 0.65)", backgroundColor:"#ffffff", textAlign:"center",cursor:"default" }} >
@@ -308,7 +304,6 @@ const MainHeader = () => {
         return emptyCard();
       }
   }
-  console.log(token);
   return (
     <DashHeader>
       <Header>

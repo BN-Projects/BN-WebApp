@@ -22,15 +22,6 @@ import {
   const FormItem = Form.Item;
   const Option = Select.Option;
   const AutoCompleteOption = AutoComplete.Option;
-  
-  const error = () => {
-    message.error("Şifre Değişimi Sırasında Bir Hata Oluştu!");
-  };
-  
-  const success = () => {
-    message.success("Şifre Değişimi Başarı ile Gerçekleştirildi!");
-  };
-  
   const ProductForm = Form.create()(
     
     class extends React.Component {

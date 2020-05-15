@@ -1,12 +1,12 @@
 import axios from "axios";
 var idList = "";
+
 export default async function postNotificationIdList(obj) {
     await axios
         .post(obj.url, obj.data)
         .then(res => {
             if (!res.data.error) {
                 idList = res.data;
-                console.log(res.data.error);
             } else {
                 console.log(res.data.message);
             }

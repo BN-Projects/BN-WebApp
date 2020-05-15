@@ -24,9 +24,6 @@ export function loginUser(obj) {
       dispatch(setCurrentUser(res));
       if (res != "") {
         Router.push("/homepage");
-        success();
-      } else {
-        error();
       }
     });
   };

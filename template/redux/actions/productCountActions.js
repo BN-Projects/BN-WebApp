@@ -11,7 +11,6 @@ export const productCount = product => {
 export function productCountPage(obj) {
   return function(dispatch) {
     postProductCount(obj).then(res => {
-      console.log(res);
       dispatch(productCount(res));
     });
   };

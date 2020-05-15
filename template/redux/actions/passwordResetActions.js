@@ -11,7 +11,6 @@ export const passwordReset = email => {
 export function passwordResetPage(obj) {
   return function(dispatch) {
       postResetPassword(obj).then(res => {
-      console.log(res);
       dispatch(passwordReset(res));
       
     });

@@ -1,17 +1,23 @@
 import axios from "axios";
 import {message} from "antd"
 var contact = "";
+
+const error = () => {
+    message.error("Bir Hata Oluştu!");
+  };
+  const success = () => {
+    message.success("Başarılı Şekilde Gerçekleştirildi!");
+  };
+
 export default async function postContactForm(obj) {
     await axios
         .post(obj.url, obj.data)
         .then(res => {
-            console.log(res)
             if (!res.data.error) {
-                token = res.data;
-                console.log(contact);
+                contact = res.data;
+                success();
             } else {
-                console.log(res.data.message);
-                message.info(res.data.message)
+                error();
             }
         })
         .catch(err => console.log(err));

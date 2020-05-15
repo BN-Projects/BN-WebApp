@@ -11,7 +11,6 @@ export const shoppingAdd = shopping => {
 export function shoppingPage(obj) {
   return function(dispatch) {
     postShopping(obj).then(res => {
-      console.log(res);
       dispatch(shoppingAdd(res));
     });
   };

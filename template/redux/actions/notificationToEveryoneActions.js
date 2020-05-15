@@ -11,7 +11,6 @@ export const notificationToEveryone = notification2 => {
 export function notificationToEveryonePage(obj) {
   return function(dispatch) {
     postNotificationToEveryone(obj).then(res => {
-      console.log(res);
       dispatch(notificationToEveryone(res));
     });
   };

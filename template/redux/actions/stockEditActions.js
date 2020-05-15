@@ -11,7 +11,6 @@ export const stockEdit = stockEdit => {
 export function stockEditPage(obj) {
   return function(dispatch) {
     postStockEdit(obj).then(res => {
-      console.log(res);
       dispatch(stockEdit(res));
     });
   };
