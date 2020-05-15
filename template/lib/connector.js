@@ -1,4 +1,4 @@
-const url ="http://localhost:8090";
+const url ="http://213.14.182.224:8090";
 import axios from 'axios';
 var beacons=[]
 export function getConnectionLink(directory, paramsNames, paramsValues,requestType){
