@@ -79,7 +79,7 @@ const Page = ({ router, children }) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2500);
   }, [loading]);
 
   return (
